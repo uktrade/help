@@ -17,8 +17,13 @@ class DITHelpForm(forms.Form):
     service = forms.CharField(required=True, widget=forms.HiddenInput())
 
     def get_body(self):
-        origin_page = self.cleaned_data.get('originating_page')
-        body = "User was on page:{0}".format(origin_page)
+        """
+        An example of a function that shoudl be overridden in the inheriting class, that forms the body of the ticket
+        to be raised in Zendesk
+        """
+
+        originating_page = self.cleaned_data.get('originating_page')
+        body = "User was on page:{0}".format(originating_page)
         return body
 
     def raise_zendesk_ticket(self):
@@ -30,7 +35,6 @@ class DITHelpForm(forms.Form):
         # Form the data object
         data = {
             'ticket': {
-                'subject': settings.ZENDESK_SUBJECT,
                 'comment': {'body': body},
                 'custom_fields': [{'id': 31281329, 'value': service}],
                 'requester': {
@@ -59,10 +63,7 @@ class DITHelpForm(forms.Form):
 
 class FeedbackForm(DITHelpForm):
     content = forms.CharField(label="Feedback", required=True, widget=forms.Textarea)
-
-    @property
-    def get_form_name(self):
-        return "Feedback"
+    name = "Feedback"
 
     def get_body(self):
         content = self.cleaned_data.get('content')
