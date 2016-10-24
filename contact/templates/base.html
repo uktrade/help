@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{% block title %}DIT Help{% endblock title %}</title>
+  </head>
+  <body class='{% block body_class %}{% endblock %}'>
+    <header>
+      <div id="global-header">
+        {% block header %}
+        {% endblock header %}
+    </header>
+
+    <main role="main">
+      {% block content %}{% endblock content %}
+    </main>
+
+    <footer role="contentinfo">
+      <div class="" id="footer" >
+        {% block footer %}{% endblock footer %}
+      </div>
+    </footer>
+
+    {% block footer_javascript %}
+    {% endblock footer_javascript %}
+  </body>
+</html>

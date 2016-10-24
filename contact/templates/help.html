@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load utils %}
+
+{% block content %}
+  <div class="section">
+    <div class="grid-row">
+      <div class="column-one-whole">
+        <h1 class='heading-xlarge push--bottom flush--top'>{{ form.get_form_name }}</h1>
+        {{ form.non_field_errors }}
+        <form role="form" action="" method="post">
+          {% csrf_token %}
+
+          {% for field in form.hidden_fields %}
+            {% include "forms/hiddenfield.html" %}
+          {% endfor %}
+
+          {% for field in form.visible_fields %}
+            {% get_form_field_template field as template %}
+            {% include template %}
+          {% endfor %}
+
+          <button type="submit" class="button button-blue button-large">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
