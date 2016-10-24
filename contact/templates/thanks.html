@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="section">
+    {% if success %}
+        Thank you, your request has been submitted.
+    {% else %}
+        Sorry, your request has failed - code {{ code }}
+    {% endif %}
+    {% if origin_page %}
+        <a href="{{ origin_page }}">Click here to go back</a>
+    {% endif %}
+  </div>
+
+{% endblock %}
