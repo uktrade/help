@@ -27,6 +27,7 @@ Create a local environment.sh file containing the following:
 echo "
 export DJANGO_SETTINGS_MODULE='help.settings'
 export DATABASE_URL='postgres://localhost/help'
+export SECRET_KEY='REPLACE ME WITH AN ACTUAL SECRET KEY'
 "> environment.sh
 ```
 
