@@ -9,8 +9,12 @@ class DITHelpView(FormView):
     instructing the form to submit a ticket to zendesk, and storing success data in the session for use in the success
     page.  Unless overriden, the success view is the DITThanksView below.
 
-    The minimum to make this mixin work, is to include it in a view that also inherits from FormView, and then set the
-    form_class to a form that itself inherits from DITHelpForm.
+    To use this view correctly:
+      * Create a view that inherits from this class
+      * Create a form_class property on the view definition to a form that itself inherits from DITHelpForm
+      * Create a name property, or a get_name method on the view definition that is the name/title of the form
+        displayed in the template
+      * Add any custom methods/properties that you need
     """
 
     template_name = 'default_form.html'
@@ -41,6 +45,22 @@ class DITHelpView(FormView):
         kwargs['initial']['originating_page'] = self.request.META.get('HTTP_REFERER')
         kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
         return kwargs
+
+    def get_name(self):
+        raise NotImplemented('You need to implement a get_name method or a name property in the inheriting view')
+
+    @property
+    def name(self):
+        """
+        A property that returns self.get_name just as an easy accessor
+        """
+        return self.get_name()
+
+    def get_context_data(self):
+        # Add the name of this view to the context data for displaying as the heading
+        context = super().get_context_data()
+        context['display_title'] = self.name
+        return context
 
 
 class DITThanksView(TemplateView):

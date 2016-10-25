@@ -23,7 +23,7 @@ class DITHelpForm(forms.Form):
         An unimplemented function that needs to be overridden in the inheriting class.
         It should return the body of the Zendesk ticket to be raised, from fields on the inheriting form.
         """
-        raise NotImplementedError('You need to implement the get_body in the inheriting form')
+        raise NotImplementedError('You need to implement the get_body method in the inheriting form')
 
     def raise_zendesk_ticket(self):
         # Get some basic form values
@@ -31,7 +31,7 @@ class DITHelpForm(forms.Form):
         email = self.cleaned_data.get('contact_email')
         service = self.cleaned_data.get('service')
 
-        # Construct the body of the message
+        # Get/construct the body of the message
         body = self.get_body()
 
         # Form the data object
