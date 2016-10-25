@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -114,8 +115,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-ZENDESK_URL = "https://uktrade.zendesk.com/api/v2/tickets.json"
-ZENDESK_USER = "david.downes@digi2al.co.uk"
-ZENDESK_TOKEN = "x2NXxFnhDo95gCut0BSVvukfIAykCxL3rTTwy08h"
-ZENDESK_SUBJECT = "Navigator Feedback"
+ZENDESK_URL = os.environ.get('ZENDESK_URL')
+ZENDESK_USER = os.environ.get('ZENDESK_USER')
+ZENDESK_TOKEN = os.environ.get('ZENDESK_TOKEN')
