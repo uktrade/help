@@ -16,6 +16,7 @@ class FeedbackView(DITHelpView):
     Standard basic Feedback view, use the default behaviour of the DITHelpView with the FeedbackForm
     """
     form_class = FeedbackForm
+    name = "Feedback"
     success_url = reverse_lazy('contact:feedback_thanks')
 
 

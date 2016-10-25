@@ -5,9 +5,9 @@
   <div class="section">
     <div class="grid-row">
       <div class="column-one-whole">
-        <h1 class='heading-xlarge push--bottom flush--top'>{{ form.name }}</h1>
+        <h1 class='heading-xlarge push--bottom flush--top'>{{ display_title }}</h1>
         {{ form.non_field_errors }}
-        <form role="form" action="" method="post">
+        <form role="form" action="" method="post" class="contact_form">
           {% csrf_token %}
 
           {% for field in form.hidden_fields %}

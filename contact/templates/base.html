@@ -3,24 +3,119 @@
 <html lang="en">
   <head>
     <title>{% block title %}DIT Help{% endblock title %}</title>
+    {% block head_meta %}
+      <meta name="description" content="{% block head_meta_description %}DIT Help{% endblock head_meta_description %}">
+      {% block head_meta_charset %}
+        <meta charset="utf-8">
+      {% endblock head_meta_charset %}
+      {% block head_meta_viewport %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      {% endblock head_meta_viewport %}
+    {% endblock head_meta %}
+    {% block head_favicon %}
+      <link rel="icon" type="image/png" href="{% static "images/favicon.ico" %}">
+    {% endblock head_favicon %}
+    {% block head_css %}
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+      <link href="http://dit-navigator.herokuapp.com/static/stylesheets/govuk-template.css" rel="stylesheet" media="screen">
+      <link href="http://dit-navigator.herokuapp.com/static/stylesheets/main.css" rel="stylesheet" media="screen">
+      <link href="{% static "stylesheets/extra.css" %}" rel="stylesheet" media="screen">
+    {% endblock head_css %}
   </head>
   <body class='{% block body_class %}{% endblock %}'>
-    <header>
-      <div id="global-header">
-        {% block header %}
-        {% endblock header %}
+    <header role="banner"  class="">
+      {% block header %}
+        <div id="global-header">
+          <div class="section">
+            <div class="grid-row">
+              <div class="column-one-half">
+                <div class="header-global">
+                  <div class="header-logo float--left">
+                    <a href="https://www.exportingisgreat.gov.uk" title="Go to the Exporting is great homepage">
+                      <img src="/static/images/EiG-logo-withHMG.svg" alt="Exporting is great logo" class="header-main-logo">
+                    </a>
+                  </div>
+                </div>
+                <a href="" class="header-nav-toggle" title="">menu<i class="icon icon-menu"></i></a>
+              </div>
+              <div class="column-one-half">
+                <nav>
+                  <ul class="header-nav">
+                    <li class="header-nav-link"><a title="" href="" class="active">home</a></li>
+                    <li class="header-nav-link"><a title="" href="">opportunities</a></li>
+                    <li class="header-nav-link"><a title="" href="">online export</a></li>
+                    <li class="header-nav-link"><a title="" href="">support</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endblock header %}
     </header>
 
     <main role="main">
-      {% block content %}{% endblock content %}
+      <div class="main">
+        <div class="section">
+          <div class="grid-row">
+            <div class="column-one-whole">
+              <div class="breadcrumbs">
+                {% block breadcrumbs %}{% endblock breadcrumbs %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% block content %}{% endblock content %}
+        {% block feedback %}{% endblock %}
+      </div>
     </main>
+
 
     <footer role="contentinfo">
       <div class="" id="footer" >
-        {% block footer %}{% endblock footer %}
+        {% block footer %}
+          <div class="footer-wrapper">
+              <div class="grid-row">
+                <div class="column-one-third logo">
+                  <div class="footer-section">
+                  <a href="https://www.gov.uk" title="Go to the GOV.UK homepage">
+                    <img src="/static/images/footer_logo.png" alt="Gov.uk logo" class="footer-img footer-img--top">
+                  </a>
+                  <p class="font-xxxsmall font-lighter-grey font-light">&copy; Crown Copyright {% now 'Y' %}</p>
+                  <a href="https://www.gov.uk" title="Go to the Exporting is Great homepage">
+                    <img src="/static/images/EiG-logo-stacked.svg" alt="Exporting is Great logo" class="footer-img footer-img--bottom footer-img--eig">
+                  </a>
+                </div>
+              </div>
+
+              <div class="column-one-third links">
+                <div class="footer-section">
+                  <ul>
+                    <li class="footer-links"><a href="" title="">opportunities</a></li>
+                    <li class="footer-links"><a href="" title="">online export</a></li>
+                    <li class="footer-links"><a href="" title="">support</a></li>
+                    <li class="footer-links"><a href="" title="">contact us</a></li>
+                    <li class="footer-links"><a href="" title="">privacy &amp; cookies</a></li>
+                    <li class="footer-links"><a href="" title="">terms &amp; conditions</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="column-one-third subscribe">
+                <div class="footer-section">
+                  <h3>Get your guide to exporting</h3>
+                  <form>
+                    <label class="form-label font-light" for="full-name-f1">Enter your email address</label>
+                    <input class="form-control" id="full-name-f1" type="text">
+                    <button class="button button-red button-large" type="submit">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endblock footer %}
       </div>
     </footer>
-
     {% block footer_javascript %}
     {% endblock footer_javascript %}
   </body>
