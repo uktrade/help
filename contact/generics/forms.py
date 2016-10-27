@@ -25,36 +25,111 @@ class DITHelpForm(forms.Form):
         """
         raise NotImplementedError('You need to implement the get_body method in the inheriting form')
 
-    def raise_zendesk_ticket(self):
-        # Get some basic form values
+    def get_comment(self):
+        """
+        A method that returns the simplest comment body for the ticket creation request.
+        Inheriting classes can implement this method (or the comment property) to provide custom comment data/structure
+
+        See the Zendesk API docs for comment structure:
+        https://developer.zendesk.com/rest_api/docs/core/ticket_comments
+        """
+
+        return {'body': self.body}
+
+    def get_custom_fields(self):
+        """
+        A method that returns the custom fields for the ticket creation request.  It sets the service field in Zendesk
+        to the one set in the form.
+        Inheriting classes can implement this method (or the custom_fields property) to provide custom fields
+
+        See the Zendesk API docs for custom fields:
+        https://developer.zendesk.com/rest_api/docs/core/tickets#setting-custom-field-values
+        """
+
+        service = self.cleaned_data.get('service')
+        custom_fields = [{'id': 31281329, 'value': service}]
+        return custom_fields
+
+    def get_requester(self):
+        """
+        A method that returns a simple requester body for the ticket creation request.
+        Inheriting classes can implement this method (or the custom_fields property) to provide custom fields
+
+        See the Zendesk API docs for requesters and sumitters:
+        https://developer.zendesk.com/rest_api/docs/core/tickets#requesters-and-submitters
+        """
+
         name = self.cleaned_data.get('contact_name')
         email = self.cleaned_data.get('contact_email')
-        service = self.cleaned_data.get('service')
+        requester = {'name': name, 'email': email}
+        return requester
 
-        # Get/construct the body of the message
-        body = self.get_body()
+    def get_ticket_data(self):
+        """
+        A method that returns the entire ticket data that will be sent to the Zendesk API.
+        If extra fields (beyond comment, custom_fields, and requester) are required in the ticket creation, inheriting
+        classes will need to override this method to add the extra properties.
 
-        # Form the data object
+        See the Zendesk API docs for the structure of the request data:
+        https://developer.zendesk.com/rest_api/docs/core/tickets
+        """
+
         data = {
             'ticket': {
-                'comment': {'body': body},
-                'custom_fields': [{'id': 31281329, 'value': service}],
-                'requester': {
-                    'name': name,
-                    "email": email
-                }
+                'comment': self.comment,
+                'custom_fields': self.custom_fields,
+                'requester': self.requester,
             }
         }
 
-        # Encode the data to create a JSON payload
-        payload = json.dumps(data)
+        return data
 
+    @property
+    def body(self):
+        """
+        Accessor for the get_body method, inheriting classes can either implement a get_body method, or set a
+        non-dynamic body property
+        """
+
+        return self.get_body()
+
+    @property
+    def comment(self):
+        """
+        Accessor for the get_comment method, inheriting classes can either implement a get_comment method, or set a
+        non-dynamic body property
+        """
+
+        return self.get_comment()
+
+    @property
+    def custom_fields(self):
+        """
+        Accessor for the get_custom_fields method, inheriting classes can either implement a get_custom_fields method,
+        or set a non-dynamic custom_fields property
+        """
+
+        return self.get_custom_fields()
+
+    @property
+    def requester(self):
+        """
+        Accessor for the get_requester method, inheriting classes can either implement a get_requester method, or set a
+        non-dynamic requester property
+        """
+
+        return self.get_requester()
+
+    def raise_zendesk_ticket(self):
         # Set the request parameters
         user = "{0}/token".format(settings.ZENDESK_USER)
         pwd = settings.ZENDESK_TOKEN
         url = settings.ZENDESK_URL
 
         headers = {'content-type': 'application/json'}
+
+        # Get the data for this form, and encode it to create a JSON payload
+        payload = json.dumps(self.get_ticket_data())
 
         # Do the HTTP post request
         response = requests.post(url, data=payload, auth=(user, pwd), headers=headers)
