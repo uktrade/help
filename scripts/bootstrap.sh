@@ -16,3 +16,4 @@ createdb help
 # Upgrade databases
 source environment.sh
 python manage.py migrate
+python manage.py collectstatic --noinput

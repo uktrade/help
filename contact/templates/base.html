@@ -17,8 +17,8 @@
     {% endblock head_favicon %}
     {% block head_css %}
       <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-      <link href="http://dit-navigator.herokuapp.com/static/stylesheets/govuk-template.css" rel="stylesheet" media="screen">
-      <link href="http://dit-navigator.herokuapp.com/static/stylesheets/main.css" rel="stylesheet" media="screen">
+      <link href="{% static "stylesheets/govuk-template.css" %}" rel="stylesheet" media="screen">
+      <link href="{% static "stylesheets/main.css" %}" rel="stylesheet" media="screen">
       <link href="{% static "stylesheets/extra.css" %}" rel="stylesheet" media="screen">
     {% endblock head_css %}
   </head>
