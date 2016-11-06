@@ -16,7 +16,7 @@ class FeedbackView(DITHelpView):
     Standard basic Feedback view, use the default behaviour of the DITHelpView with the FeedbackForm
     """
     form_class = FeedbackForm
-    name = "Feedback"
+    form_title = "Feedback"
     success_url = reverse_lazy('contact:feedback_thanks')
 
 
@@ -29,4 +29,5 @@ class FeedbackThanksView(DITThanksView):
 
 class TriageView(DITHelpView):
     form_class = TriageForm
-    name = "Enquiry form"
+    form_title = "Enquiry form"
+    form_description = "Help with preferential rates"
