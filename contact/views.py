@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse_lazy
 
 from .generics.views import DITHelpView, DITThanksView
-from .forms import FeedbackForm
+from .forms import FeedbackForm, TriageForm
 
 
 class ThanksView(DITThanksView):
@@ -25,3 +25,8 @@ class FeedbackThanksView(DITThanksView):
     Thanks page for the FeedbackView, no non-standard behaviour required yet.
     """
     pass
+
+
+class TriageView(DITHelpView):
+    form_class = TriageForm
+    name = "Enquiry form"

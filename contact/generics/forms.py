@@ -20,10 +20,16 @@ class DITHelpForm(forms.Form):
 
     def get_body(self):
         """
-        An unimplemented function that needs to be overridden in the inheriting class.
-        It should return the body of the Zendesk ticket to be raised, from fields on the inheriting form.
+        Generate the body for a Zendesk ticket.  Loop over all fields adding the label and cleaned value to a string.
+        Itended to be overwritten in the inheriting class to perform more specific behaviour, this should act as a
+        sensible fallback
         """
-        raise NotImplementedError('You need to implement the get_body method in the inheriting form')
+
+        data_items = []
+        for bound_field in self:
+            data_items.append("{0}: {1}".format(bound_field.label, bound_field.value()))
+
+        return "\n".join(data_items)
 
     def get_comment(self):
         """

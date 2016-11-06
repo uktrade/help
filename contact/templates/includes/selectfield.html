@@ -2,11 +2,13 @@
   {{ field.errors }}
   <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
   <span class="form-helptext" >{{ field.help_text }}</span>
-  <textarea class="form-control form-textarea" id="{{ field.id_for_label }}" name="{{ field.name }}"
+  <select class="form-control" id="{{ field.id_for_label }}" name="{{ field.name }}"
     {% if field.field.required %}required{% endif %}
     {% for attr, value in field.field.widget.attrs.items %}
       {{ attr }}="{{ value }}"
     {% endfor %}>
-    {% if field.value %}{{ field.value }}{% endif %}
-  </textarea>
+    {% for value in field.field.choices %}
+      <option value="{{ value.0 }}">{{ value.1 }}</option>
+    {% endfor %}
+  </select>
 </div>
