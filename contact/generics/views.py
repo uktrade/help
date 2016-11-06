@@ -11,8 +11,8 @@ class DITHelpView(FormView):
 
     To use this view correctly:
       * Create a view that inherits from this class
-      * Create a form_class property on the view definition to a form that itself inherits from DITHelpForm
-      * Create a name property, or a get_name method on the view definition that is the name/title of the form
+      * Add a 'form_class' property on the view definition to a form that itself inherits from DITHelpForm
+      * Add a 'name' property, or a get_name method on the view definition that is the name/title of the form
         displayed in the template
       * Add any custom methods/properties that you need
     """
@@ -41,25 +41,50 @@ class DITHelpView(FormView):
     def get_form_kwargs(self):
         # Get the form kwargs
         kwargs = super().get_form_kwargs()
+
+        # Get the originating page from the session, or from the HTTP_REFERER
+        try:
+            originating_page = self.request.session['originating_page']
+        except KeyError:
+            originating_page = self.request.META.get('HTTP_REFERER')
+
         # Add the HTTP_REFERER, and service specified in the url, to the initial form data
-        kwargs['initial']['originating_page'] = self.request.META.get('HTTP_REFERER')
+        kwargs['initial']['originating_page'] = originating_page
         kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
         return kwargs
 
-    def get_name(self):
-        raise NotImplemented('You need to implement a get_name method or a name property in the inheriting view')
+    def get_form_title(self):
+        msg = 'You must implement a get_form_title method or a form_title property in the inheriting view'
+        raise NotImplementedError(msg)
 
     @property
-    def name(self):
+    def form_title(self):
         """
-        A property that returns self.get_name just as an easy accessor
+        A property that returns self.get_form_title just as an easy accessor
         """
-        return self.get_name()
+        return self.get_form_title()
+
+    def get_form_description(self):
+        msg = 'You must implement a get_form_description method or a form_description property in the inheriting view'
+        raise NotImplementedError(msg)
+
+    @property
+    def form_description(self):
+        """
+        A property that returns self.get_sub_title just as an easy accessor
+        """
+        return self.get_form_description()
 
     def get_context_data(self):
         # Add the name of this view to the context data for displaying as the heading
         context = super().get_context_data()
-        context['display_title'] = self.name
+        context['display_title'] = self.form_title
+        # Try to get the subtitle, but don't worry if it's not implemented
+        try:
+            context['display_description'] = self.form_description
+        except NotImplementedError:
+            pass
+
         return context
 
 
