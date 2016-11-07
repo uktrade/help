@@ -57,9 +57,8 @@ class DITHelpView(FormView):
             url_data = urlparse(http_referer)
             host = url_data.netloc
             path = url_data.path
-            view = resolve(path)
 
-            if host in settings.ALLOWED_HOSTS and view.app_name == 'contact' and view.view_name == 'interstitial':
+            if host in settings.ALLOWED_HOSTS and resolve(path).view_name == 'contact:interstitial':
                 # The referer is this app's intersitial view, so get the originating page from the session
                 originating_page = self.request.session['originating_page']
                 # Get the originating page from the session, or from the HTTP_REFERER
