@@ -100,6 +100,6 @@ class DITThanksView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         # Add the success_data that should be in the session
-        context = super().get_context_data()
+        context = super().get_context_data(*args, **kwargs)
         context['success_data'] = self.request.session['success_data']
         return context

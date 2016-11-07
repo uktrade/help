@@ -6,7 +6,5 @@
     {% if field.field.required %}required{% endif %}
     {% for attr, value in field.field.widget.attrs.items %}
       {{ attr }}="{{ value }}"
-    {% endfor %}>
-    {% if field.value %}{{ field.value }}{% endif %}
-  </textarea>
+    {% endfor %}>{% if field.value %}{{ field.value }}{% endif %}</textarea>
 </div>

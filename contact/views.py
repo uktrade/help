@@ -1,7 +1,20 @@
 from django.core.urlresolvers import reverse_lazy
+from django.views.generic import TemplateView
 
 from .generics.views import DITHelpView, DITThanksView
 from .forms import FeedbackForm, TriageForm
+
+
+class InterstitialContactView(TemplateView):
+    template_name = "landing.html"
+
+    def get_context_data(self, service=None):
+        # Get the HTTP_REFERER from the request and store it in the session for the DITHelpView
+        originating_page = self.request.META.get('HTTP_REFERER')
+        self.request.session['originating_page'] = originating_page
+
+        # Perform the standard context processing
+        return super().get_context_data(service=service)
 
 
 class ThanksView(DITThanksView):
