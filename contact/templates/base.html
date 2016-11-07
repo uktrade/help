@@ -86,8 +86,11 @@
 
     <main role="main">
       <div class="main">
-        {% block content %}{% endblock content %}
-        {% block feedback %}{% endblock %}
+        <div class="section push--top soft--top">
+          <div class="grid-row">
+            {% block content %}{% endblock content %}
+          </div>
+        </div>
       </div>
     </main>
 

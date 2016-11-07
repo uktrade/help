@@ -27,7 +27,6 @@ class TriageForm(DITHelpForm):
     contact_email = forms.EmailField(required=True, label=labels.CONTACT_EMAIL)
     sku_number = forms.IntegerField(required=True, label=labels.TRIAGE_SKU_NUMBER)
     sales = forms.ChoiceField(required=True, label=labels.TRIAGE_SALES, choices=choices.TRIAGE_SALES_THRESHOLDS)
-
     online_percentage = forms.ChoiceField(required=True, label=labels.TRIAGE_ONLINE_PERCENTAGE,
                                           choices=choices.TRIAGE_PERCENTAGES)
     export_percentage = forms.ChoiceField(required=True, label=labels.TRIAGE_EXPORT_PERCENTAGE,

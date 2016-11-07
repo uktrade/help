@@ -1,0 +1,14 @@
+{% load utils %}
+
+{{ form.non_field_errors }}
+<form role="form" action="" method="post" class="contact_form">
+  {% csrf_token %}
+  {% for field in form.hidden_fields %}
+    {% include "includes/hiddenfield.html" %}
+  {% endfor %}
+  {% for field in form.visible_fields %}
+    {% get_form_field_template field as template %}
+    {% include template %}
+  {% endfor %}
+  <button type="submit" class="button button-blue button-large">Submit</button>
+</form>
