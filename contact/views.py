@@ -42,6 +42,9 @@ class FeedbackThanksView(DITThanksView):
 
 class TriageView(DITHelpView):
     form_class = TriageForm
-    form_title = "Enquiry form"
-    form_description = "Help with preferential rates"
+    form_title = "Contact an ecommerce adviser"
     template_name = "triage.html"
+    form_description = "Use this form to get in touch with an ecommerce adviser (ECA). An ECA can help you get access\
+                        to preferential, discounted rates negotiated on behalf of UK businesses by HM Government. Give\
+                        as much detail as you can to help an ECA to understand how your company will fit with your\
+                        chosen marketplace(s)."

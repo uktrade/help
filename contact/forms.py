@@ -21,21 +21,18 @@ class FeedbackForm(DITHelpForm):
 class TriageForm(DITHelpForm):
     company_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'size': '50'}))
     company_type = forms.ChoiceField(required=True, choices=choices.TRIAGE_COMPANY_TYPES)
-    company_number = forms.CharField(required=True, label=labels.COMPANY_NUMBER)
+    company_number = forms.CharField(required=False, label=labels.COMPANY_NUMBER)
     website_address = forms.CharField(required=True)
     contact_name = forms.CharField(required=True, label=labels.CONTACT_NAME)
     contact_email = forms.EmailField(required=True, label=labels.CONTACT_EMAIL)
     sku_number = forms.IntegerField(required=True, label=labels.TRIAGE_SKU_NUMBER)
     sales = forms.ChoiceField(required=True, label=labels.TRIAGE_SALES, choices=choices.TRIAGE_SALES_THRESHOLDS)
-    online_percentage = forms.ChoiceField(required=True, label=labels.TRIAGE_ONLINE_PERCENTAGE,
-                                          choices=choices.TRIAGE_PERCENTAGES)
-    export_percentage = forms.ChoiceField(required=True, label=labels.TRIAGE_EXPORT_PERCENTAGE,
-                                          choices=choices.TRIAGE_PERCENTAGES)
+    translation = forms.CharField(required=True, label=labels.TRIAGE_TRANSLATION, widget=forms.Textarea)
+    trademarked = forms.ChoiceField(required=True, label=labels.TRIAGE_TRADEMARKED, choices=choices.BOOLEAN_YES_NO)
     description = forms.CharField(required=True, widget=forms.Textarea,
-                                  label=labels.TRIAGE_DESCRIPTION,
-                                  help_text=help_text.TRIAGE_DESCRIPTION)
+                                  label=labels.TRIAGE_DESCRIPTION)
 
     field_order = [
-        'company_name', 'company_type', 'company_number', 'website_address', 'contact_name', 'contact_email', 'sales',
-        'online_percentage', 'export_percentage', 'sku_number', 'description'
+        'company_name', 'contact_name', 'contact_email', 'website_address', 'company_type', 'company_number', 'sales',
+        'sku_number', 'trademarked', 'translation', 'description'
     ]
