@@ -31,3 +31,4 @@ class TriageView(DITHelpView):
     form_class = TriageForm
     form_title = "Enquiry form"
     form_description = "Help with preferential rates"
+    template_name = "triage.html"
