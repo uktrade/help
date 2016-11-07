@@ -1,6 +1,9 @@
+from urllib.parse import urlparse
+
+from django.conf import settings
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, resolve
 
 
 class DITHelpView(FormView):
@@ -42,16 +45,38 @@ class DITHelpView(FormView):
         # Get the form kwargs
         kwargs = super().get_form_kwargs()
 
-        # Get the originating page from the session, or from the HTTP_REFERER
-        try:
-            originating_page = self.request.session['originating_page']
-        except KeyError:
-            originating_page = self.request.META.get('HTTP_REFERER')
-
         # Add the HTTP_REFERER, and service specified in the url, to the initial form data
-        kwargs['initial']['originating_page'] = originating_page
+        kwargs['initial']['originating_page'] = self._get_originating_page()
         kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
         return kwargs
+
+    def _get_originating_page(self):
+        # Get the referer from the request, and parse it's data to find it's origin
+        http_referer = self.request.META.get('HTTP_REFERER')
+        if http_referer is not None:
+            url_data = urlparse(http_referer)
+            host = url_data.netloc
+            path = url_data.path
+            view = resolve(path)
+
+            if host in settings.ALLOWED_HOSTS and view.app_name == 'contact' and view.view_name == 'interstitial':
+                # The referer is this app's intersitial view, so get the originating page from the session
+                originating_page = self.request.session['originating_page']
+                # Get the originating page from the session, or from the HTTP_REFERER
+                del self.request.session['originating_page']
+                self.request.session.modified = True
+
+                # If the value in the session was none, get it from the REFERER instead
+                if originating_page is None:
+                    originating_page = "Unknown"
+            else:
+                # The referer was from outside, so take it as the originating page
+                originating_page = http_referer
+        else:
+            # The referer was blank, so must have been a direct request
+            originating_page = "Direct request"
+
+        return originating_page
 
     def get_form_title(self):
         msg = 'You must implement a get_form_title method or a form_title property in the inheriting view'
