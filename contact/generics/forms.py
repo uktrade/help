@@ -27,7 +27,7 @@ class DITHelpForm(forms.Form):
 
         data_items = []
         for bound_field in self:
-            data_items.append("{0}: {1}".format(bound_field.label, bound_field.value()))
+            data_items.append("{0}: \n{1}\n".format(bound_field.label, bound_field.value()))
 
         return "\n".join(data_items)
 
