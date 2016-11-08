@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="section push--top soft--top">
-    {% if success_data.success %}
-        Thank you, your request has been submitted.
-    {% else %}
-        Sorry, your request has failed - code {{ success_data.code }}
-    {% endif %}
-    {% if success_data.originating_page %}
-        <a href="{{ success_data.originating_page }}">Click here to go back</a>
-    {% endif %}
+<div class="section">
+  <div class="grid-row soft--bottom push--bottom">
+    <div class="column-one-whole soft--bottom heading-headline">
+      {% if success_data.success %}
+          <p>Thank you, your request has been submitted.
+      {% else %}
+          <p>Sorry, your request has failed - code {{ success_data.code }}
+      {% endif %}
+      {% if success_data.originating_page %}
+          <a  class="link" href="{{ success_data.originating_page }}">Click here to go back</a></p>
+      {% endif %}
+    </div>
   </div>
-
+</div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% load utils %}
 
 {{ form.non_field_errors }}
-<form role="form" action="" method="post" class="contact_form">
+<form role="form" action="" method="post" class="contact_form push--top">
   {% csrf_token %}
   {% for field in form.hidden_fields %}
     {% include "includes/hiddenfield.html" %}
