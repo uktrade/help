@@ -19,7 +19,7 @@ class InterstitialContactView(TemplateView):
 
 class ThanksView(DITThanksView):
     """
-    Default thanks page for the any form, no non-standard behaviour required.
+    Default thanks page for any form, no non-standard behaviour required.
     """
     pass
 
@@ -28,21 +28,25 @@ class FeedbackView(DITHelpView):
     """
     Standard basic Feedback view, use the default behaviour of the DITHelpView with the FeedbackForm
     """
-    success_url = reverse_lazy('contact:feedback_thanks')
     form_class = FeedbackForm
     form_title = "Help us improve this service"
     form_subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
                      can improve it"
 
 
-class FeedbackThanksView(DITThanksView):
-    """
-    Thanks page for the FeedbackView, no non-standard behaviour required yet.
-    """
-    pass
-
-
 class TriageView(DITHelpView):
+    """
+    Triage form view, for handling enquiries from users wanting to obtain the DIT negotiated terms with the online
+    marketplaces.
+    """
     form_class = TriageForm
     form_title = "Contact an ecommerce adviser"
     template_name = "triage.html"
+    success_url = reverse_lazy('contact:triage_thanks')
+
+
+class TriageThanksView(DITThanksView):
+    """
+    Thanks page for the TriageView, just use the specific template, no other specific behaviour.
+    """
+    template_name = "triage_thanks.html"
