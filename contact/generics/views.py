@@ -88,16 +88,16 @@ class DITHelpView(FormView):
         """
         return self.get_form_title()
 
-    def get_form_description(self):
-        msg = 'You must implement a get_form_description method or a form_description property in the inheriting view'
+    def get_form_subtitle(self):
+        msg = 'You must implement a get_form_subtitle method or a form_subtitle property in the inheriting view'
         raise NotImplementedError(msg)
 
     @property
-    def form_description(self):
+    def form_subtitle(self):
         """
-        A property that returns self.get_sub_title just as an easy accessor
+        A property that returns self.get_form_subtitle just as an easy accessor
         """
-        return self.get_form_description()
+        return self.get_form_subtitle()
 
     def get_context_data(self):
         # Add the name of this view to the context data for displaying as the heading
@@ -105,7 +105,7 @@ class DITHelpView(FormView):
         context['display_title'] = self.form_title
         # Try to get the subtitle, but don't worry if it's not implemented
         try:
-            context['display_description'] = self.form_description
+            context['display_subtitle'] = self.form_subtitle
         except NotImplementedError:
             pass
 

@@ -28,9 +28,11 @@ class FeedbackView(DITHelpView):
     """
     Standard basic Feedback view, use the default behaviour of the DITHelpView with the FeedbackForm
     """
-    form_class = FeedbackForm
-    form_title = "Feedback"
     success_url = reverse_lazy('contact:feedback_thanks')
+    form_class = FeedbackForm
+    form_title = "Help us improve this service"
+    form_subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
+                     can improve it"
 
 
 class FeedbackThanksView(DITThanksView):
