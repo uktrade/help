@@ -1,18 +1,7 @@
+{% extends "default_thanks.html" %}
 
-{% extends "base.html" %}
-
-{% block content %}
-<div class="section">
-  <div class="grid-row soft--bottom push--bottom">
-    <div class="column-one-whole soft--bottom heading-headline">
-      {% if success_data.success %}
-        <h1 class='heading-xlarge push--bottom flush--top'>Enquiry submitted</h1>
-        <p>Thanks for your enquiry about getting help accessing this marketplace. A member of staff at the Department for International Trade will review your request and respond to you in 5 working days.</p>
-        <p>You can now <a href="https://selling-online-overseas.export.great.gov.uk/markets/filter">search for more online marketplaces</a> or <a href="https://www.great.gov.uk/export">read about your next steps in exporting</a>.</p>
-      {% else %}
-        <p>Sorry, your request has failed - code {{ success_data.code }}
-      {% endif %}
-    </div>
-  </div>
-</div>
+{% block success %}
+  <h1 class='heading-xlarge push--bottom flush--top'>Enquiry submitted</h1>
+  <p>Thanks for your enquiry about getting help accessing this marketplace. A member of staff at the Department for International Trade will review your request and respond to you in 5 working days.</p>
+  <p>You can now <a href="https://selling-online-overseas.export.great.gov.uk/markets/filter">search for more online marketplaces</a> or <a href="https://www.great.gov.uk/export">read about your next steps in exporting</a>.</p>
 {% endblock %}
