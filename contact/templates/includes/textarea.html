@@ -1,8 +1,8 @@
 <div class="form-group">
   {{ field.errors }}
-  <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-  <span class="form-helptext" >{{ field.help_text }}</span>
-  <textarea class="form-control form-textarea" id="{{ field.id_for_label }}" name="{{ field.name }}"
+  <label class="form-label flush--bottom" for="{{ field.id_for_label }}">{{ field.label }}</label>
+  <p class="form-label">{{ field.help_text }}</p>
+  <textarea class="form-control form-textarea column-three-quarters" id="{{ field.id_for_label }}" name="{{ field.name }}"
     {% if field.field.required %}required{% endif %}
     {% for attr, value in field.field.widget.attrs.items %}
       {{ attr }}="{{ value }}"

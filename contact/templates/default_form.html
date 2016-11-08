@@ -3,12 +3,12 @@
 {% block content %}
   <div class="{% block container_class %}column-one-whole{% endblock %}">
     <h1 class='heading-xlarge push--bottom flush--top'>{% block title %}{{ display_title }}{% endblock %}</h1>
-    {% block description %}
-      {% if display_description %}
-        <h2>{{ display_description }}</h2>
-      {% endif %}
-    {% endblock %}
-    {% block form %}
+     {% block subtitle %}
+       {% if display_subtitle %}
+         <h2 class="heading-sub heading-sub-no--border soft--bottom">{{ display_subtitle }}</h2>
+       {% endif %}
+     {% endblock %}
+     {% block form %}
       {% include "includes/form.html" %}
     {% endblock %}
   </div>
