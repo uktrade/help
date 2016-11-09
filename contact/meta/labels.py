@@ -1,6 +1,6 @@
 CONTACT_NAME = "Contact name"
 CONTACT_EMAIL = "Contact email"
-COMPANY_NUMBER = "Companies House Number"
+COMPANY_NUMBER = "Companies House Number (optional)"
 COMPANY_WEBSITE = "Company website"
 
 TRIAGE_SALES = "Turnover last year (in GBP £)"
