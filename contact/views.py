@@ -40,7 +40,7 @@ class TriageView(DITHelpView):
     marketplaces.
     """
     form_class = TriageForm
-    form_title = "Contact an ecommerce adviser"
+    form_title = "Request help to access a marketplace"
     template_name = "triage.html"
     success_url = reverse_lazy('contact:triage_thanks')
 
