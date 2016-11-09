@@ -11,7 +11,9 @@
     {% include template %}
   {% endfor %}
   {% if use_captcha %}
-    <div class="g­recaptcha" data­sitekey="{{ captcha_site_key }}"></div>
+    <div class="form-group">
+      <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}"></div>
+    </div>
   {% endif %}
   <button type="submit" class="button button-blue button-large">Submit</button>
 </form>
