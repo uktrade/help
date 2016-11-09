@@ -18,6 +18,44 @@ class DITHelpForm(forms.Form):
     originating_page = forms.CharField(required=False, widget=forms.HiddenInput())
     service = forms.CharField(required=True, widget=forms.HiddenInput())
 
+    def __init__(self, *args, **kwargs):
+        """
+        Get the data needed to test the Google recaptcha, and store it on the form object for the clean method
+        """
+
+        self.captcha_response = kwargs.pop('captcha_response', None)
+        self.remote_ip = kwargs.pop('remote_ip', None)
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        """
+        Validate the recaptcha by submitting the data to Google for verification
+        """
+
+        cleaned_data = super().clean()
+
+        if settings.USE_CAPTCHA:
+            url = "https://www.google.com/recaptcha/api/siteverify"
+            values = {
+                'secret': settings.CAPTCHA_SECRET_KEY,
+                'response': self.captcha_response,
+                'remoteip': self.remote_ip,
+            }
+            headers = {'content-type': 'application/json'}
+
+            # Get the data for this form, and encode it to create a JSON payload
+            payload = json.dumps(values)
+
+            # Do the HTTP post request
+            response = requests.post(url, data=payload, headers=headers)
+            result = response.json()
+
+            # result["success"] will be' True on a success
+            if not result["success"]:
+                raise forms.ValidationError(u'Only humans are allowed to submit this form.')
+
+        return cleaned_data
+
     def get_body(self):
         """
         Generate the body for a Zendesk ticket.  Loop over all fields adding the label and cleaned value to a string.
