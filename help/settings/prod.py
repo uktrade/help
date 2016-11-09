@@ -11,7 +11,7 @@ RAVEN_CONFIG = {
     'dsn': os.environ.get('SENTRY_DSN'),
 }
 
-# XXX: This needs to be made longer once it is confirmed it works as desired
-SECURE_HSTS_SECONDS = 60
-
 SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
