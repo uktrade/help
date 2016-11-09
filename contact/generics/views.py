@@ -49,6 +49,8 @@ class DITHelpView(FormView):
         # Add the HTTP_REFERER, and service specified in the url, to the initial form data
         kwargs['initial']['originating_page'] = self._get_originating_page()
         kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
+        kwargs['remote_ip'] = self.request.POST.get(u'g-recaptcha-response', None)
+        kwargs['captcha_response'] = self.request.META.get("REMOTE_ADDR", None)
         return kwargs
 
     def get_context_data(self, *args, **kwargs):
@@ -65,30 +67,6 @@ class DITHelpView(FormView):
         context['captcha_site_key'] = settings.CAPTCHA_SITE_KEY
 
         return context
-
-    def _test_captcha(self):
-        if setting.USE_CAPTCHA:
-            # test the google recaptcha
-            url = "https://www.google.com/recaptcha/api/siteverify"
-            values = {
-                'secret': settings.CAPTCHA_SECRET_KEY,
-                'response': self.request.POST.get(u'g-recaptcha-response', None),
-                'remoteip': self.request.META.get("REMOTE_ADDR", None),
-            }
-            headers = {'content-type': 'application/json'}
-
-            # Get the data for this form, and encode it to create a JSON payload
-            payload = json.dumps(values)
-
-            # Do the HTTP post request
-            response = requests.post(url, data=payload, auth=(user, pwd), headers=headers)
-            result = json.loads(response.read())
-
-            # result["success"] will be True on a success
-            if not result["success"]:
-                raise forms.ValidationError(_(u'Only humans are allowed to submit this form.'))
-
-        return self.cleaned_data
 
     def _get_originating_page(self):
         # Get the referer from the request, and parse it's data to find it's origin
