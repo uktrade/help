@@ -121,3 +121,4 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 ZENDESK_URL = os.environ.get('ZENDESK_URL')
 ZENDESK_USER = os.environ.get('ZENDESK_USER')
 ZENDESK_TOKEN = os.environ.get('ZENDESK_TOKEN')
+USE_CAPTCHA = False

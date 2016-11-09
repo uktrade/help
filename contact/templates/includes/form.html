@@ -10,5 +10,8 @@
     {% get_form_field_template field as template %}
     {% include template %}
   {% endfor %}
+  {% if use_captcha %}
+    <div class="g­recaptcha" data­sitekey="{{ captcha_site_key }}"></div>
+  {% endif %}
   <button type="submit" class="button button-blue button-large">Submit</button>
 </form>

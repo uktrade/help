@@ -1,3 +1,4 @@
+import requests
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -50,6 +51,45 @@ class DITHelpView(FormView):
         kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
         return kwargs
 
+    def get_context_data(self, *args, **kwargs):
+        # Add the name of this view to the context data for displaying as the heading
+        context = super().get_context_data(*args, **kwargs)
+        context['display_title'] = self.form_title
+        # Try to get the subtitle, but don't worry if it's not implemented
+        try:
+            context['display_subtitle'] = self.form_subtitle
+        except NotImplementedError:
+            pass
+
+        context['use_captcha'] = settings.USE_CAPTCHA
+        context['captcha_site_key'] = settings.CAPTCHA_SITE_KEY
+
+        return context
+
+    def _test_captcha(self):
+        if setting.USE_CAPTCHA:
+            # test the google recaptcha
+            url = "https://www.google.com/recaptcha/api/siteverify"
+            values = {
+                'secret': settings.CAPTCHA_SECRET_KEY,
+                'response': self.request.POST.get(u'g-recaptcha-response', None),
+                'remoteip': self.request.META.get("REMOTE_ADDR", None),
+            }
+            headers = {'content-type': 'application/json'}
+
+            # Get the data for this form, and encode it to create a JSON payload
+            payload = json.dumps(values)
+
+            # Do the HTTP post request
+            response = requests.post(url, data=payload, auth=(user, pwd), headers=headers)
+            result = json.loads(response.read())
+
+            # result["success"] will be True on a success
+            if not result["success"]:
+                raise forms.ValidationError(_(u'Only humans are allowed to submit this form.'))
+
+        return self.cleaned_data
+
     def _get_originating_page(self):
         # Get the referer from the request, and parse it's data to find it's origin
         http_referer = self.request.META.get('HTTP_REFERER')
@@ -98,18 +138,6 @@ class DITHelpView(FormView):
         A property that returns self.get_form_subtitle just as an easy accessor
         """
         return self.get_form_subtitle()
-
-    def get_context_data(self, *args, **kwargs):
-        # Add the name of this view to the context data for displaying as the heading
-        context = super().get_context_data(*args, **kwargs)
-        context['display_title'] = self.form_title
-        # Try to get the subtitle, but don't worry if it's not implemented
-        try:
-            context['display_subtitle'] = self.form_subtitle
-        except NotImplementedError:
-            pass
-
-        return context
 
 
 class DITThanksView(TemplateView):
