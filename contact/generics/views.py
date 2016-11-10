@@ -79,9 +79,6 @@ class DITHelpView(FormView):
             if host in settings.ALLOWED_HOSTS and resolve(path).view_name == 'contact:interstitial':
                 # The referer is this app's intersitial view, so get the originating page from the session
                 originating_page = self.request.session['originating_page']
-                # Get the originating page from the session, or from the HTTP_REFERER
-                del self.request.session['originating_page']
-                self.request.session.modified = True
 
                 # If the value in the session was none, get it from the REFERER instead
                 if originating_page is None:
@@ -132,6 +129,4 @@ class DITThanksView(TemplateView):
         # Add the success_data that should be in the session
         context = super().get_context_data(*args, **kwargs)
         context['success_data'] = self.request.session['success_data']
-        del self.request.session['success_data']
-        self.request.session.modified = True
         return context
