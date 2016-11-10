@@ -132,4 +132,6 @@ class DITThanksView(TemplateView):
         # Add the success_data that should be in the session
         context = super().get_context_data(*args, **kwargs)
         context['success_data'] = self.request.session['success_data']
+        del self.request.session['success_data']
+        self.request.session.modified = True
         return context
