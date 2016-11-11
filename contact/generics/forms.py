@@ -4,6 +4,8 @@ import requests
 from django import forms
 from django.conf import settings
 
+from raven.contrib.django.raven_compat.models import client
+
 
 class DITHelpForm(forms.Form):
     """
@@ -164,6 +166,15 @@ class DITHelpForm(forms.Form):
 
         return self.get_requester()
 
+    @property
+    def ticket_data(self):
+        """
+        Accessor for the get_requester method, inheriting classes can either implement a get_requester method, or set a
+        non-dynamic requester property
+        """
+
+        return self.get_ticket_data()
+
     def raise_zendesk_ticket(self):
         # Set the request parameters
         user = "{0}/token".format(settings.ZENDESK_USER)
@@ -177,6 +188,16 @@ class DITHelpForm(forms.Form):
 
         # Do the HTTP post request
         response = requests.post(url, data=payload, auth=(user, pwd), headers=headers)
+
+        if response.status_code != 201:
+            client.capture('raven.events.Message',
+                           message='Zendesk submission error',
+                           data={},
+                           extra={
+                               'body': self.ticket_data,
+                               'response_code': response.status_code,
+                               'response_reason': response.reason
+                           })
 
         # Return and the response status code
         return response.status_code
