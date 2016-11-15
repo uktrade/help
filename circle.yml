@@ -1,0 +1,17 @@
+machine:
+  python:
+    version: 3.5.0
+
+dependencies:
+  pre:
+    - pip install -r requirements_for_test.txt
+
+test:
+  override:
+    - ./scripts/run_tests.sh
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: dit-help-staging
