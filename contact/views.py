@@ -29,9 +29,6 @@ class FeedbackView(DITHelpView):
     Standard basic Feedback view, use the default behaviour of the DITHelpView with the FeedbackForm
     """
     form_class = FeedbackForm
-    form_title = "Help us improve this service"
-    form_subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
-                     can improve it"
 
 
 class TriageView(DITHelpView):
@@ -40,7 +37,6 @@ class TriageView(DITHelpView):
     marketplaces.
     """
     form_class = TriageForm
-    form_title = "Request help to access a marketplace"
     template_name = "triage.html"
     success_url = reverse_lazy('contact:triage_thanks')
 

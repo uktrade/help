@@ -54,12 +54,17 @@ class DITHelpView(FormView):
         return kwargs
 
     def get_context_data(self, *args, **kwargs):
-        # Add the name of this view to the context data for displaying as the heading
         context = super().get_context_data(*args, **kwargs)
-        context['display_title'] = self.form_title
-        # Try to get the subtitle, but don't worry if it's not implemented
+
+        # Try to get at title from the view, but don't worry if it's not implemented
         try:
-            context['display_subtitle'] = self.form_subtitle
+            context['form'].title = self.form_title
+        except NotImplementedError:
+            pass
+
+        # Try to get the subtitle from the view, but don't worry if it's not implemented
+        try:
+            context['form'].subtitle = self.form_subtitle
         except NotImplementedError:
             pass
 

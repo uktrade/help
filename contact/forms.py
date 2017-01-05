@@ -5,11 +5,17 @@ from .meta import choices, labels, help_text
 
 
 class FeedbackForm(DITHelpForm):
+    title = "Help us improve this service"
+    subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
+                can improve it"
+
     content = forms.CharField(label="Feedback", required=True, widget=forms.Textarea)
 
 
 class TriageForm(DITHelpForm):
-    company_name = forms.CharField(required=True, widget=forms.TextInput())
+    title = "Request help to access a marketplace"
+
+    company_name = forms.CharField(required=True)
     company_type = forms.ChoiceField(required=True, choices=choices.TRIAGE_COMPANY_TYPES)
     company_number = forms.CharField(required=False, label=labels.COMPANY_NUMBER)
     website_address = forms.CharField(required=True, label=labels.COMPANY_WEBSITE)
