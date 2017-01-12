@@ -1,4 +1,6 @@
 import requests
+import os
+
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -24,6 +26,13 @@ class DITHelpView(FormView):
     template_name = 'default_form.html'
     success_url = reverse_lazy('contact:thanks')
 
+    def __init__(self, *args, **kwargs):
+        folder = getattr(self, 'template_folder', None)
+        if folder is not None:
+            self.template_name = os.path.join(folder, self.template_name)
+
+        return super().__init__(*args, **kwargs)
+
     def form_valid(self, form):
         """
         The submitted form is valid, so tell the form to raise a Zendesk ticket
@@ -48,7 +57,11 @@ class DITHelpView(FormView):
 
         # Add the HTTP_REFERER, and service specified in the url, to the initial form data
         kwargs['initial']['originating_page'] = self._get_originating_page()
-        kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
+        if getattr(self, 'service', None) is not None:
+            kwargs['initial']['service'] = self.service
+        else:
+            kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
+
         kwargs['remote_ip'] = self.request.POST.get(u'g-recaptcha-response', None)
         kwargs['captcha_response'] = self.request.META.get("REMOTE_ADDR", None)
         return kwargs

@@ -1,0 +1,16 @@
+{% extends "directory/base.html" %}
+
+{% block content %}
+  <div class="{% block container_class %} column-five-eights {% endblock %}">
+    <h1 class='heading-xlarge push--bottom flush--top'>{% block title %}{{ form.title }}{% endblock %}</h1>
+    {% block subtitle %}
+     {% if form.subtitle %}
+       <h2 class="heading-sub heading-sub-no--border soft--bottom">{{ form.subtitle }}</h2>
+     {% endif %}
+    {% endblock %}
+    {% block form %}
+      {% include "includes/form.html" %}
+    {% endblock %}
+  </div>
+  {% block after_form %}{% endblock %}
+{% endblock %}
