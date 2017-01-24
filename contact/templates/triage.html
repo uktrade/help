@@ -2,13 +2,32 @@
 
 {% block container_class %}column-five-eights{% endblock %}
 
-{% block after_form %}
-  <div class="column-three-eights">
-    <aside>
-      <div class="home-info background--stone push--bottom">
-        <h4 class="heading-small font-med push-half--top">Guidance</h4>
-        <p class="font-xxsmall push--top">Use this form to ask for help getting access to an online marketplace. This includes help accessing preferential discounted rates negotiated on behalf of UK businesses by government. Give as much detail as you can to help us understand how your company will fit with your chosen marketplace(s).</p>
+{% block title %}Marketplace application{% endblock title %}
+
+{% block head_meta_description %}Marketplace application{% endblock head_meta_description %}
+
+{% block before_form %}
+  <div class="background--aqua">
+    <div class="section">
+      <div class="grid-row">
+        <div class="column-one-whole">
+          <div class="form-intro font-white">
+            <a href="" class="form-intro-button">
+              <h2 class='heading-small font-med push-half--bottom flush--ends soft--ends'>Benefits of applying here</h2>
+              <i class="icon-expand icon-close"></i>
+            </a>
+            <div class="form-intro-content column-three-quarters soft-half--bottom">
+              <p class="flush--ends">The Department for International Trade facilitates the introduction between you and the marketplace directly.</p>
+              <h2 class='heading-headline font-med flush--top soft--top'>Save time</h2>
+              <p>Your application will be 'fast-tracked' through this channel, providing a direct route to the marketplace.</p>
+              <p class="flush--ends">Your application for this marketplace will be reviewed for suitability and we will respond to you within 5 working days.</p>
+              <h2 class='heading-headline font-med flush--ends soft--top'>Save money</h2>
+              <p>If successfully matched, you may be able to get access to marketplace offers.</p>
+              <p class="form-intro-terms">We collect certain information or data about you when you use <a href="https://www.exportingisgreat.gov.uk/" target="_blank">exportingisgreat.gov.uk</a>. We respect your privacy and will handle your information with care. Read our <a href="https://www.exportingisgreat.gov.uk/privacy-and-cookies/" target="_blank">Privacy and Cookies</a> policy.</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </aside>
+    </div>
   </div>
 {% endblock %}

@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="column-five-eights push--bottom soft--bottom">
-    <h1 class='heading-xlarge push--bottom flush--top'>Contact us</h1>
-    <h2 class="heading-small font-med">Contact your local export network</h2>
-    <ul class="list-regular soft-half--ends push--bottom">
-      <li>Making the move into any new market can feel like a leap into the unknown. But if you’d like help, there’s a support network near you.</li>
-      <li><a href="https://www.contactus.trade.gov.uk/enquiry/topic">Complete a short online form and an advisor will contact you</a></li>
-      <li>Alternatively, call the Business Support Helpline on 0300 456 3565 (Monday to Friday, 9am to 6pm).</li>
-    </ul>
+  <div class="section">
+    <div class="column-five-eights push--ends soft--ends">
+      <h1 class='heading-xlarge push--bottom flush--top'>Contact us</h1>
+      <h2 class="heading-small font-med">Contact your local export network</h2>
+      <ul class="list-regular soft-half--ends push--bottom">
+        <li>Making the move into any new market can feel like a leap into the unknown. But if you’d like help, there’s a support network near you.</li>
+        <li><a href="https://www.contactus.trade.gov.uk/enquiry/topic">Complete a short online form and an advisor will contact you</a></li>
+        <li>Alternatively, call the Business Support Helpline on 0300 456 3565 (Monday to Friday, 9am to 6pm).</li>
+      </ul>
 
-    <h2 class="heading-small font-med">Tell us what you think of our website</h2>
-    <ul class="list-regular soft-half--ends push--bottom">
-      <li>If you would like to tell us what you think of our website or any of our digital services, <a href="{% url 'contact:feedback_submit' service %}">complete our short feedback form</a> and someone will get back to you.</li>
-    </ul>
+      <h2 class="heading-small font-med">Tell us what you think of our website</h2>
+      <ul class="list-regular soft-half--ends push--bottom">
+        <li>If you would like to tell us what you think of our website or any of our digital services, <a href="{% url 'contact:feedback_submit' service %}">complete our short feedback form</a> and someone will get back to you.</li>
+      </ul>
+    </div>
   </div>
 {% endblock %}

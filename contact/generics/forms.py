@@ -3,11 +3,26 @@ import requests
 
 from django import forms
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.text import slugify
 
 from raven.contrib.django.raven_compat.models import client
 
 
-class DITHelpForm(forms.Form):
+class DITHelpFormMetaclass(forms.Form.__class__):
+    """
+    Inherit the metaclass of the standard Form class to add some validation of the definition of the form itself.
+    Make sure the definition of the form doesn't specify both a field_order AND and fieldsets attribute.
+    """
+
+    def __new__(mcs, *pargs, **kwargs):
+        new_class = super(DITHelpFormMetaclass, mcs).__new__(mcs, *pargs, **kwargs)
+        if new_class.field_order is not None and getattr(new_class, 'fieldsets', None) is not None:
+            raise ImproperlyConfigured('Cannot specify both field_order and fieldsets on DITHelpForm')
+        return new_class
+
+
+class DITHelpForm(forms.Form, metaclass=DITHelpFormMetaclass):
     """
     This is a base form not inteded to be used directly, but inherited from, so that deriving forms can all easily
     submit tickets to Zendesk using a common method.
@@ -15,6 +30,7 @@ class DITHelpForm(forms.Form):
     Due to the way that Django forms use metaclasses to configure the class, this cannot be an abstract base class.
     """
 
+    submit_text = "Submit"
     contact_name = forms.CharField(required=True, label="Name")
     contact_email = forms.EmailField(required=True, label="Email")
     originating_page = forms.CharField(required=False, widget=forms.HiddenInput())
@@ -25,9 +41,33 @@ class DITHelpForm(forms.Form):
         Get the data needed to test the Google recaptcha, and store it on the form object for the clean method
         """
 
+        self._title = None
+
         self.captcha_response = kwargs.pop('captcha_response', None)
         self.remote_ip = kwargs.pop('remote_ip', None)
         super().__init__(*args, **kwargs)
+
+        fieldsets = getattr(self, 'fieldsets', None)
+        if fieldsets is not None:
+            self.steps = []
+            for step in fieldsets:
+                fields = []
+                for item in step[1]['fields']:
+                    if isinstance(item, str):
+                        fields.append([self[item]])
+                    else:
+                        fields.append([self[field_name] for field_name in item])
+
+                self.steps.append({'title': step[0], 'slug': slugify(step[0]), 'fields': fields})
+
+    def order_fields(self, field_order):
+        fieldsets = getattr(self, 'fieldsets', None)
+        if fieldsets is not None:
+            field_order = []
+            for step in fieldsets:
+                field_order += step[1]['fields']
+
+        return super().order_fields(field_order)
 
     def clean(self):
         """
@@ -52,11 +92,25 @@ class DITHelpForm(forms.Form):
             response = requests.post(url, data=payload, headers=headers)
             result = response.json()
 
-            # result["success"] will be' True on a success
+            # result["success"] will be True on a success
             if not result["success"]:
                 raise forms.ValidationError(u'Only humans are allowed to submit this form.')
 
         return cleaned_data
+
+    def get_title(self):
+        return self._title
+
+    @property
+    def title(self):
+        """
+        A property that returns self.get_title just as an easy accessor
+        """
+        return self.get_title()
+
+    @title.setter
+    def title(self, value):
+        self._title = value
 
     def get_body(self):
         """

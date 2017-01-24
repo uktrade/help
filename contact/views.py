@@ -37,8 +37,15 @@ class TriageView(DITHelpView):
     marketplaces.
     """
     form_class = TriageForm
-    template_name = "triage.html"
     success_url = reverse_lazy('contact:triage_thanks')
+    template_name = "triage.html"
+
+    def get_form_title(self):
+        market = self.request.GET.get('market', None)
+        if market is not None:
+            return market
+
+        return None
 
 
 class TriageThanksView(DITThanksView):

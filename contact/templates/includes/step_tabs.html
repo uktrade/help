@@ -1,0 +1,18 @@
+<div class="background--lighter-grey">
+  <div class="section">
+    <div class="grid-row">
+      <div class="column-one-whole">
+        <ul class="form-tab cf">
+          {% block before_tabs %}{% endblock %}
+          {% for step in form.steps %}
+            <li class="column-one-fourth"><a href="#{{ step.slug }}" class="form-tab-link"><span class="form-tab-order">{{ forloop.counter0| add:start_number }}</span> <span class="form-tab-content">{{ step.title }}</span></a></li>
+          {% endfor %}
+          {% block after_tabs %}{% endblock %}
+        </ul>
+        <div class="form-tab-progressbar">
+          <span class="form-tab-progressbar-indicator"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
