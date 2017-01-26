@@ -1,14 +1,14 @@
 {% extends 'thumber/feedback.html' %}
 
 {% block thumber_form %}
-  <div class="cf">
+  <div class="cf soft--top">
     <div class="col-3">&nbsp;</div>
     <div class="col-6">
-      <div class="audit audit--white text--center" id="audit">
-        <i class="icon icon-feedback--grey">
+      <div class="audit">
+        <i class="icon icon-feedback">
           <span class="visuallyhidden">feedback</span>
         </i>
-        <h3 class="font-xlarge font-med audit-header">{{ satisfied_wording }}</h3>
+        <h3 class="heading-small font-med audit-header">{{ satisfied_wording }}</h3>
         <form action="{{ request.get_full_path }}" method="post" class="audit-form thumber-form">
           {% csrf_token %}
           {{ thumber_form.thumber_token }}
@@ -17,10 +17,10 @@
           </div>
           <div class="thumber-radio-buttons" style="display:none;">
             <div class="audit-button float--left text--left">
-              <button class="button button-border push--bottom" data-value="True" data-scrollTo="audit">{{ yes_wording }}</button>
+              <button class="button button-border button-border--white push--bottom" data-value="True">{{ yes_wording }}</button>
             </div>
             <div class="audit-button float--left text--right">
-              <button class="button button-border push--bottom" data-value="False" data-scrollTo="audit">{{ no_wording }}</button>
+              <button class="button button-border button-border--white push--bottom" data-value="False">{{ no_wording }}</button>
             </div>
           </div>
           <div class="audit-text-section ">
@@ -30,22 +30,22 @@
               </div>
             </fieldset>
             <div class="audit-button audit-button--send text--right float--right hard--right">
-              <input class="button button-border" type="submit" value="{{ submit_wording }}" />
+              <input class="button button-border button-border--white" type="submit" value="{{ submit_wording }}" />
             </div>
           </div>
         </form>
       </div>
       <div class="audit-thank hide">
-        <i class="icon icon-thankyou--grey">
+        <i class="icon icon-thankyou">
           <span class="visuallyhidden">Thank you</span>
         </i>
-        <h3 class="font-xlarge font-med audit-header">{{ thanks_message }}</h3>
+        <h3 class="heading-small font-med audit-header">{{ thanks_message }}</h3>
       </div>
       <div class="audit-error hide">
-        <i class="icon icon-error--grey">
+        <i class="icon icon-error">
           <span class="visuallyhidden">error</span>
         </i>
-        <h3 class="font-xlarge font-med audit-header">{{ error_message}}</h3>
+        <h3 class="heading-small font-med audit-header">{{ error_message}}</h3>
         <p>Please try again later, or <a href="https://contact-us.export.great.gov.uk/feedback/selling_online_overseas/" title="feedback">use the feedback form</a></p>
       </div>
     </div>
@@ -55,9 +55,9 @@
 
 {% block non_js_success %}
   <div class="audit">
-    <i class="icon icon-thankyou--grey">
+    <i class="icon icon-thankyou">
       <span class="visuallyhidden">Thank you</span>
     </i>
-    <h3 class="font-xlarge font-med audit-header">{{ thanks_message }}</h3>
+    <h3 class="heading-small font-med audit-header">{{ thanks_message }}</h3>
   </div>
 {% endblock %}

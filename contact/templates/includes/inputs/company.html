@@ -1,0 +1,25 @@
+{% extends "includes/inputs/base.html" %}
+
+{% block field %}
+  <div class="form-group{% if field.errors %} form-group-error{% endif %}">
+    <span class="form-group-error--message">{{ field.errors }}</span>
+    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }} {% if field.help_text %}<span class="form-hint">{{ field.help_text | safe }}</span>{% endif %}</label>
+    <input type="text" id="{{ field.id_for_label }}" name="{{ field.name }}"
+      class="form-control {{ field.field.widget.attrs.class }}"
+      value="{% if field.value %}{{ field.value }}{% endif %}"
+      {% if field.field.required %}required{% endif %}
+      {% for attr, value in field.field.widget.attrs.items %}
+        {{ attr }}="{{ value }}"
+      {% endfor %} />
+  </div>
+
+  <div class="cf form-group-section">
+    <div class="col-7">
+      <button 
+      {% for attr, value in field.field.widget.button_attrs.items %}
+        {{ attr }}="{{ value }}"
+      {% endfor %}
+      >{{ field.field.widget.button_label }}</button>
+    </div>
+  </div>
+{% endblock %}

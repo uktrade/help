@@ -8,6 +8,7 @@ from django.utils.text import slugify
 
 from raven.contrib.django.raven_compat.models import client
 
+from .models import DITHelpModel
 
 _CONTACT_VALIDATION_MESSAGE = 'Enter your name'
 _EMAIL_VALIDATION_MESSAGE = 'Provide a valid email address'
@@ -26,51 +27,27 @@ class DITHelpFormMetaclass(forms.Form.__class__):
         return new_class
 
 
-class DITHelpForm(forms.Form, metaclass=DITHelpFormMetaclass):
+class DITHelpMixin():
     """
-    This is a base form not inteded to be used directly, but inherited from, so that deriving forms can all easily
-    submit tickets to Zendesk using a common method.
+    This is a mixin class to be inherited by django Forms so that they can  easily submit tickets to Zendesk using a
+    common method.
 
     Due to the way that Django forms use metaclasses to configure the class, this cannot be an abstract base class.
     """
 
     submit_text = "Send feedback"
-    contact_name = forms.CharField(required=True, label="Name",
-                                   error_messages={
-                                       'required': _CONTACT_VALIDATION_MESSAGE,
-                                       'invalid': _CONTACT_VALIDATION_MESSAGE
-                                   },
-                                   widget=forms.TextInput(
-                                       attrs={
-                                           'data-validate': 'name',
-                                           'data-message': _CONTACT_VALIDATION_MESSAGE
-                                       }
-                                   ))
-    contact_email = forms.EmailField(required=True, label="Email",
-                                     error_messages={
-                                         'required': _EMAIL_VALIDATION_MESSAGE,
-                                         'invalid': _EMAIL_VALIDATION_MESSAGE
-                                     },
-                                     widget=forms.TextInput(
-                                        attrs={
-                                            'data-validate': 'email',
-                                            'data-message': _EMAIL_VALIDATION_MESSAGE
-                                        }
-                                     ))
-    originating_page = forms.CharField(required=False, widget=forms.HiddenInput())
-    service = forms.CharField(required=True, widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         """
         Get the data needed to test the Google recaptcha, and store it on the form object for the clean method
         """
-
         self._title = None
 
         self.captcha_response = kwargs.pop('captcha_response', None)
         self.remote_ip = kwargs.pop('remote_ip', None)
         super().__init__(*args, **kwargs)
 
+        # Interpret the fieldsets attribute (if it exists) into steps for the form
         fieldsets = getattr(self, 'fieldsets', None)
         if fieldsets is not None:
             self.steps = []
@@ -275,3 +252,75 @@ class DITHelpForm(forms.Form, metaclass=DITHelpFormMetaclass):
 
         # Return and the response status code
         return response.status_code
+
+
+class DITHelpForm(DITHelpMixin, forms.Form, metaclass=DITHelpFormMetaclass):
+    """
+    Generic Form that handles originating page, contact name, contact email, and the service (project) that the form
+    was linked to from (interpreted from the URL)
+    """
+
+    originating_page = forms.CharField(required=False, widget=forms.HiddenInput())
+    service = forms.CharField(required=True, widget=forms.HiddenInput())
+
+    contact_name = forms.CharField(required=True, label="Name",
+                                   error_messages={
+                                       'required': _CONTACT_VALIDATION_MESSAGE,
+                                       'invalid': _CONTACT_VALIDATION_MESSAGE
+                                   },
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'data-validate': 'name',
+                                           'data-message': _CONTACT_VALIDATION_MESSAGE
+                                       }
+                                   ))
+    contact_email = forms.EmailField(required=True, label="Email",
+                                     error_messages={
+                                         'required': _EMAIL_VALIDATION_MESSAGE,
+                                         'invalid': _EMAIL_VALIDATION_MESSAGE
+                                     },
+                                     widget=forms.TextInput(
+                                        attrs={
+                                            'data-validate': 'email',
+                                            'data-message': _EMAIL_VALIDATION_MESSAGE
+                                        }
+                                     ))
+
+
+class DITHelpModelForm(DITHelpMixin, forms.ModelForm):
+    """
+    Generic ModelForm that handles originating page, contact name, contact email, and the service (project) that the
+    form was linked to from (interpreted from the URL).  Creating a Model for this ModelForm will mean that the data
+    is stored locally in the database (and viewable via the admin interface) as well as being submitted to Zendesk
+    """
+
+    originating_page = forms.CharField(required=False, widget=forms.HiddenInput())
+    service = forms.CharField(required=True, widget=forms.HiddenInput())
+
+    contact_name = forms.CharField(required=True, label="Name",
+                                   error_messages={
+                                       'required': _CONTACT_VALIDATION_MESSAGE,
+                                       'invalid': _CONTACT_VALIDATION_MESSAGE
+                                   },
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'data-validate': 'name',
+                                           'data-message': _CONTACT_VALIDATION_MESSAGE
+                                       }
+                                   ))
+
+    contact_email = forms.EmailField(required=True, label="Email",
+                                     error_messages={
+                                         'required': _EMAIL_VALIDATION_MESSAGE,
+                                         'invalid': _EMAIL_VALIDATION_MESSAGE
+                                     },
+                                     widget=forms.TextInput(
+                                        attrs={
+                                            'data-validate': 'email',
+                                            'data-message': _EMAIL_VALIDATION_MESSAGE
+                                        }
+                                     ))
+
+    class Meta:
+        model = DITHelpModel
+        exclude = []
