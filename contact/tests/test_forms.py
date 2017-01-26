@@ -8,7 +8,7 @@ from django.conf import settings
 
 from . import initial_data, response201
 from ..forms import FeedbackForm
-from ..views import FeedbackView
+from ..models import FeedbackModel
 
 
 class FeedbackFormTests(TestCase):
@@ -61,3 +61,27 @@ class FeedbackFormTests(TestCase):
         self.assertEquals(len(ticket['custom_fields']), 1)
         self.assertEquals(ticket['custom_fields'][0]['id'], 31281329)
         self.assertEquals(ticket['custom_fields'][0]['value'], initial_data['service'])
+
+    @override_settings(ZENDESK_RESP_CODE=201, DEBUG=True)
+    def test_form_model_creation(self):
+        # Make sure there is no feedback data stored
+        self.assertEquals(FeedbackModel.objects.count(), 0)
+
+        # Setup the form with initial data
+        form = FeedbackForm(initial_data, initial=initial_data)
+        form.is_valid()
+
+        # Post it to the generic view
+        url = reverse('contact:generic_submit', kwargs={'service': 'test', 'form_name': 'FeedbackForm'})
+        response = self.client.post(url, form.cleaned_data)
+
+        # We shoudl now have feedback data
+        feedback = FeedbackModel.objects.all()
+        self.assertEquals(len(feedback), 1)
+
+        fb = feedback[0]
+        self.assertEquals(fb.contact_name, initial_data['contact_name'])
+        self.assertEquals(fb.contact_email, initial_data['contact_email'])
+        self.assertEquals(fb.service, initial_data['service'])
+        self.assertEquals(fb.originating_page, initial_data['originating_page'])
+        self.assertEquals(fb.content, initial_data['content'])
