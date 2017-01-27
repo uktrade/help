@@ -1,0 +1,36 @@
+{
+  "name": "help",
+  "scripts": {},
+  "env": {
+    "CAPTCHA_SITE_KEY": {
+      "required": true
+    },
+    "DJANGO_SETTINGS_MODULE": {
+      "required": true
+    },
+    "SECRET_KEY": {
+      "required": true
+    },
+    "USE_CAPTCHA": {
+      "required": true
+    },
+    "ZENDESK_TOKEN": {
+      "required": true
+    },
+    "ZENDESK_URL": {
+      "required": true
+    },
+    "ZENDESK_USER": {
+      "required": true
+    }
+  },
+  "formation": {},
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
