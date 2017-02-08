@@ -1,15 +1,15 @@
 var validation = function ($) {
 
-    var form = $('[data-form-validate]');
+    var form = $('[data-form-validate]'),
         elements = [];
 
     form.on('submit', submitForm);
 
     function submitForm(event) {
-      if(!validation.validateFields()) {
-          event.preventDefault();
-          return;
-      }
+        if(!validation.validateFields()) {
+            event.preventDefault();
+            return;
+        }
     }
 
 
@@ -34,19 +34,19 @@ var validation = function ($) {
                 case 'company-number':
                     if(isEmpty(fields[i]) && notCheck($('fieldset:visible *[data-validate="soletrader"]'), 'soletrader') ) {
                         displayErrorMessage(fields[i], validationMessages.messages.company.number);
-                       valid = false;
+                        valid = false;
                     }
                     break;
                 case 'postcode':
                     if(isEmpty(fields[i])) {
                         displayErrorMessage(fields[i], validationMessages.messages.company.postcode);
-                       valid = false;
+                        valid = false;
                     }
                     break;
                 case 'url':
                     if(isEmpty(fields[i])) {
                         displayErrorMessage(fields[i], validationMessages.messages.company.website);
-                       valid = false;
+                        valid = false;
                     }
                     break;
                 case 'sku':

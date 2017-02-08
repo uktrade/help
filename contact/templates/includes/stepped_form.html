@@ -17,6 +17,7 @@
     {% for step in form.steps %}
       {% include "includes/step.html" %}
     {% endfor %}
+    <button class="button button-blue button-medium button-submit push--bottom">{{ form.submit_text }}</button>
 
   </form>
 </div>

@@ -29,6 +29,7 @@
       <link href="{% static "stylesheets/main.css" %}" rel="stylesheet" media="screen">
     {% endblock head_css %}
   </head>
+
   <body class='{% block body_class %}{% endblock %}'>
     {% block google_tag_manager_noscript %}
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T96KS9"
@@ -171,6 +172,9 @@
       <script src="{% static "javascript/form_intro.js" %}"></script>
       <script src="{% static "javascript/form_steps.js" %}"></script>
       <script src="{% static "javascript/option.js" %}"></script>
+      <script src="{% static "javascript/search.js" %}"></script>
+      <script src="{% static "javascript/company_search.js" %}"></script>
+      <script src="{% static "javascript/loader.js" %}"></script>
     {% endblock footer_javascript %}
     {% block extra_js %}{% endblock %}
   </body>

@@ -18,6 +18,25 @@ class TriageForm(DITHelpForm):
     subtitle = "Application via Department for International Trade"
     submit_text = "Apply to join"
 
+    company = fields.CompanyField(required=True, help_text=help_text.COMPANY_NAME,
+                                  company_name_label=label.COMPANY_NAME, company_number_label=label.COMPANY_NUMBER,
+                                  soletrader_label=label.TRIAGE_UNREGISTERED_COMPANY,
+                                  postcode_label=label.TRIAGE_POSTCODE,
+                                  company_name_attrs={
+                                      'data-validate': 'company',
+                                      'autocomplete': 'off',
+                                      'data-action': 'get-companies'},
+                                  soletrader_attrs={'data-validate': 'soletrader'},
+                                  company_number_attrs={
+                                      'class': 'form-control--medium',
+                                      'data-validate': 'company-number'
+                                  },
+                                  postcode_attrs={
+                                      'class': 'form-control--medium',
+                                      'data-validate': 'postcode',
+                                      'placeholder': placeholder.POSTCODE
+                                  })
+
     contact_name = fields.CharField(required=True, label=label.CONTACT_NAME, attrs={'data-validate': 'name'})
     contact_email = fields.EmailField(required=True, label=label.CONTACT_EMAIL, attrs={'data-validate': 'email'})
     email_pref = fields.BooleanField(required=False, label=label.EMAIL_PREFERENCE)
@@ -63,7 +82,7 @@ class TriageForm(DITHelpForm):
     fieldsets = (
         ('Your business', {
             'fields': (
-                ('company_name', 'company_number', 'soletrader', 'company_postcode'),
+                'company',
                 'website_address',
             ),
         }),

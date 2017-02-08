@@ -1,4 +1,5 @@
 from django.forms import fields
+from django.forms import widgets
 
 
 class FieldAttrsMixin():
@@ -11,9 +12,7 @@ class FieldAttrsMixin():
         my_field = CharField(attrs={'property': 'value'})
     """
 
-    def __init__(self, *pargs, **kwargs):
-        attrs = kwargs.pop('attrs', None)
-        prefix = kwargs.pop('prefix', None)
+    def __init__(self, attrs=None, prefix=None, *pargs, **kwargs):
 
         super().__init__(*pargs, **kwargs)
 
@@ -31,3 +30,43 @@ for field_name in fields.__all__:
         # Add to the global scope of this module, a newly created Field class, that inherits from the original field,
         # has the same name as the original field, but that also inherits from our mixin
         globals()[field_name] = type(field_name, (FieldAttrsMixin, field), {})
+
+
+class CompanyInput(widgets.HiddenInput):
+    pass
+
+
+class CompanyField(CharField):
+    widget = CompanyInput
+    company_name_widget = widgets.TextInput
+    company_number_widget = widgets.TextInput
+    soletrader_widget = widgets.CheckboxInput
+    postcode_widget = widgets.TextInput
+
+    def __init__(self, company_name_label, company_number_label, soletrader_label, postcode_label,
+                 company_name_attrs=None, company_number_attrs=None, soletrader_attrs=None, postcode_attrs=None,
+                 *pargs, **kwargs):
+
+        super().__init__(*pargs, **kwargs)
+
+        self.company_name_widget = self.company_name_widget()
+        self.company_number_widget = self.company_number_widget()
+        self.soletrader_widget = self.soletrader_widget()
+        self.postcode_widget = self.postcode_widget()
+
+        self.company_name_label = company_name_label
+        self.company_number_label = company_number_label
+        self.soletrader_label = soletrader_label
+        self.postcode_label = postcode_label
+
+        if company_name_attrs is not None:
+            self.company_name_widget.attrs.update(company_name_attrs)
+
+        if company_number_attrs is not None:
+            self.company_number_widget.attrs.update(company_number_attrs)
+
+        if soletrader_attrs is not None:
+            self.soletrader_widget.attrs.update(soletrader_attrs)
+
+        if postcode_attrs is not None:
+            self.postcode_widget.attrs.update(postcode_attrs)
