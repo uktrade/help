@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
+{% if success_data.success %}
+  {% block body_class %}form-success-body{% endblock %}
+{% endif %}
+
 {% block content %}
   {% if success_data.success %}
     {% block success %}
-      {% block body_class %}form-success-body{% endblock %}
       <div class="section">
         <div class="grid-row soft--ends push--ends">
           <div class="column-five-eights soft--bottom heading-headline">
