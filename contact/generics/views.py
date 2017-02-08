@@ -30,7 +30,13 @@ class DITHelpView(FormView):
         """
         # Get the originating page, and submit the ticket
         originating_page = form.cleaned_data.get('originating_page')
-        resp_code = form.raise_zendesk_ticket()
+
+        if not settings.DEBUG:
+            resp_code = form.raise_zendesk_ticket()
+        else:
+            # If debug mode, don't raise a ticket, get the desired response code from the settings
+            # Default to 201 if not specified
+            resp_code = getattr(settings, 'ZENDESK_RESP_CODE', 201)
 
         # Story the above data in the session for (potential) use in the resulting view
         self.request.session['success_data'] = {

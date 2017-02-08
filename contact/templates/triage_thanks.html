@@ -1,14 +1,27 @@
 {% extends "default_thanks.html" %}
 
-{% block success %}
-  <h1 class='heading-xlarge push--bottom flush--top'>Enquiry submitted</h1>
-  <p>Thanks for your enquiry about getting help accessing this marketplace. A member of staff at the Department for International Trade will review your request and respond to you within 5 working days.</p>
-  <p>You can now <a href="https://selling-online-overseas.export.great.gov.uk/markets/filter">search for more online marketplaces</a> or <a href="https://www.great.gov.uk/export">read about your next steps in exporting</a>.</p>
-{% endblock %}
+{% block title %}Marketplace application{% endblock title %}
 
-{% block failure %}
-  <h1 class='heading-xlarge push--bottom flush--top'>Technical error</h1>
-  <p>Your enquiry couldn't be submitted because of a technical error with our system. Please use your browser's "back" button to review the form and try to resubmit.</p>
-  <p>If this problem continues to happen, please try again later.</p>
-  <div style='display:none' id='failure_code'>{{ success_data.code }}</div>
+{% block head_meta_description %}Marketplace application{% endblock head_meta_description %}
+
+{% block success %}
+  <div class="form-success background--aqua">
+    <div class="section">
+      <div class="grid-row text--center font-white soft--top">
+        <div class="column-one-whole soft--ends">
+          <span class="form-success-icon"><img src="/static/images/submitted.svg" alt="application sent"></span>
+          <h1 class="heading-large push-half--bottom soft--top form-success-header">Your application has been sent.</h1>
+          <p class="heading-small font-med">What happens next?</p>
+        </div>
+        <div class="cf soft--top">
+          <div class="column-one-third form-success-section"><span>1</span><p>A member of staff from the Department for International Trade will review your application.</p></div>
+          <div class="column-one-third form-success-section"><span>2</span><p>We will respond to you within 5 working days.</p></div>
+          <div class="column-one-third form-success-section"><span>3</span><p>Suitable applications will be passed to the marketplace for review.</p></div>
+        </div>
+        <div class="column-one-whole soft--ends push--top">
+          <a href="{{ originating_page }}" class="">&lt; Go back to marketplace</a>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

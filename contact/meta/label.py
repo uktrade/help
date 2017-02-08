@@ -1,0 +1,15 @@
+CONTACT_NAME = "Contact name"
+CONTACT_EMAIL = "Email address"
+CONTACT_PHONE = "Telephone number"
+COMPANY_NUMBER = "Company number"
+COMPANY_WEBSITE = "Company website"
+EMAIL_PREFERENCE = "I prefer to be contacted by email"
+
+TRIAGE_POSTCODE = "Business postcode"
+TRIAGE_SALES = "Turnover last year"
+TRIAGE_SKU_NUMBER = "How many stock keeping units (SKUs) do you have?"
+TRIAGE_TRADEMARKED = "Are your products trademarked in your target countries?"
+
+TRIAGE_EXPERIENCE = "Have you sold products online to customers outside the UK?"
+TRIAGE_DESCRIPTION = "Pitch your business to this marketplace"
+TRIAGE_UNREGISTERED_COMPANY = "I don't have a company number"

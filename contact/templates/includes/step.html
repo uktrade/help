@@ -1,0 +1,37 @@
+{% load utils %}
+
+<div class="form-tab-section">
+  <fieldset>
+    {% for field_group in step.fields %}
+      <div class="form-section cf {% if not forloop.last %}form-section--border {% endif %}">
+        {% if forloop.first %}
+          <legend class="form-steps-header font-med soft--bottom">{{ step.title }}</legend>
+        {% endif %}
+        {% for field in field_group %}
+          {% get_form_field_template field as template %}
+          {% include template %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </fieldset>
+
+  <div class="column-one-whole form-tab-button">
+    {% if not forloop.first %}
+      {% with previous_step=form.steps|previous:forloop.counter0 %}
+        <a href="#{{ previous_step.slug }}" class="link form-tab-back" data-action="back">< Back to previous step</a>
+      {% endwith %}
+    {% endif %}
+    {% if not forloop.last %}
+      {% with next_step=form.steps|next:forloop.counter0 %}
+        <a href="#{{ next_step.slug }}" class="button button-blue button-medium" data-action="next">Continue to next step</a>
+      {% endwith %}
+    {% else %}
+      <button class="button button-blue button-medium">{{ form.submit_text }}</button>
+      {% if use_captcha %}
+        <div class="form-group">
+          <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}"></div>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>

@@ -1,16 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="{% block container_class %} column-five-eights {% endblock %}">
-    <h1 class='heading-xlarge push--bottom flush--top'>{% block title %}{{ form.title }}{% endblock %}</h1>
-    {% block subtitle %}
-     {% if form.subtitle %}
-       <h2 class="heading-sub heading-sub-no--border soft--bottom">{{ form.subtitle }}</h2>
-     {% endif %}
-    {% endblock %}
-    {% block form %}
-      {% include "includes/form.html" %}
-    {% endblock %}
-  </div>
+
+  {% block heading %}
+    {% include "includes/heading.html" %}
+  {% endblock %}
+
+  {% block before_form %}{% endblock %}
+
+  {% block form %}
+    {% if form.steps %}
+      {% include "includes/stepped_form.html" %}
+    {% else %}
+      <div class="section">
+        <div class="grid-row">
+            {% include "includes/form.html" %}
+        </div>
+      </div>
+    {% endif %}
+  {% endblock %}
+
   {% block after_form %}{% endblock %}
+
 {% endblock %}

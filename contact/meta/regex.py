@@ -1,0 +1,2 @@
+UK_POSTCODE = r'([A-Z]{1,2}[0-9][A-Z0-9]?) [0-9][ABD-HJLNP-UW-Z]{2}'
+COMPANY_NUMBER = r'[0-9]{8}'

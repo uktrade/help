@@ -12,7 +12,13 @@ TRIAGE_COMPANY_TYPES = (
 
 TRIAGE_SALES_THRESHOLDS = (
     ('Under 100k', 'Under £100,000'),
-    ('100k-500k', '£100,001 to £500,000'),
+    ('100k-500k', '£100,000 to £500,000'),
     ('500k-2m', '£500,001 and £2million'),
     ('2m+', 'More than £2million'),
+)
+
+TRIAGE_EXPERIENCE = (
+    ('Not yet', 'Not yet'),
+    ('Yes, sometimes', 'Yes, sometimes'),
+    ('Yes, regularly', 'Yes, regularly'),
 )

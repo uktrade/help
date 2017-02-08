@@ -1,24 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="section">
-  <div class="grid-row soft--bottom push--bottom">
-    <div class="column-five-eights soft--bottom heading-headline">
-      {% if success_data.success %}
-        {% block success %}
-          <h1 class='heading-xlarge push--bottom flush--top'>Enquiry submitted</h1>
-          <p>Thanks for your enquiry. A member of staff at the Department for International Trade will review your enquiry.</p>
-          <p><a href="https://export.great.gov.uk/use-social-media-and-commerce-to-export/">Find out more about selling online overseas</a> or <a href="https://www.great.gov.uk/export">read more about your next steps in exporting</a>.</p>
-        {% endblock %}
-      {% else %}
-        {% block failure %}
-          <h1 class='heading-xlarge push--bottom flush--top'>Technical error</h1>
-          <p>Your enquiry couldn't be submitted because of a technical error with our feedback system. Please use your browser's "back" button to review the form and try to resubmit.</p>
-          <p>If this problem continues to happen, please try again later.</p>
-          <div style='display:none' id='failure_code'>{% block hidden_failure %}{{ success_data.code }}{% endblock %}</div>
-        {% endblock %}
-      {% endif %}
-    </div>
-  </div>
-</div>
+  {% if success_data.success %}
+    {% block success %}
+      {% block body_class %}form-success-body{% endblock %}
+      <div class="section">
+        <div class="grid-row soft--ends push--ends">
+          <div class="column-five-eights soft--bottom heading-headline">
+            <h1 class='heading-xlarge push--bottom flush--top'>Enquiry submitted</h1>
+            <p>Thanks for your enquiry. A member of staff at the Department for International Trade will review your enquiry.</p>
+            <p><a href="https://export.great.gov.uk/use-social-media-and-commerce-to-export/">Find out more about selling online overseas</a> or <a href="https://www.great.gov.uk/export">read more about your next steps in exporting</a>.</p>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+  {% else %}
+    {% block failure %}
+      <div class="section">
+        <div class="grid-row soft--ends push--ends">
+          <div class="column-five-eights soft--bottom heading-headline">
+            <h1 class='heading-xlarge push--bottom flush--top'>Technical error</h1>
+            <p>Your enquiry couldn't be submitted because of a technical error with our feedback system. Please use your browser's "back" button to review the form and try to resubmit.</p>
+            <p>If this problem continues to happen, please try again later.</p>
+            <div style='display:none' id='failure_code'>{% block hidden_failure %}{{ success_data.code }}{% endblock %}</div>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+  {% endif %}
 {% endblock %}
