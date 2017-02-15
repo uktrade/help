@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView
 
+from thumber.views import ContentFeedbackMixin
+
 from .generics.views import DITHelpView, DITThanksView
 from .forms import FeedbackForm, TriageForm
 
@@ -48,7 +50,7 @@ class TriageView(DITHelpView):
         return None
 
 
-class TriageThanksView(DITThanksView):
+class TriageThanksView(ContentFeedbackMixin, DITThanksView):
     """
     Thanks page for the TriageView, just use the specific template, no other specific behaviour.
     """
