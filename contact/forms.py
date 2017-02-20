@@ -10,7 +10,7 @@ class FeedbackForm(DITHelpForm):
     subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
                 can improve it"
 
-    content = forms.CharField(label="Feedback", required=True, widget=forms.Textarea)
+    content = fields.CharField(label="Feedback", required=True, widget=forms.Textarea)
 
 
 class TriageForm(DITHelpForm):
@@ -44,7 +44,8 @@ class TriageForm(DITHelpForm):
     experience = fields.ChoiceField(required=True, label=label.TRIAGE_EXPERIENCE, choices=choices.TRIAGE_EXPERIENCE,
                                     widget=forms.RadioSelect(), attrs={'data-validate': 'export'})
     description = fields.CharField(required=True, widget=forms.Textarea, help_text=help_text.TRIAGE_DESCRIPTION,
-                                   label=label.TRIAGE_DESCRIPTION, attrs={'data-validate': 'description'})
+                                   label=label.TRIAGE_DESCRIPTION,
+                                   attrs={'data-validate': 'description', 'class': 'form-textarea--wide'})
     contact_phone = fields.IntegerField(required=True, label=label.CONTACT_PHONE, prefix='+44',
                                         attrs={'data-validate': 'contact-number'})
     sku_count = fields.IntegerField(required=True, label=label.TRIAGE_SKU_NUMBER,

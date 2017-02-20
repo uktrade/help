@@ -6,19 +6,17 @@
   {% include "includes/step_tabs.html" %}
 {% endwith %}
 
-<div class='section'>
-  <div class="grid-row">
-    <form role="form" action="" method="post" class="form-steps" novalidate>
-      {% csrf_token %}
+<div class='outer-container'>
+  <form role="form" action="" method="post" class="form-steps" novalidate>
+    {% csrf_token %}
 
-      {% for field in form.hidden_fields %}
-        {% include "includes/inputs/hiddenfield.html" %}
-      {% endfor %}
+    {% for field in form.hidden_fields %}
+      {% include "includes/inputs/hiddenfield.html" %}
+    {% endfor %}
 
-      {% for step in form.steps %}
-        {% include "includes/step.html" %}
-      {% endfor %}
+    {% for step in form.steps %}
+      {% include "includes/step.html" %}
+    {% endfor %}
 
-    </form>
-  </div>
+  </form>
 </div>

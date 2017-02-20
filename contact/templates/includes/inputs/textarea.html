@@ -1,17 +1,20 @@
-<div class="column-five-eights hard--left">
-  <div class="form-group{% if field.errors %} form-group-error{% endif %}">
-    <div class="soft-half--bottom">
-      <span class="form-group-error--message">{{ field.errors }}</span>
-      <label class="form-label flush--bottom" for="{{ field.id_for_label }}">{{ field.label }}</label>
-      <textarea id="{{ field.id_for_label }}" name="{{ field.name }}"
-        class="form-control form-textarea column-three-quarters {{ field.field.widget.attrs.class }}"
-        {% if field.field.required %}required{% endif %}
-        {% for attr, value in field.field.widget.attrs.items %}
-          {{ attr }}="{{ value }}"
-        {% endfor %}>{% if field.value %}{{ field.value }}{% endif %}</textarea>
+<div>
+  <div class="col-7 hard--left">
+    <div class="form-group{% if field.errors %} form-group-error{% endif %}">
+      <div class="soft-half--bottom">
+        <span class="form-group-error--message">{{ field.errors }}</span>
+        <label class="form-label flush--bottom" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <textarea id="{{ field.id_for_label }}" name="{{ field.name }}"
+          class="form-control form-textarea {{ field.field.widget.attrs.class }}"
+          {% if field.field.required %}required{% endif %}
+          {% for attr, value in field.field.widget.attrs.items %}
+            {{ attr }}="{{ value }}"
+          {% endfor %}>{% if field.value %}{{ field.value }}{% endif %}</textarea>
+      </div>
     </div>
   </div>
-</div>
-<div class="column-three-eights form-group-help hard--left">
-  {{ field.help_text | safe }}
+  <div class="col-4 form-group-help hard--left">
+    {{ field.help_text | safe }}
+  </div>
+  <div class="col-1">&nbsp;</div>
 </div>

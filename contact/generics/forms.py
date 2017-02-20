@@ -30,7 +30,7 @@ class DITHelpForm(forms.Form, metaclass=DITHelpFormMetaclass):
     Due to the way that Django forms use metaclasses to configure the class, this cannot be an abstract base class.
     """
 
-    submit_text = "Submit"
+    submit_text = "Send feedback"
     contact_name = forms.CharField(required=True, label="Name")
     contact_email = forms.EmailField(required=True, label="Email")
     originating_page = forms.CharField(required=False, widget=forms.HiddenInput())
