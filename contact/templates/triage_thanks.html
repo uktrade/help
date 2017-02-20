@@ -6,19 +6,19 @@
 
 {% block success %}
   <div class="form-success background--aqua">
-    <div class="section">
-      <div class="grid-row text--center font-white soft--top">
-        <div class="column-one-whole soft--ends">
+    <div class="outer-container">
+      <div class="text--center font-white soft--top">
+        <div class="col-12 soft--ends">
           <span class="form-success-icon"><img src="/static/images/submitted.svg" alt="application sent"></span>
           <h1 class="heading-large push-half--bottom soft--top form-success-header">Your application has been sent.</h1>
           <p class="heading-small font-med">What happens next?</p>
         </div>
         <div class="cf soft--top">
-          <div class="column-one-third form-success-section"><span>1</span><p>A member of staff from the Department for International Trade will review your application.</p></div>
-          <div class="column-one-third form-success-section"><span>2</span><p>We will respond to you within 5 working days.</p></div>
-          <div class="column-one-third form-success-section"><span>3</span><p>Suitable applications will be passed to the marketplace for review.</p></div>
+          <div class="col-4 form-success-section"><span>1</span><p>A member of staff from the Department for International Trade will review your application.</p></div>
+          <div class="col-4 form-success-section"><span>2</span><p>We will respond to you within 5 working days.</p></div>
+          <div class="col-4 form-success-section"><span>3</span><p>Suitable applications will be passed to the marketplace for review.</p></div>
         </div>
-        <div class="column-one-whole soft--ends push--top">
+        <div class="col-12 soft--ends push--top">
           <a href="{{ originating_page }}" class="">&lt; Go back to marketplace</a>
         </div>
         {% block feedback %}{% endblock %}

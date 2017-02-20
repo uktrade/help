@@ -21,7 +21,10 @@ var validationMessages = (function () {
         'contact' :{
             'name': 'Enter the name of the person we should talk to',
             'email': 'Provide a valid email address',
-            'phone': 'Enter a valid phone number'
+            'phone': 'Enter a valid phone number containing only numbers and without spaces'
+        },
+        'feedback': {
+            'feedback': 'Write a few words with your feedback'
         }
     };
 

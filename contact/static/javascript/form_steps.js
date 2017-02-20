@@ -78,6 +78,15 @@ var formSteps = function ($) {
     }
 
     function submitForm(event) {
+
+      var action = $(document.activeElement).data('action')
+
+        if(action === 'get-companies') {
+          company_search.getCompanies($('#id_company_company_name').val());
+          event.preventDefault();
+          return;
+        }
+
         if((!validation.validateFields()) || (activeTab !== ($('.form-tab li a').length-1))) {
             event.preventDefault();
             return;

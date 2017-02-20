@@ -1,10 +1,21 @@
 var validation = function ($) {
 
-    var elements = [];
+    var form = $('[data-form-validate]'),
+        elements = [];
+
+    form.on('submit', submitForm);
+
+    function submitForm(event) {
+        if(!validation.validateFields()) {
+            event.preventDefault();
+            return;
+        }
+    }
+
 
     function validateFields() {
         var valid = true,
-            fields  = $('.form-tab-section.show *[data-validate]');
+            fields  = $('fieldset:visible *[data-validate]');
 
         if($('.form-group').hasClass('form-group-error')) {
             clearErrorMessage();
@@ -21,21 +32,21 @@ var validation = function ($) {
                     }
                     break;
                 case 'company-number':
-                    if(isEmpty(fields[i]) && notCheck($('.form-tab-section.show *[data-validate="soletrader"]'), 'soletrader') ) {
+                    if(isEmpty(fields[i]) && notCheck($('fieldset:visible *[data-validate="soletrader"]'), 'soletrader') ) {
                         displayErrorMessage(fields[i], validationMessages.messages.company.number);
-                       valid = false;
+                        valid = false;
                     }
                     break;
                 case 'postcode':
                     if(isEmpty(fields[i])) {
                         displayErrorMessage(fields[i], validationMessages.messages.company.postcode);
-                       valid = false;
+                        valid = false;
                     }
                     break;
                 case 'url':
                     if(isEmpty(fields[i])) {
                         displayErrorMessage(fields[i], validationMessages.messages.company.website);
-                       valid = false;
+                        valid = false;
                     }
                     break;
                 case 'sku':
@@ -86,6 +97,12 @@ var validation = function ($) {
                         valid = false;
                     }
                     break;
+                case 'feedback':
+                    if(isEmpty(fields[i])) {
+                        displayErrorMessage(fields[i], validationMessages.messages.feedback.feedback);
+                        valid = false;
+                    }
+                    break;
                 default:
             }
         }
@@ -99,7 +116,7 @@ var validation = function ($) {
 
     function notCheck(field, validation) {
         var checked = true,
-            fields = $('.form-tab-section.show *[data-validate='+validation+']');
+            fields = $('fieldset:visible *[data-validate='+validation+']');
 
         elements.push(field);
 
