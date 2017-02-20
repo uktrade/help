@@ -1,7 +1,7 @@
 from django import forms
 
 from .generics.forms import DITHelpForm
-from .meta import choices, label, help_text, regex, placeholder
+from .meta import choices, label, help_text, regex, placeholder, validation
 from . import fields
 
 
@@ -10,7 +10,8 @@ class FeedbackForm(DITHelpForm):
     subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
                 can improve it"
 
-    content = forms.CharField(label="Feedback", required=True, widget=forms.Textarea)
+    content = fields.CharField(label="Feedback", required=True, widget=forms.Textarea,
+                               attrs={'data-message': validation.FEEDBACK, 'data-validate': 'feedback'})
 
 
 class TriageForm(DITHelpForm):
@@ -18,51 +19,119 @@ class TriageForm(DITHelpForm):
     subtitle = "Application via Department for International Trade"
     submit_text = "Apply to join"
 
-    contact_name = fields.CharField(required=True, label=label.CONTACT_NAME, attrs={'data-validate': 'name'})
-    contact_email = fields.EmailField(required=True, label=label.CONTACT_EMAIL, attrs={'data-validate': 'email'})
-    email_pref = fields.BooleanField(required=False, label=label.EMAIL_PREFERENCE)
-    company_name = fields.CharField(required=True, attrs={'data-validate': 'company'},
-                                    help_text=help_text.COMPANY_NAME)
-    soletrader = fields.BooleanField(required=False, label=label.TRIAGE_UNREGISTERED_COMPANY,
+    company_name = fields.CharField(required=True,
+                                    label=label.COMPANY_NAME,
+                                    help_text=help_text.COMPANY_NAME,
+                                    error_messages=validation.TRIAGE_COMPANY_NAME,
+                                    attrs={
+                                        'data-validate': 'company',
+                                        'data-action': 'get-companies',
+                                        'data-message': validation.TRIAGE_COMPANY_NAME['required'],
+                                        'autocomplete': 'off',
+                                        'class': 'form-dropdown-input'
+                                    })
+    search_button = fields.ButtonField(label="Search Companies House",
+                                       attrs={
+                                         'class': 'button button-border-blue button-medium push--ends search-companies',
+                                         'data-action': 'get-companies'
+                                       })
+    soletrader = fields.BooleanField(required=False,
+                                     label=label.TRIAGE_UNREGISTERED_COMPANY,
                                      attrs={'data-validate': 'soletrader'})
-    company_number = fields.CharField(required=False, label=label.COMPANY_NUMBER, help_text=help_text.COMPANY_NUMBER,
-                                      attrs={'class': 'form-control--medium', 'data-validate': 'company-number'})
-    company_postcode = fields.CharField(required=True, label=label.TRIAGE_POSTCODE,
+    company_number = fields.CharField(required=False,
+                                      label=label.COMPANY_NUMBER,
+                                      attrs={
+                                          'class': 'form-control--medium',
+                                          'data-validate': 'company-number',
+                                          'data-message': validation.TRIAGE_COMPANY_NUMBER['required']
+                                      })
+    company_postcode = fields.CharField(required=True,
+                                        label=label.TRIAGE_POSTCODE,
                                         attrs={
                                             'class': 'form-control--medium',
                                             'data-validate': 'postcode',
-                                            'placeholder': placeholder.POSTCODE
+                                            'placeholder': placeholder.POSTCODE,
+                                            'data-message': validation.TRIAGE_COMPANY_POSTCODE['required']
                                         })
+
+    email_pref = fields.BooleanField(required=False, label=label.EMAIL_PREFERENCE)
+    contact_name = fields.CharField(required=True, label=label.CONTACT_NAME,
+                                    error_messages=validation.TRIAGE_CONTACT_NAME,
+                                    attrs={
+                                        'data-validate': 'name',
+                                        'data-message': validation.TRIAGE_CONTACT_NAME['required']
+                                    })
+    contact_email = fields.EmailField(required=True, label=label.CONTACT_EMAIL,
+                                      error_messages=validation.TRIAGE_CONTACT_EMAIL,
+                                      attrs={
+                                          'data-validate': 'email',
+                                          'data-message': validation.TRIAGE_CONTACT_EMAIL['required']
+                                      })
     website_address = fields.URLField(required=True, label=label.COMPANY_WEBSITE, help_text=help_text.COMPANY_WEBSITE,
-                                      attrs={'placeholder': placeholder.URL, 'data-validate': 'url'})
+                                      error_messages=validation.TRIAGE_COMPANY_WEBSITE,
+                                      attrs={
+                                          'placeholder': placeholder.URL,
+                                          'data-validate': 'url',
+                                          'data-message': validation.TRIAGE_COMPANY_WEBSITE['required']
+                                      })
     turnover = fields.ChoiceField(required=True, label=label.TRIAGE_SALES, choices=choices.TRIAGE_SALES_THRESHOLDS,
-                                  widget=forms.RadioSelect(), attrs={'data-validate': 'turnover'},
+                                  widget=forms.RadioSelect(),
+                                  error_messages=validation.TRIAGE_BUSINESS_TURNOVER,
+                                  attrs={
+                                      'data-validate': 'turnover',
+                                      'data-message': validation.TRIAGE_BUSINESS_TURNOVER['required']
+                                  },
                                   help_text=help_text.TRIAGE_TURNOVER)
     trademarked = fields.ChoiceField(required=True, label=label.TRIAGE_TRADEMARKED, choices=choices.BOOLEAN_YES_NO,
-                                     widget=forms.RadioSelect(), attrs={'data-validate': 'trademark'},
+                                     widget=forms.RadioSelect(),
+                                     error_messages=validation.TRIAGE_BUSINESS_TRADEMARK,
+                                     attrs={
+                                         'data-validate': 'trademark',
+                                         'data-message': validation.TRIAGE_BUSINESS_TRADEMARK['required']
+                                     },
                                      help_text=help_text.TRIAGE_TRADEMARKED)
     experience = fields.ChoiceField(required=True, label=label.TRIAGE_EXPERIENCE, choices=choices.TRIAGE_EXPERIENCE,
-                                    widget=forms.RadioSelect(), attrs={'data-validate': 'export'})
+                                    widget=forms.RadioSelect(),
+                                    error_messages=validation.TRIAGE_EXPERIENCE_EXPORT,
+                                    attrs={
+                                        'data-validate': 'export',
+                                        'data-message': validation.TRIAGE_EXPERIENCE_EXPORT['required']
+                                    })
     description = fields.CharField(required=True, widget=forms.Textarea, help_text=help_text.TRIAGE_DESCRIPTION,
-                                   label=label.TRIAGE_DESCRIPTION, attrs={'data-validate': 'description'})
+                                   label=label.TRIAGE_DESCRIPTION,
+                                   error_messages=validation.TRIAGE_EXPERIENCE_INTRODUCTION,
+                                   attrs={
+                                       'data-validate': 'description',
+                                       'class': 'form-textarea--wide',
+                                       'data-message': validation.TRIAGE_EXPERIENCE_INTRODUCTION['required']
+                                   })
     contact_phone = fields.IntegerField(required=True, label=label.CONTACT_PHONE, prefix='+44',
-                                        attrs={'data-validate': 'contact-number'})
+                                        error_messages=validation.TRIAGE_CONTACT_PHONE,
+                                        attrs={
+                                          'data-validate': 'contact-number',
+                                          'data-message': validation.TRIAGE_CONTACT_PHONE['required']
+                                        })
     sku_count = fields.IntegerField(required=True, label=label.TRIAGE_SKU_NUMBER,
                                     help_text=help_text.TRIAGE_SKU_NUMBER,
+                                    error_messages=validation.TRIAGE_BUSINESS_SKU,
                                     attrs={
                                         'class': 'form-control--medium',
                                         'placeholder': placeholder.SKU,
-                                        'data-validate': 'sku'
+                                        'data-validate': 'sku',
+                                        'data-message': validation.TRIAGE_BUSINESS_SKU['required']
                                     })
+    validate = forms.CharField(required=True, widget=forms.HiddenInput(), initial='on')
 
     def is_valid(self):
-        super().is_valid()
-        return True
+        valid = super().is_valid()
+        if self.cleaned_data['validate'] == 'off':
+            return True
+        return valid
 
     fieldsets = (
         ('Your business', {
             'fields': (
-                ('company_name', 'company_number', 'soletrader', 'company_postcode'),
+                ('company_name', 'search_button', 'soletrader', 'company_number', 'company_postcode'),
                 'website_address',
             ),
         }),

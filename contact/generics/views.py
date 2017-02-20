@@ -7,6 +7,9 @@ from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse_lazy, resolve
 
 
+DIRECT_REQUEST = "Direct request"
+
+
 class DITHelpView(FormView):
     """
     A base FormView that works with a subclass of the DITHelpForm.  It handles setting the initial data for the form,
@@ -41,6 +44,7 @@ class DITHelpView(FormView):
         # Story the above data in the session for (potential) use in the resulting view
         self.request.session['success_data'] = {
             'originating_page': originating_page,
+            'valid_url': originating_page != DIRECT_REQUEST,
             'success': resp_code == 201,
             'code': resp_code
         }
@@ -103,13 +107,13 @@ class DITHelpView(FormView):
 
                 # If the value in the session was none, get it from the REFERER instead
                 if originating_page is None:
-                    originating_page = "Unknown"
+                    originating_page = DIRECT_REQUEST
             else:
                 # The referer was from outside, so take it as the originating page
                 originating_page = http_referer
         else:
             # The referer was blank, so must have been a direct request
-            originating_page = "Direct request"
+            originating_page = DIRECT_REQUEST
 
         return originating_page
 
