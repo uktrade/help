@@ -9,6 +9,8 @@ var formSteps = function ($) {
         navigateButton.click(navigate);
         $('.form-tab').on('click', 'a.form-tab-link--completed', navigate);
         form.on('submit', submitForm);
+
+        initialiseForm();
     }
 
     function activeSection(index) {
@@ -31,6 +33,7 @@ var formSteps = function ($) {
             setCompletedTab(selectedTab);
         }
         $($('.form-tab li a')[selectedTab]).addClass('form-tab-link--active');
+        setTabIndex(selectedTab);
     }
 
     function setCompletedTab(selectedTab) {
@@ -78,19 +81,53 @@ var formSteps = function ($) {
     }
 
     function submitForm(event) {
+
+      var action = $(document.activeElement).data('action');
+
+        if(action === 'get-companies') {
+          company_search.getCompanies($('#id_company_company_name').val());
+          event.preventDefault();
+          return;
+        }
+
         if((!validation.validateFields()) || (activeTab !== ($('.form-tab li a').length-1))) {
             event.preventDefault();
             return;
         }
     }
 
+    function setTabIndex(selectedTab) {
+
+        $($('.form-tab li a')).attr('tabindex', '0');
+
+        for (var i = 0; i < ($('.form-tab li a').length); i++) {
+            if(i>=selectedTab) {
+                $($('.form-tab li a')[i]).attr('tabindex', '-1');
+            }
+        }
+    }
+
     function scrollTo(element) {
-        $("body").animate({ scrollTop: element.position().top }, 500);
+        $("body,html").animate({ scrollTop: element.position().top }, 500);
+    }
+
+    function initialiseForm() {
+        var errors = $('.form-group-error');
+        if (errors.length > 0) {
+            var firstErrorTab = $(errors[0]).parents('.form-tab-section');
+            activeTab = firstErrorTab.index('.form-tab-section');
+            if (activeTab !== 0) {
+                deActiveSection(0);
+                activeSection(activeTab);
+            }
+        }
     }
 
     return {
         init: init,
-        scrollTo: scrollTo
+        scrollTo: scrollTo,
+        activeSection: activeSection,
+        deActiveSection: deActiveSection
     };
 }(jQuery);
 

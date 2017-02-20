@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'contact.context_processors.hosts',
             ],
         },
     },
@@ -130,3 +131,13 @@ CAPTCHA_SITE_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
 CAPTCHA_SECRET_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
 
 RESTRICT_IPS = os.environ.get('RESTRICT_IPS', '').lower() == 'true' or os.environ.get('RESTRICT_IPS') == '1'
+
+COMPANIES_HOUSE_API_KEY = os.environ.get('COMPANIES_HOUSE_KEY')
+
+RATELIMIT_STATUS_CODE = 429  # For the brake module, unless specified (weirdly) uses 403
+
+# Hosts for various services, used in templates
+SOO_HOST = os.environ.get('SOO_HOST', 'https://selling-online-overseas.export.great.gov.uk/')
+HELP_HOST = os.environ.get('HELP_HOST', 'https://contact-us.export.great.gov.uk/')
+SSO_HOST = os.environ.get('SSO_HOST', 'https://sso.trade.great.gov.uk/')
+PROFILE_HOST = os.environ.get('PROFILE_HOST', 'https://profile.great.gov.uk/')

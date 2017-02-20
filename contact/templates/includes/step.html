@@ -9,13 +9,19 @@
         {% endif %}
         {% for field in field_group %}
           {% get_form_field_template field as template %}
-          {% include template %}
+          {% if template != None %}{% include template %}{% else %}{{ field }}{% endif %}
         {% endfor %}
       </div>
     {% endfor %}
   </fieldset>
 
-  <div class="column-one-whole form-tab-button">
+  {% if forloop.last and use_captcha %}
+      <div class="form-group">
+        <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}"></div>
+      </div>
+  {% endif %}
+
+  <div class="form-tab-button">
     {% if not forloop.first %}
       {% with previous_step=form.steps|previous:forloop.counter0 %}
         <a href="#{{ previous_step.slug }}" class="link form-tab-back" data-action="back">< Back to previous step</a>
@@ -27,11 +33,6 @@
       {% endwith %}
     {% else %}
       <button class="button button-blue button-medium">{{ form.submit_text }}</button>
-      {% if use_captcha %}
-        <div class="form-group">
-          <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}"></div>
-        </div>
-      {% endif %}
     {% endif %}
   </div>
 </div>

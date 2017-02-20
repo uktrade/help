@@ -1,4 +1,6 @@
-<div class="column-five-eights hard--left">
+{% extends "includes/inputs/base.html" %}
+
+{% block field %}
   <div class="form-group{% if field.errors %} form-group-error{% endif %}">
     <span class="form-group-error--message">{{ field.errors }}</span>
     <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -13,7 +15,4 @@
       {% endfor %}
     </select>
   </div>
-</div>
-<div class="column-three-eights form-group-help hard--left">
-  {{ field.help_text | safe }}
-</div>
+{% endblock %}

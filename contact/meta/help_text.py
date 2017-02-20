@@ -1,8 +1,5 @@
-COMPANY_NAME = "The legal name of your business, not the trading name"
-COMPANY_NUMBER = "The 8 digit identifier you received when registering your company at Companies House.\
-                  You can look up your number in the \
-                  <a href='https://beta.companieshouse.gov.uk/' class='link' target='_blank'>Companies House\
-                  database</a>."
+COMPANY_NAME = "Enter the legal name of your business (not the trading name) then use 'Search Companies\
+                House' and select your company from the list"
 COMPANY_WEBSITE = "Website address, where we can see your products and services online."
 
 TRIAGE_TURNOVER = "You may use 12 months rolling or last year's annual turnover"
@@ -18,5 +15,5 @@ TRIAGE_DESCRIPTION = "Your pitch is important and the information you provide ma
                           <li>Description of your business and your products</li>\
                           <li>Your customers</li>\
                           <li>How you market your products</li>\
-                          <li>Whether you have previous experience of selling on e-marketplaces</li>\
+                          <li>Whether you have previous experience of selling on online marketplaces</li>\
                       </ul>"
