@@ -1,0 +1,166 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{% block title %}DIT Help{% endblock title %}</title>
+    {% block google_tag_manager %}
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-T96KS9');</script>
+    {% endblock google_tag_manager %}
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+    {% block head_meta %}
+      <meta name="description" content="{% block head_meta_description %}DIT Help{% endblock head_meta_description %}">
+      {% block head_meta_charset %}
+        <meta charset="utf-8">
+      {% endblock head_meta_charset %}
+      {% block head_meta_viewport %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      {% endblock head_meta_viewport %}
+    {% endblock head_meta %}
+    {% block head_favicon %}
+      <link rel="icon" type="image/png" href="{% static "images/favicon.ico" %}">
+    {% endblock head_favicon %}
+    {% block head_css %}
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+      <link href="{% static "stylesheets/govuk-template.css" %}" rel="stylesheet" media="screen">
+      <link href="{% static "stylesheets/main.css" %}" rel="stylesheet" media="screen">
+      <link href="{% static "stylesheets/extra.css" %}" rel="stylesheet" media="screen">
+    {% endblock head_css %}
+  </head>
+  <body class='{% block body_class %}{% endblock %}'>
+    {% block google_tag_manager_noscript %}
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T96KS9"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {% endblock google_tag_manager_noscript %}
+    <header role="banner"  class="">
+        {% block header %}
+        <div class="nav-intro background--indigo font-white font-xxsmall">
+          <div class="section">
+            <div class="grid-row">
+              <div class="column-one-whole text--right soft-half--ends">
+                <h3 class="inline push--right">FOOBAR SPAM EGGS:</h3>
+                <ul class="nav-intro">
+                  <li class="soft--right"><a class="" href="https://www.exportingisgreat.gov.uk/opportunities" title="Export opportunities">Export opportunities</a></li>
+                  <li class="soft--right"><a class="" href="https://find-a-buyer.export.great.gov.uk/" title="Find a buyer">Find a buyer</a></li>
+                  <li class="soft--right"><a class="" href="https://selling-online-overseas.export.great.gov.uk/markets/" title="Selling online overseas">Selling online overseas</a></li>
+                  <li><a class="" href="https://events.trade.gov.uk/" title="Events">Events</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div id="global-header">
+            <div class="section">
+              <div class="grid-row">
+                <div class="column-one-third">
+                  <div class="header-global">
+                    <div class="header-logo">
+                      <a href="https://www.exportingisgreat.gov.uk" title="Go to the Exporting is great homepage">
+                        <img src="/static/images/EiG-logo-withHMG.svg" alt="Exporting is great logo" class="header-main-logo">
+                      </a>
+                    </div>
+                  </div>
+                  <a href="" class="header-nav-toggle" title="">menu<i class="icon icon-menu"></i></a>
+                </div>
+                <div class="column-two-thirds" id="global-header--right">
+                  <div class="header-nav">
+                    <div class="background--indigo soft-half--sides soft--ends header-nav--top">
+                      <nav>
+                        <h3 class="font-white">Our services:</h3>
+                        <ul class="">
+                          <li class="header-nav-link"><a class="font-reg" href="https://www.exportingisgreat.gov.uk/opportunities" title="Export opportunities">Export opportunities</a></li>
+                          <li class="header-nav-link"><a class="font-reg" href="http://find-a-buyer.export.great.gov.uk/" title="Find a buyer">Find a buyer</a></li>
+                          <li class="header-nav-link"><a class="font-reg" href="https://selling-online-overseas.export.great.gov.uk/markets/" title="Selling online overseas">Selling online overseas</a></li>
+                          <li class="header-nav-link"><a class="font-reg" href="https://events.trade.gov.uk/" title="Events">Events</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                    <div class="soft-half--left">
+                      <nav>
+                        <h3 class="font-white push--top desktop-only">Exporting is GREAT:</h3>
+                        <ul class="">
+                          <li class="header-nav-link"><a title="new to exporting" href="https://www.exportingisgreat.gov.uk/new/">NEW TO EXPORTING</a></li>
+                          <li class="header-nav-link"><a title="occasional exporter" href="https://www.exportingisgreat.gov.uk/occasional/">OCCASIONAL EXPORTER</a></li>
+                          <li class="header-nav-link"><a title="regular exporter" href="https://www.exportingisgreat.gov.uk/regular/">REGULAR EXPORTER</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endblock header %}
+    </header>
+
+    <main role="main">
+      <div class="main">
+        <div class="section push--top soft--top">
+          <div class="grid-row">
+            {% block content %}{% endblock content %}
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+    <footer role="contentinfo">
+      <div class="" id="footer" >
+        {% block footer %}
+        <div class="footer-wrapper">
+          <div class="grid-row">
+            <div class="column-one-third logo">
+              <div class="footer-section footer-section--first">
+                <a href="https://www.gov.uk" title="Go to the GOV.UK homepage">
+                  <img src="/static/images/footer_logo.png" alt="Gov.uk logo" class="footer-img footer-img--top">
+                </a>
+                <p class="font-xxxsmall font-lighter-grey font-light soft--bottom">&copy; Crown Copyright {% now 'Y' %}</p>
+                <a href="https://www.exportingisgreat.gov.uk/" title="Go to the Exporting is Great homepage">
+                  <img src="/static/images/EiG-logo-stacked.svg" alt="Exporting is Great logo" class="footer-img footer-img--bottom footer-img--eig">
+                </a>
+              </div>
+            </div>
+
+            <div class="column-one-third links">
+              <div class="footer-section">
+                <h3 class="footer-header">Our services</h3>
+                <ul>
+                  <li class="footer-links"><a href="https://www.exportingisgreat.gov.uk/opportunities" title="Export opportunities">Export opportunities</a></li>
+                  <li class="footer-links"><a href="http://find-a-buyer.export.great.gov.uk/" title="Find a buyer">Find a buyer</a></li>
+                  <li class="footer-links"><a href="https://selling-online-overseas.export.great.gov.uk/markets/" title="Selling online overseas">Selling online overseas</a></li>
+                  <li class="footer-links"><a href="https://events.trade.gov.uk/" title="Events">Events</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="column-one-third subscribe">
+              <div class="footer-section">
+                <h3 class="footer-header">Exporting is GREAT</h3>
+                <ul>
+                  <li class="footer-links"><a href="https://www.exportingisgreat.gov.uk/new/" title="New to exporting">New to exporting</a></li>
+                  <li class="footer-links"><a href="https://www.exportingisgreat.gov.uk/occasional/" title="Occasional exporter">Occasional exporter</a></li>
+                  <li class="footer-links"><a href="https://www.exportingisgreat.gov.uk/regular/" title="Regular exporter">Regular exporter</a></li>
+                  <li class="footer-links"><a href="https://www.exportingisgreat.gov.uk/about/" title="About">About</a></li>
+                  <li class="footer-links"><a href="https://contact-us.export.great.gov.uk/eig" title="Contact us">Contact us</a></li>
+                  <li class="footer-links"><a href="https://www.exportingisgreat.gov.uk/privacy-and-cookies/" title="Privacy and Cookies">Privacy &amp; cookies</a></li>
+                  <li class="footer-links"><a href="https://www.exportingisgreat.gov.uk/terms-and-conditions/" title="Terms and conditions">Terms &amp; conditions</a></li>
+                  <li class="footer-links"><a href="https://www.gov.uk/government/organisations/department-for-international-trade" title="Department for International Trade">Department for International Trade</a></li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endblock footer %}
+      </div>
+    </footer>
+    {% block footer_javascript %}
+      <script src="https://code.jquery.com/jquery-1.11.2.min.js" integrity="sha256-Ls0pXSlb7AYs7evhd+VLnWsZ/AqEHcXBeMZUycz/CcA=" crossorigin="anonymous"></script>
+      <script src="{% static "javascript/ie8.js" %}"></script>
+      <script src="{% static "javascript/toggle.js" %}"></script>
+    {% endblock footer_javascript %}
+  </body>
+</html>

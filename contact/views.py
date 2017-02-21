@@ -33,6 +33,15 @@ class FeedbackView(DITHelpView):
     form_class = FeedbackForm
 
 
+class DirectoryFeedbackView(DITHelpView):
+    """
+    Standard basic Feedback view, use the default behaviour of the DITHelpView with the FeedbackForm
+    """
+    template_folder = "directory"
+    service = "directory"
+    form_class = FeedbackForm
+
+
 class TriageView(DITHelpView):
     """
     Triage form view, for handling enquiries from users wanting to obtain the DIT negotiated terms with the online
