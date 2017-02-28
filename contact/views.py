@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, View
 from django.http import JsonResponse
 from django.conf import settings
 
-from thumber.views import ContentFeedbackMixin
+from thumber import thumber_feedback
 
 from .generics.views import DITHelpView, DITThanksView
 from .forms import FeedbackForm, TriageForm
@@ -78,7 +78,8 @@ class TriageView(DITHelpView):
         return None
 
 
-class TriageThanksView(ContentFeedbackMixin, DITThanksView):
+@thumber_feedback
+class TriageThanksView(DITThanksView):
     """
     Thanks page for the TriageView, just use the specific template, no other specific behaviour.
     """
