@@ -15,7 +15,7 @@
     {% endfor %}
   </fieldset>
 
-  <div class="column-one-whole form-tab-button">
+  <div class="form-tab-button">
     {% if not forloop.first %}
       {% with previous_step=form.steps|previous:forloop.counter0 %}
         <a href="#{{ previous_step.slug }}" class="link form-tab-back" data-action="back">< Back to previous step</a>

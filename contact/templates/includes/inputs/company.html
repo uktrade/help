@@ -1,0 +1,76 @@
+<div>
+  <div class="col-7 hard--left">
+    <div class="form-group form-dropdown">
+      <span class="form-group-error--message">{{ field.errors }}</span>
+      <input class="form-control form-control-search {{ field.field.widget.attrs.class }}"
+        type="hidden"
+        id="{{ field.id_for_label }}"
+        name="{{ field.name }}"
+        value="{% if field.value %}{{ field.value }}{% endif %}" />
+      <label class="form-label" for="{{ field.id_for_label }}_company_name">{{ field.field.company_name_label }}</label>
+      <input type="text" id="{{ field.id_for_label }}_company_name"
+        class="form-control form-dropdown-input {{ field.field.company_name_widget.attrs.class }}" required
+        {% for attr, value in field.field.company_name_widget.attrs.items %}
+          {{ attr }}="{{ value }}"
+        {% endfor %} />
+        <ul class="form-dropdown-results" role="presentation"></ul>
+        <div class="form-tab-button">
+          <button class="button button-border-blue button-medium push--top search-companies" data-action="get-companies" type="button">Search Companies House</button>
+        </div>
+    </div>
+  </div>
+  <div class="col-4 form-group-help hard--left">
+    {{ field.help_text | safe }}
+  </div>
+  <div class="col-1">&nbsp;</div>
+</div>
+
+<div>
+  <div class="col-7 hard--left">
+    <div class="form-group">
+      <label class="block-label selection-button-checkbox push--top" for="{{ field.id_for_label }}_soletrader">
+        {{ field.field.soletrader_label }}
+        <input type="checkbox" id="{{ field.id_for_label }}_soletrader"
+          class="{{ field.field.soletrader_widget.attrs.class }}"
+          {% for attr, value in field.field.soletrader_widget.attrs.items %}
+            {{ attr }}="{{ value }}"
+          {% endfor %} />
+       </label>
+    </div>
+  </div>
+  <div class="col-4 form-group-help hard--left">&nbsp;</div>
+  <div class="col-1">&nbsp;</div>
+</div>
+
+<div class="form-dropdown-hidden">
+  <div class="company-number">
+      <div class="col-7 hard--left">
+          <div class="form-group">
+            <span class="form-group-error--message">{{ field.errors }}</span>
+            <label class="form-label" for="{{ field.id_for_label }}_company_number">{{ field.field.company_number_label }}</label>
+            <input type="text" id="{{ field.id_for_label }}_company_number"
+              class="form-control {{ field.field.company_number_widget.attrs.class }}"
+              {% for attr, value in field.field.company_number_widget.attrs.items %}
+                {{ attr }}="{{ value }}"
+              {% endfor %} />
+          </div>
+      </div>
+      <div class="col-4 form-group-help hard--left">&nbsp;</div>
+      <div class="col-1">&nbsp;</div>
+  </div>
+  <div>
+    <div class="col-7 hard--left">
+      <div class="form-group">
+        <span class="form-group-error--message">{{ field.errors }}</span>
+        <label class="form-label" for="{{ field.id_for_label }}_postcode">{{ field.field.postcode_label }}</label>
+        <input type="text" id="{{ field.id_for_label }}_postcode"
+          class="form-control {{ field.field.postcode_widget.attrs.class }}" required
+          {% for attr, value in field.field.postcode_widget.attrs.items %}
+            {{ attr }}="{{ value }}"
+          {% endfor %} />
+      </div>
+    </div>
+    <div class="col-4 form-group-help hard--left">&nbsp;</div>
+    <div class="col-1">&nbsp;</div>
+  </div>
+</div>

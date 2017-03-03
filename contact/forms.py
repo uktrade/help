@@ -10,13 +10,32 @@ class FeedbackForm(DITHelpForm):
     subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
                 can improve it"
 
-    content = forms.CharField(label="Feedback", required=True, widget=forms.Textarea)
+    content = fields.CharField(label="Feedback", required=True, widget=forms.Textarea)
 
 
 class TriageForm(DITHelpForm):
 
     subtitle = "Application via Department for International Trade"
     submit_text = "Apply to join"
+
+    company = fields.CompanyField(required=True, help_text=help_text.COMPANY_NAME,
+                                  company_name_label=label.COMPANY_NAME, company_number_label=label.COMPANY_NUMBER,
+                                  soletrader_label=label.TRIAGE_UNREGISTERED_COMPANY,
+                                  postcode_label=label.TRIAGE_POSTCODE,
+                                  company_name_attrs={
+                                      'data-validate': 'company',
+                                      'autocomplete': 'off',
+                                      'data-action': 'get-companies'},
+                                  soletrader_attrs={'data-validate': 'soletrader'},
+                                  company_number_attrs={
+                                      'class': 'form-control--medium',
+                                      'data-validate': 'company-number'
+                                  },
+                                  postcode_attrs={
+                                      'class': 'form-control--medium',
+                                      'data-validate': 'postcode',
+                                      'placeholder': placeholder.POSTCODE
+                                  })
 
     contact_name = fields.CharField(required=True, label=label.CONTACT_NAME, attrs={'data-validate': 'name'})
     contact_email = fields.EmailField(required=True, label=label.CONTACT_EMAIL, attrs={'data-validate': 'email'})
@@ -44,7 +63,8 @@ class TriageForm(DITHelpForm):
     experience = fields.ChoiceField(required=True, label=label.TRIAGE_EXPERIENCE, choices=choices.TRIAGE_EXPERIENCE,
                                     widget=forms.RadioSelect(), attrs={'data-validate': 'export'})
     description = fields.CharField(required=True, widget=forms.Textarea, help_text=help_text.TRIAGE_DESCRIPTION,
-                                   label=label.TRIAGE_DESCRIPTION, attrs={'data-validate': 'description'})
+                                   label=label.TRIAGE_DESCRIPTION,
+                                   attrs={'data-validate': 'description', 'class': 'form-textarea--wide'})
     contact_phone = fields.IntegerField(required=True, label=label.CONTACT_PHONE, prefix='+44',
                                         attrs={'data-validate': 'contact-number'})
     sku_count = fields.IntegerField(required=True, label=label.TRIAGE_SKU_NUMBER,
@@ -62,7 +82,7 @@ class TriageForm(DITHelpForm):
     fieldsets = (
         ('Your business', {
             'fields': (
-                ('company_name', 'company_number', 'soletrader', 'company_postcode'),
+                'company',
                 'website_address',
             ),
         }),

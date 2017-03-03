@@ -12,11 +12,7 @@
     {% if form.steps %}
       {% include "includes/stepped_form.html" %}
     {% else %}
-      <div class="section">
-        <div class="grid-row">
-            {% include "includes/form.html" %}
-        </div>
-      </div>
+      {% include "includes/form.html" %}
     {% endif %}
   {% endblock %}
 

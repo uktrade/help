@@ -2,6 +2,7 @@ from django import template
 from django.forms.widgets import (
     TextInput, EmailInput, Textarea, Select, NumberInput, CheckboxInput, RadioSelect, URLInput
 )
+from ..fields import CompanyInput
 
 register = template.Library()
 
@@ -24,6 +25,8 @@ def get_form_field_template(boundfield):
         return 'includes/inputs/textarea.html'
     elif type(boundfield.field.widget) == RadioSelect:
         return 'includes/inputs/radio.html'
+    elif type(boundfield.field.widget) == CompanyInput:
+        return 'includes/inputs/company.html'
 
 
 @register.filter

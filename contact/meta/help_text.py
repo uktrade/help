@@ -18,5 +18,5 @@ TRIAGE_DESCRIPTION = "Your pitch is important and the information you provide ma
                           <li>Description of your business and your products</li>\
                           <li>Your customers</li>\
                           <li>How you market your products</li>\
-                          <li>Whether you have previous experience of selling on e-marketplaces</li>\
+                          <li>Whether you have previous experience of selling on online marketplaces</li>\
                       </ul>"
