@@ -8,6 +8,7 @@
           <input id="{{ field.id_for_label }}_{{ forloop.counter0 }}"
             type="radio" name="{{ field.name }}" value="{{ value.0 }}"
             class="{{ field.field.widget.attrs.class }}"
+            {% if field.value == value.0 %} checked='checked' {% endif %}
             {% if field.field.required %}required{% endif %}
             {% for attr, value in field.field.widget.attrs.items %}
               {{ attr }}="{{ value }}"

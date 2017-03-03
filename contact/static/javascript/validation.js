@@ -23,87 +23,29 @@ var validation = function ($) {
 
         for(var i=0; i<fields.length;i++) {
             var validation = $(fields[i]).data('validate');
+            var message = $(fields[i]).data('message');
 
-            switch (validation) {
-                case 'company':
-                    if(isEmpty(fields[i])) {
-                        displayErrorMessage(fields[i], validationMessages.messages.company.name);
-                        valid = false;
-                    }
-                    break;
-                case 'company-number':
-                    if(isEmpty(fields[i]) && notCheck($('fieldset:visible *[data-validate="soletrader"]'), 'soletrader') ) {
-                        displayErrorMessage(fields[i], validationMessages.messages.company.number);
-                        valid = false;
-                    }
-                    break;
-                case 'postcode':
-                    if(isEmpty(fields[i])) {
-                        displayErrorMessage(fields[i], validationMessages.messages.company.postcode);
-                        valid = false;
-                    }
-                    break;
-                case 'url':
-                    if(isEmpty(fields[i])) {
-                        displayErrorMessage(fields[i], validationMessages.messages.company.website);
-                        valid = false;
-                    }
-                    break;
-                case 'sku':
-                    if(isEmpty(fields[i])) {
-                        displayErrorMessage(fields[i], validationMessages.messages.business.sku);
-                        valid = false;
-                    }
-                    break;
-                case 'description':
-                    if(isEmpty(fields[i])) {
-                        displayErrorMessage(fields[i], validationMessages.messages.experience.introduction);
-                        valid = false;
-                    }
-                    break;
-                case 'name':
-                    if(isEmpty(fields[i])) {
-                        displayErrorMessage(fields[i], validationMessages.messages.contact.name);
-                        valid = false;
-                    }
-                    break;
-                case 'email':
-                    if(isEmpty(fields[i]) || (!isValidEmail($(fields[i]).val()))) {
-                        displayErrorMessage(fields[i], validationMessages.messages.contact.email);
-                        valid = false;
-                    }
-                    break;
-                case 'contact-number':
-                    if(isEmpty(fields[i])) {
-                        displayErrorMessage(fields[i], validationMessages.messages.contact.phone);
-                        valid = false;
-                    }
-                    break;
-                case 'turnover':
-                    if(notCheck(fields[i], validation)) {
-                        displayErrorMessage(fields[i], validationMessages.messages.business.turnover);
-                        valid = false;
-                    }
-                    break;
-                case 'trademark':
-                    if(notCheck(fields[i], validation)) {
-                        displayErrorMessage(fields[i], validationMessages.messages.business.trademark);
-                        valid = false;
-                    }
-                    break;
-                case 'export':
-                    if(notCheck(fields[i], validation)) {
-                        displayErrorMessage(fields[i], validationMessages.messages.experience.export);
-                        valid = false;
-                    }
-                    break;
-                case 'feedback':
-                    if(isEmpty(fields[i])) {
-                        displayErrorMessage(fields[i], validationMessages.messages.feedback.feedback);
-                        valid = false;
-                    }
-                    break;
-                default:
+            if (typeof(validation) != "undefined") {
+                switch (validation) {
+                    case 'company-number':
+                        if(isEmpty(fields[i]) && notCheck($('fieldset:visible *[data-validate="soletrader"]'), 'soletrader') ) {
+                            displayErrorMessage(fields[i], message);
+                            valid = false;
+                        }
+                        break;
+                    case 'email':
+                        if(isEmpty(fields[i]) || (!isValidEmail($(fields[i]).val()))) {
+                            displayErrorMessage(fields[i], message);
+                            valid = false;
+                        }
+                        break;
+                    default:
+                        if(isEmpty(fields[i])) {
+                            displayErrorMessage(fields[i], message);
+                            valid = false;
+                        }
+                        break;
+                }
             }
         }
         return valid;

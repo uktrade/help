@@ -9,6 +9,16 @@ var formSteps = function ($) {
         navigateButton.click(navigate);
         $('.form-tab').on('click', 'a.form-tab-link--completed', navigate);
         form.on('submit', submitForm);
+
+        var errors = $('.form-group-error')
+        if (errors.length > 0) {
+            var firstErrorTab = $(errors[0]).parents('.form-tab-section')
+            activeTab = firstErrorTab.index('.form-tab-section');
+            if (activeTab !== 0) {
+                deActiveSection(0);
+                activeSection(activeTab);
+            }
+        }
     }
 
     function activeSection(index) {
@@ -99,7 +109,9 @@ var formSteps = function ($) {
 
     return {
         init: init,
-        scrollTo: scrollTo
+        scrollTo: scrollTo,
+        activeSection: activeSection,
+        deActiveSection: deActiveSection
     };
 }(jQuery);
 
