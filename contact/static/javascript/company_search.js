@@ -14,6 +14,7 @@ var company_search = (function ($) {
     function init() {
 
         $('body').on('click', '.form-dropdown-option', selectCompany);
+        searchButton.click(getCompanies);
         companyNameField.keyup(inputEvent);
         results.keyup(search.manualSelect);
         hasCompanyNumberCheckbox.click(hasCompanyNumber);
@@ -44,7 +45,9 @@ var company_search = (function ($) {
         }
     }
 
-    function getCompanies(query) {
+    function getCompanies(company) {
+
+        var query = (typeof company === "string") ? company : companyNameField.val();
 
         var companies = $.ajax({
             url: '/companies/',
