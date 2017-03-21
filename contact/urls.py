@@ -4,6 +4,7 @@ from . import views
 app_name = 'contact'
 
 urlpatterns = [
+    url(r'^ping\.json$', views.PingView.as_view(), name='ping'),
     url(r'^thanks/$', views.ThanksView.as_view(), name='thanks'),
     url(r'^(?P<service>[-\w\d]+)?$', views.InterstitialContactView.as_view(), name='interstitial'),
     url(r'^feedback/(?P<service>[-\w\d]+)/$', views.FeedbackView.as_view(), name='feedback_submit'),
