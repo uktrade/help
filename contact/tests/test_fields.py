@@ -30,3 +30,8 @@ class TestFields(TestCase):
 
         # widget should now have foo=bar
         self.assertEqual(instance.widget.attrs, attrs)
+
+    def test_prefix_clean_value(self):
+        phone_number = fields.IntegerField(prefix='+44')
+        value = phone_number.clean('01234567890')
+        self.assertEqual(value, '+441234567890')
