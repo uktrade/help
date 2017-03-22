@@ -140,8 +140,8 @@ class DITHelpForm(forms.Form, metaclass=DITHelpFormMetaclass):
         """
 
         data_items = []
-        for bound_field in self:
-            data_items.append("{0}: \n{1}\n".format(bound_field.label, bound_field.value()))
+        for field_name, value in self.cleaned_data.items():
+            data_items.append("{0}: \n{1}\n".format(self[field_name].label, value))
 
         return "\n".join(data_items)
 
