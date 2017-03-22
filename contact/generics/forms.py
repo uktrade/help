@@ -78,18 +78,14 @@ class DITHelpForm(forms.Form, metaclass=DITHelpFormMetaclass):
 
         if settings.USE_CAPTCHA:
             url = "https://www.google.com/recaptcha/api/siteverify"
+
             values = {
                 'secret': settings.CAPTCHA_SECRET_KEY,
                 'response': self.captcha_response,
                 'remoteip': self.remote_ip,
             }
-            headers = {'content-type': 'application/json'}
-
-            # Get the data for this form, and encode it to create a JSON payload
-            payload = json.dumps(values)
-
-            # Do the HTTP post request
-            response = requests.post(url, data=payload, headers=headers)
+            # Google docs say to POST, but doesn't seem to work, but GET works fine
+            response = requests.get(url, params=values)
             result = response.json()
 
             # result["success"] will be True on a success
