@@ -1,10 +1,38 @@
+import requests
+
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.http import JsonResponse
+from django.conf import settings
 
 from thumber.views import ContentFeedbackMixin
 
 from .generics.views import DITHelpView, DITThanksView
 from .forms import FeedbackForm, TriageForm
+
+
+class PingView(View):
+    def get(self, request, *args, **kwargs):
+        # Set the request parameters
+        user = "{0}/token".format(settings.ZENDESK_USER)
+        pwd = settings.ZENDESK_TOKEN
+        url = settings.ZENDESK_TEST_URL
+        headers = {'content-type': 'application/json'}
+
+        # Do the HTTP post request
+        response = requests.get(url, auth=(user, pwd), headers=headers)
+
+        if response.status_code != 200:
+            status = 500
+            info = response.json()['error']
+        else:
+            status = 200
+            info = 'Success'
+
+        return JsonResponse({
+            'zendesk_resp_code': response.status_code,
+            'info': info
+        }, status=status)
 
 
 class InterstitialContactView(TemplateView):
