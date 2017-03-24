@@ -48,6 +48,16 @@ class DITHelpView(FormView):
         # Perform the standrd form_valid method, which will redirect to the success page
         return super().form_valid(form)
 
+    def _get_client_ip(self):
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[-1].strip()
+        else:
+            ip = self.request.META.get('REMOTE_ADDR')
+
+        return ip
+
     def get_form_kwargs(self):
         # Get the form kwargs
         kwargs = super().get_form_kwargs()
@@ -55,8 +65,8 @@ class DITHelpView(FormView):
         # Add the HTTP_REFERER, and service specified in the url, to the initial form data
         kwargs['initial']['originating_page'] = self._get_originating_page()
         kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
-        kwargs['remote_ip'] = self.request.POST.get(u'g-recaptcha-response', None)
-        kwargs['captcha_response'] = self.request.META.get("REMOTE_ADDR", None)
+        kwargs['captcha_response'] = self.request.POST.get(u'g-recaptcha-response', None)
+        kwargs['remote_ip'] = self._get_client_ip()
         return kwargs
 
     def get_context_data(self, *args, **kwargs):
