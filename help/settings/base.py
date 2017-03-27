@@ -47,6 +47,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ip_restriction.IpWhitelister',
 ]
 
 ROOT_URLCONF = 'help.urls'
@@ -127,3 +128,5 @@ ZENDESK_TEST_URL = os.environ.get('ZENDESK_TEST_URL')
 USE_CAPTCHA = os.environ.get('USE_CAPTCHA', 'false').lower() == 'true' or os.environ.get('USE_CAPTCHA', False) == '1'
 CAPTCHA_SITE_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
 CAPTCHA_SECRET_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
+
+RESTRICT_IPS = os.environ.get('RESTRICT_IPS', '').lower() == 'true' or os.environ.get('RESTRICT_IPS') == '1'
