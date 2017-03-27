@@ -27,7 +27,6 @@
       "required": true
     },
     "SECRET_KEY": {
-      "description": "The django app's sercret key",
       "generator": "secret"
     },
     "ADMIN_USER": {
@@ -36,15 +35,15 @@
     "ADMIN_PASSWORD": {
       "required": true
     },
-    "RESTRICT_IPS": "True",
-    "ALLOW_ADMIN": "True",
-    "ALLOWED_AUTHENTICATED": "True",
     "ALLOWED_IPS": {
       "required": false
     },
     "ALLOWED_IP_RANGES": {
       "required": false
-    }
+    },
+    "RESTRICT_IPS": "True",
+    "ALLOW_ADMIN": "True",
+    "ALLOWED_AUTHENTICATED": "True"
   },
   "formation": {},
   "addons": [
