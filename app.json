@@ -3,7 +3,10 @@
   "scripts": {},
   "env": {
     "CAPTCHA_SITE_KEY": {
-      "required": true
+      "value": "6LfdgxoUAAAAAAM-ixUpaHs8-obeP0q8CsrqgaEw"
+    },
+    "CAPTCHA_SECRET_KEY": {
+      "value": "6LfdgxoUAAAAACiInQ8UBtUy8m5ThZTS5WB6hExB"
     },
     "DJANGO_SETTINGS_MODULE": {
       "required": true
@@ -22,6 +25,25 @@
     },
     "ZENDESK_USER": {
       "required": true
+    },
+    "SECRET_KEY": {
+      "description": "The django app's sercret key",
+      "generator": "secret"
+    },
+    "ADMIN_USER": {
+      "required": true
+    },
+    "ADMIN_PASSWORD": {
+      "required": true
+    },
+    "RESTRICT_IPS": "True",
+    "ALLOW_ADMIN": "True",
+    "ALLOWED_AUTHENTICATED": "True",
+    "ALLOWED_IPS": {
+      "required": false
+    },
+    "ALLOWED_IP_RANGES": {
+      "required": false
     }
   },
   "formation": {},
@@ -32,5 +54,8 @@
     {
       "url": "heroku/python"
     }
-  ]
+  ],
+  "scripts": {
+    "postdeploy": "echo \"from django.contrib.auth.models import User; import os; password = os.environ.get('ADMIN_PASSWORD', ''); username = os.environ.get('ADMIN_USER', ''); User.objects.create_superuser(username, 'admin@example.com', password)\" | python manage.py shell"
+  }
 }
