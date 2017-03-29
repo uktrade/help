@@ -1,8 +1,8 @@
 {% load utils %}
 
 {{ form.non_field_errors }}
-<div class='section'>
-  <form role="form" action="" method="post" class="contact_form push--top">
+<div class='outer-container'>
+  <form role="form" action="" method="post" class="contact_form push--ends soft--bottom" novalidate data-form-validate>
     <fieldset>
       {% csrf_token %}
 
@@ -21,6 +21,6 @@
         <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}"></div>
       </div>
     {% endif %}
-      <button type="submit" class="button button-blue button-large">{{ form.submit_text }}</button>
+      <button type="submit" class="button button-blue button-medium">{{ form.submit_text }}</button>
   </form>
 </div>

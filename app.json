@@ -35,6 +35,18 @@
     "ADMIN_PASSWORD": {
       "required": true
     },
+    "SOO_HOST": {
+      "required": false
+    },
+    "HELP_HOST": {
+      "required": false
+    },
+    "SSO_HOST": {
+      "required": false
+    },
+    "PROFILE_HOST": {
+      "required": false
+    },
     "ALLOWED_IPS": {
       "required": false
     },

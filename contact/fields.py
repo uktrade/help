@@ -1,4 +1,7 @@
 from django.forms import fields
+from django.forms import widgets
+from django.utils import html
+from django.forms.utils import flatatt
 
 
 class FieldAttrsMixin():
@@ -11,9 +14,7 @@ class FieldAttrsMixin():
         my_field = CharField(attrs={'property': 'value'})
     """
 
-    def __init__(self, *pargs, **kwargs):
-        attrs = kwargs.pop('attrs', None)
-        prefix = kwargs.pop('prefix', None)
+    def __init__(self, attrs=None, prefix=None, *pargs, **kwargs):
 
         super().__init__(*pargs, **kwargs)
 
@@ -31,3 +32,27 @@ for field_name in fields.__all__:
         # Add to the global scope of this module, a newly created Field class, that inherits from the original field,
         # has the same name as the original field, but that also inherits from our mixin
         globals()[field_name] = type(field_name, (FieldAttrsMixin, field), {})
+
+
+class Button(widgets.Widget):
+    input_type = 'button'
+
+    def __init__(self, label, *pargs, **kwargs):
+        self.label = label
+        super().__init__(*pargs, **kwargs)
+
+    def render(self, name, value, attrs=None):
+        final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
+        return html.format_html('<button {}>{}</button>', flatatt(final_attrs), self.label)
+
+
+class ButtonField(fields.Field):
+    input_type = 'button'
+    widget = Button
+
+    def __init__(self, label, attrs=None, *pargs, **kwargs):
+        self.widget = self.widget(label=label)
+        required = kwargs.pop('required', False)
+        super().__init__(required=required, *pargs, **kwargs)
+        if attrs is not None:
+            self.widget.attrs.update(attrs)

@@ -1,12 +1,10 @@
-<div class="section push--top">
-  <div class="grid-row">
-    <div class="column-one-whole">
-      {% if form.title != None %}
-       <h1 class="heading-xlarge push-half--bottom flush--top">{{ form.title }}</h1>
-      {% endif %}
-      {% if form.subtitle != None %}
-       <p class="heading-sub heading-sub-no--border">{{ form.subtitle }}</p>
-      {% endif %}
-    </div>
+<div class="outer-container soft-half--top push--top">
+  <div class="col-7">
+    {% if form.title != None %}
+     <h1 class="heading-xlarge push-half--bottom flush--top">{{ form.title }}</h1>
+    {% endif %}
+    {% if form.subtitle != None %}
+     <p class="font-small font-lig">{{ form.subtitle }}</p>
+    {% endif %}
   </div>
 </div>

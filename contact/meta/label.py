@@ -1,6 +1,7 @@
 CONTACT_NAME = "Contact name"
 CONTACT_EMAIL = "Email address"
 CONTACT_PHONE = "Telephone number"
+COMPANY_NAME = "Company name"
 COMPANY_NUMBER = "Company number"
 COMPANY_WEBSITE = "Company website"
 EMAIL_PREFERENCE = "I prefer to be contacted by email"

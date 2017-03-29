@@ -24,6 +24,8 @@ def get_form_field_template(boundfield):
         return 'includes/inputs/textarea.html'
     elif type(boundfield.field.widget) == RadioSelect:
         return 'includes/inputs/radio.html'
+    else:
+        return 'includes/inputs/base.html'
 
 
 @register.filter
