@@ -1,0 +1,9 @@
+<div class="cf form-group-section">
+  <div class="col-7 hard--left">
+    {% block field %}{{ field }}{% endblock %}
+  </div>
+  <div class="col-4 form-group-help hard--left">
+    {{ field.help_text | safe }}
+  </div>
+  <div class="col-1">&nbsp;</div>
+</div>

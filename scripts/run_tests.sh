@@ -25,6 +25,9 @@ function display_result {
 pep8 .
 display_result $? 1 "Code style check"
 
+npm test
+display_result $? 2 "Front end code tested"
+
 ## Code coverage
 python manage.py collectstatic --noinput
 coverage run --source='.' manage.py test
