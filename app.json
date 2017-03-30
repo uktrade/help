@@ -8,9 +8,7 @@
     "CAPTCHA_SECRET_KEY": {
       "value": "6LfdgxoUAAAAACiInQ8UBtUy8m5ThZTS5WB6hExB"
     },
-    "DJANGO_SETTINGS_MODULE": {
-      "required": true
-    },
+    "DJANGO_SETTINGS_MODULE": "help.settings.test",
     "SECRET_KEY": {
       "required": true
     },
