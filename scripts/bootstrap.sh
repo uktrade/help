@@ -17,3 +17,6 @@ createdb help
 source environment.sh
 python manage.py migrate
 python manage.py collectstatic --noinput
+
+# build javascript
+npm run build
