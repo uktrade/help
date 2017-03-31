@@ -2,32 +2,13 @@ import requests
 import json
 
 from unittest import mock
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from .forms import FeedbackForm
-from .views import FeedbackView
 
-
-initial_data = {
-    'contact_name': 'Spam Eggs',
-    'contact_email': 'spam@example.com',
-    'content': 'testing contact form',
-    'service': 'test',
-    'originating_page': 'google.com'
-}
-
-response201 = requests.Response()
-response201.status_code = 201
-
-
-class FeedbackView(TestCase):
-
-    def test_contact_get(self):
-        response = self.client.get(reverse('contact:feedback_submit', kwargs={'service': 'test'}))
-        self.assertContains(response, "Feedback", status_code=200)
-        form = response.context_data['form']
-        self.assertEquals(form['service'].value(), initial_data['service'])
+from . import initial_data, response201
+from ..forms import FeedbackForm
+from ..views import FeedbackView
 
 
 class FeedbackFormTests(TestCase):
@@ -37,6 +18,13 @@ class FeedbackFormTests(TestCase):
         self.assertFalse(form.is_valid())
         form = FeedbackForm(initial_data, initial=initial_data)
         self.assertTrue(form.is_valid())
+
+    @override_settings(USE_CAPTCHA=True)
+    def test_captcha(self):
+        form = FeedbackForm()
+        self.assertFalse(form.is_valid())
+        form = FeedbackForm(initial_data, initial=initial_data)
+        self.assertFalse(form.is_valid())
 
     @mock.patch('requests.post', mock.Mock(return_value=response201))
     def test_form_zendesk_ticket_creation(self):
