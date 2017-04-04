@@ -33,7 +33,9 @@
   </head>
 
   <body class='{% block body_class %}{% endblock %}'>
-    {% block google_tag_manager_noscript %}
+  <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+
+  {% block google_tag_manager_noscript %}
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T96KS9"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% endblock google_tag_manager_noscript %}
@@ -189,7 +191,6 @@
       {% endblock footer %}
     </footer>
     {% block footer_javascript %}
-      <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
       <script src="{% static "javascripts/all.js" %}"></script>
     {% endblock footer_javascript %}
     {% block extra_js %}{% endblock %}
