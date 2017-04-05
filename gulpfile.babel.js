@@ -35,6 +35,23 @@ gulp.task('javascripts', () => gulp
     .pipe(gulp.dest(paths.dist + 'javascripts/'))
 );
 
+gulp.task('images', () =>
+    gulp.src(paths.src+'images/**/*')
+        .pipe(plugins.imagemin({
+            progressive: true
+        }))
+        .pipe(gulp.dest(paths.dist + 'images/'))
+);
+
+gulp.task('stylesheets', () =>
+    gulp.src(paths.src+'stylesheets/**/*')
+        .pipe(gulp.dest(paths.dist + 'stylesheets/'))
+);
+
+gulp.task('external-links', () =>
+    gulp.src(paths.src+'external-links/**/*')
+        .pipe(gulp.dest(paths.dist + 'external-links/'))
+);
 
 // Watch for changes and re-run tasks
 gulp.task('watchForChanges', function() {
@@ -54,7 +71,7 @@ gulp.task('lint', ['lint:js']);
 
 
 // Default: compile everything
-gulp.task('default', ['javascripts']);
+gulp.task('default', ['javascripts', 'images', 'stylesheets', 'fonts', 'external-links']);
 
 // Optional: recompile on changes
 gulp.task('watch', ['watchForChanges']);
