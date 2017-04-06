@@ -51,6 +51,9 @@
     "ALLOWED_IP_RANGES": {
       "required": false
     },
+    "COMPANIES_HOUSE_KEY": {
+      "required": true
+    },
     "RESTRICT_IPS": "True",
     "ALLOW_ADMIN": "True",
     "ALLOW_AUTHENTICATED": "True"
@@ -60,6 +63,12 @@
     "heroku-postgresql"
   ],
   "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/uktrade/help-buildpack"
+    },
     {
       "url": "heroku/python"
     }

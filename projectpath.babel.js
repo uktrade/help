@@ -2,7 +2,7 @@
 
 const paths = {
     src: 'assets/',
-    dist: 'contact/static/',
+    dist: 'static/',
     npm: 'node_modules/',
 };
 
