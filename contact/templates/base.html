@@ -192,7 +192,8 @@
     </footer>
     {% block footer_javascript %}
       <script src="{% static "javascripts/all.js" %}"></script>
+      {% block extra_js %}{% endblock %}
+      <script src="{% static "javascript/feedback.js" %}"></script>
     {% endblock footer_javascript %}
-    {% block extra_js %}{% endblock %}
   </body>
 </html>
