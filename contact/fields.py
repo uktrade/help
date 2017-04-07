@@ -4,6 +4,10 @@ from django.utils import html
 from django.forms.utils import flatatt
 
 
+__all__ = list(fields.__all__)
+__all__ += ['ButtonField']
+
+
 class FieldAttrsMixin():
     """
     Form field mixin to allow passing of attrs to the field, which will construct as normal, but then pass the attrs
