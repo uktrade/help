@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/uktrade/help.svg?branch=master)](https://travis-ci.org/uktrade/help)
+[![CircleCI](https://circleci.com/gh/uktrade/help.svg?style=svg)](https://circleci.com/gh/uktrade/help)
 
 # help
 
