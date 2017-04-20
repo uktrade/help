@@ -28,6 +28,13 @@ class FieldAttrsMixin():
         if prefix is not None:
             self.widget.prefix = prefix
 
+    def clean(self, value):
+        value = super().clean(value)
+        prefix = getattr(self.widget, 'prefix', None)
+        if prefix is not None:
+            value = "{0}{1}".format(prefix, value)
+        return value
+
 # Loop over all items in the django.form.fields module
 for field_name in fields.__all__:
     field = getattr(fields, field_name)
