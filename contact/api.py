@@ -17,19 +17,25 @@ def company_detail_api(request):
 def _query_companies_house(query):
     url = 'https://api.companieshouse.gov.uk/search/companies'
     headers = {'content-type': 'application/json'}
-    response = requests.get(url,
-                            params={'q': query, 'items_per_page': 10},
-                            auth=(settings.COMPANIES_HOUSE_API_KEY, ''),
-                            headers=headers)
     data = []
 
-    for item in response.json()['items']:
-        company_data = [item['title'], item['company_number']]
-        try:
-            company_data.append(item['address']['postal_code'])
-        except KeyError:
-            company_data.append('')
+    try:
+        response = requests.get(url, params={'q': query, 'items_per_page': 10},
+                                auth=(settings.COMPANIES_HOUSE_API_KEY, ''),
+                                headers=headers)
 
-        data.append(company_data)
+        status_code = response.status_code
 
-    return JsonResponse({'companies': data})
+        if status_code == 200:
+            for item in response.json()['items']:
+                company_data = [item['title'], item['company_number']]
+                try:
+                    company_data.append(item['address']['postal_code'])
+                except KeyError:
+                    company_data.append('')
+
+                data.append(company_data)
+    except:
+        status_code = 500
+
+    return JsonResponse({'companies': data}, status=status_code)
