@@ -53,7 +53,8 @@ class Button(widgets.Widget):
         super().__init__(*pargs, **kwargs)
 
     def render(self, name, value, attrs=None):
-        final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
+        extra_attrs = attrs.update({'type': self.input_type, 'name': name})
+        final_attrs = self.build_attrs(self.attrs, extra_attrs)
         return html.format_html('<button {}>{}</button>', flatatt(final_attrs), self.label)
 
 
