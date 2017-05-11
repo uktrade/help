@@ -1,4 +1,6 @@
 [![CircleCI](https://circleci.com/gh/uktrade/help.svg?style=svg)](https://circleci.com/gh/uktrade/help)
+[![dependencies Status](https://david-dm.org/uktrade/help/status.svg)](https://david-dm.org/uktrade/help)
+[![devDependencies Status](https://david-dm.org/uktrade/help/dev-status.svg)](https://david-dm.org/uktrade/help?type=dev)
 
 # help
 
