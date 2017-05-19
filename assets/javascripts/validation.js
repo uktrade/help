@@ -88,11 +88,12 @@ var validation = function ($) {
     }
 
     function displayErrorMessage(field, message) {
-        $(field).closest('.form-group').addClass('form-group-error').prepend('<span class="form-group-error--message">'+message+'</span>');
+        var activeGroup = $(field).closest('.form-group');
+        activeGroup.addClass('form-group-error').find('.form-group-error--message').html(message);
     }
 
     function clearErrorMessage() {
-        $('.form-group-error--message').remove();
+        $('.form-group-error--message').html('');
         $('.form-group').removeClass('form-group-error');
     }
 
