@@ -10,7 +10,13 @@ import stylish from 'jshint-stylish';
 import paths from './projectpath.babel';
 import loadPlugins from 'gulp-load-plugins';
 
-const plugins = loadPlugins();
+const plugins = loadPlugins(),
+    protractor = plugins.protractor.protractor,
+    webdriver_standalone = plugins.protractor.webdriver_standalone,
+    webdriver_update = plugins.protractor.webdriver_update;
+
+gulp.task('webdriver_update', webdriver_update);
+gulp.task('webdriver_standalone', webdriver_standalone);
 
 
 // set debugMode to true to use non uglified and compressed js versions
@@ -65,6 +71,18 @@ gulp.task('lint:js', () => gulp
     .pipe(plugins.jshint({'esversion': 6, 'esnext': false}))
     .pipe(plugins.jshint.reporter(stylish))
     .pipe(plugins.jshint.reporter('fail'))
+);
+
+
+gulp.task('protractor:e2e', (callback) => gulp
+    .src(['assets/test/e2e/specs/*-spec.js'])
+    .pipe(protractor({
+        'configFile': 'assets/test/e2e/conf.js',
+    })).on('error', function(e) {
+        console.log(e);
+    }).on('end', function (callback) {
+        callback;
+    })
 );
 
 gulp.task('lint', ['lint:js']);
