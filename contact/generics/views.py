@@ -34,8 +34,8 @@ class DITHelpView(FormView):
         # Get the originating page, and submit the ticket
         originating_page = form.cleaned_data.get('originating_page')
 
-        override_resp_code = getattr(settings, 'ZENDESK_RESP_CODE', None)
-        if override_resp_code is not None and setting.DEBUG:
+        override_resp_code = settings.ZENDESK_RESP_CODE
+        if override_resp_code is not None and settings.DEBUG:
             resp_code = override_resp_code
         else:
             resp_code = form.raise_zendesk_ticket()

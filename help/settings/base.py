@@ -146,3 +146,5 @@ SOO_HOST = os.environ.get('SOO_HOST', 'https://selling-online-overseas.export.gr
 HELP_HOST = os.environ.get('HELP_HOST', 'https://contact-us.export.great.gov.uk/')
 SSO_HOST = os.environ.get('SSO_HOST', 'https://sso.trade.great.gov.uk/')
 PROFILE_HOST = os.environ.get('PROFILE_HOST', 'https://profile.great.gov.uk/')
+
+ZENDESK_RESP_CODE = os.environ.get('ZENDESK_RESP_CODE', None)
