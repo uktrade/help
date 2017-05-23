@@ -77,6 +77,7 @@ var company_search = (function ($) {
             role: "presentation"
         });
 
+        $('.form-dropdown-results').remove();
         $(element).after(list);
 
 
