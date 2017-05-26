@@ -63,7 +63,9 @@ var company_search = (function ($) {
             .done(function (request) {
                 createDropDown(request.companies, companyNameField);
             })
-            .fail(function () {
+            .fail(function (error) {
+                error.length = 0;
+                createDropDown(error, companyNameField);
             })
             .always(function () {
                 loader.remove();
@@ -82,7 +84,7 @@ var company_search = (function ($) {
 
 
         if(request.length === 0) {
-            list.append('<li class="soft-half" role="option"><strong>No results found in the Companies House database.</strong> <br />Check if you typed in a correct name and search again or select I don\'t have a company number option</li>');
+            list.append('<li class="soft-half" role="option">'+displayErrorMessage(request.status)+'</li>');
         }
 
         for (var i = 0; i < request.length; i++) {
@@ -93,6 +95,20 @@ var company_search = (function ($) {
         $(element).focus();
         $('html').addClass('overflow--hidden');
         $('.form-dropdown-results').keyup(dropdown.manualSelect);
+    }
+
+    function displayErrorMessage(status) {
+
+        switch(status) {
+            case 500:
+                return 'An unexpected error has occurred. Try to refresh the page, or report the problem if it persists';
+            case 429:
+                return 'Too many requests, please wait a few seconds and try again';
+            case 401:
+                return 'An unexpected error has occurred. Try to refresh the page, or report the problem if it persists';
+            default:
+                return '<strong>No results found in the Companies House database.</strong> <br />Check if you typed in a correct name and search again or select I don\'t have a company number option';
+        }
     }
 
     function selectCompany(event) {
