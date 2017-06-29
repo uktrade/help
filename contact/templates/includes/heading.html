@@ -1,10 +1,9 @@
-<div class="outer-container soft-half--top push--top">
-  <div class="col-7">
-    {% if form.title != None %}
-     <h1 class="heading-xlarge push-half--bottom flush--top">{{ form.title }}</h1>
-    {% endif %}
-    {% if form.subtitle != None %}
-     <p class="font-small font-lig">{{ form.subtitle }}</p>
-    {% endif %}
-  </div>
+<div class="col-7">
+  {% if form.title != None %}
+   <h1 class="heading-xlarge push-half--bottom flush--top">{{ form.title }}</h1>
+  {% endif %}
+  {% if form.subtitle != None %}
+   <p class="font-small font-lig">{{ form.subtitle }}</p>
+  {% endif %}
 </div>
+
