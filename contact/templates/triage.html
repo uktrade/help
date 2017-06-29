@@ -1,5 +1,13 @@
 {% extends "default_form.html" %}
 
+{% block back_button %}
+  <div class="col-5">
+    <div class="triage-back-button soft--bottom">
+      <a href="javascript:utilities.navigateBack()" class="link link--back" title="Go back to details">&lt; Go back to details</a>
+    </div>
+  </div>
+{% endblock %}
+
 {% block container_class %}col-8{% endblock %}
 
 {% block title %}Marketplace application{% endblock title %}
