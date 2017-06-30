@@ -1,5 +1,15 @@
 {% extends "default_form.html" %}
 
+{% block back_button %}
+  {% if originating_page %}
+    <div class="col-5">
+      <div class="triage-back-button soft--bottom">
+        <a href="{{ originating_page }}" class="link link--back" title="Go back to details">&lt; Go back to details</a>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
 {% block container_class %}col-8{% endblock %}
 
 {% block title %}Marketplace application{% endblock title %}

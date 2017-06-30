@@ -3,7 +3,7 @@
 {% block field %}
   <div class="form-group{% if field.errors %} form-group-error{% endif %}">
     <span class="form-group-error--message">{{ field.errors }}</span>
-    <h3 class="form-label soft-half--bottom">{{ field.label }}</h3>
+    <h3 class="form-label">{{ field.label }}  {% if field.help_text %}<span class="form-hint">{{ field.help_text | safe }}</span>{% endif %}</h3>
     {% for value in field.field.choices %}
       <label class="block-label selection-button-radio" for="{{ field.id_for_label }}_{{ forloop.counter0 }}">
         <input id="{{ field.id_for_label }}_{{ forloop.counter0 }}"
