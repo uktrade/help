@@ -32,7 +32,8 @@ class TriageForm(DITHelpForm):
                                     })
     search_button = fields.ButtonField(label="Search Companies House",
                                        attrs={
-                                         'class': 'button button-border-blue button-medium push--ends search-companies',
+                                         'class': 'button button-border button-border--blue button-medium\
+                                         push--ends search-companies',
                                          'data-action': 'get-companies'
                                        })
     soletrader = fields.BooleanField(required=False,

@@ -4,7 +4,7 @@
   <div class="form-group{% if field.errors %} form-group-error{% endif %}">
     <span class="form-group-error--message">{{ field.errors }}</span>
     <label class="block-label selection-button-checkbox push--top" for="{{ field.id_for_label }}">
-      {{ field.label }}
+      {{ field.label }} {% if field.help_text %}<span class="form-hint">{{ field.help_text | safe }}</span>{% endif %}
       <input type="checkbox" id="{{ field.id_for_label }}"
         name="{{ field.name }}"
         class="{{ field.field.widget.attrs.class }}"

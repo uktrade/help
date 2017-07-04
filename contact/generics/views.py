@@ -90,6 +90,10 @@ class DITHelpView(FormView):
         context['use_captcha'] = settings.USE_CAPTCHA
         context['captcha_site_key'] = settings.CAPTCHA_SITE_KEY
 
+        originating_page = context['form']['originating_page'].value()
+        if originating_page is not DIRECT_REQUEST:
+            context['originating_page'] = originating_page
+
         return context
 
     def _get_originating_page(self):

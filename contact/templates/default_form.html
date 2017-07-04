@@ -3,7 +3,10 @@
 {% block content %}
 
   {% block heading %}
-    {% include "includes/heading.html" %}
+    <div class="outer-container soft-half--top push--top triage-header">
+      {% include "includes/heading.html" %}
+      {% block back_button %}{% endblock %}
+    </div>
   {% endblock %}
 
   {% block before_form %}{% endblock %}

@@ -52,12 +52,21 @@ var validation = function ($) {
                 }
             }
         }
+
+        if(!valid) {
+            selectFirstErrorField();
+        }
         return valid;
     }
 
     function isValidEmail(email) {
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         return regex.test(email);
+    }
+
+    function selectFirstErrorField() {
+        var firstErrorField = $('.form-group-error:visible').first();
+        $("body,html").animate({ scrollTop: firstErrorField.offset().top }, 300);
     }
 
     function notCheck(field, validation) {

@@ -19,4 +19,4 @@ python manage.py migrate
 python manage.py collectstatic --noinput
 
 # build javascript
-npm run build
+npm install && npm run build

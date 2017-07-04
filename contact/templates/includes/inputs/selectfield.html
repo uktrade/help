@@ -3,7 +3,7 @@
 {% block field %}
   <div class="form-group{% if field.errors %} form-group-error{% endif %}">
     <span class="form-group-error--message">{{ field.errors }}</span>
-    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }} {% if field.help_text %}<span class="form-hint">{{ field.help_text | safe }}</span>{% endif %}</label>
     <select id="{{ field.id_for_label }}" name="{{ field.name }}"
       class="form-control {{ field.field.widget.attrs.class }}"
       {% if field.field.required %}required{% endif %}
