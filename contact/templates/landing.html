@@ -1,19 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="outer-container soft--top push--top">
+  <div class="outer-container soft--top push--top min-height">
     <div class="col-8">
       <h1 class='heading-xlarge push--bottom flush--top'>Contact us</h1>
-      <h2 class="heading-small font-med">Contact your local export network</h2>
       <ul class="list-regular soft-half--ends push--bottom">
-        <li>Making the move into any new market can feel like a leap into the unknown. But if you’d like help, there’s a support network near you.</li>
-        <li><a href="https://www.contactus.trade.gov.uk/enquiry/topic" class="link">Complete a short online form and an advisor will contact you</a></li>
-        <li>Alternatively, call the Business Support Helpline on 0300 456 3565 (Monday to Friday, 9am to 6pm).</li>
+        <li class="soft-half--bottom">Contact the Department for International Trade for questions about exporting and UKEF for questions about export finance. <a href="https://www.contactus.trade.gov.uk/enquiry/topic" class="link" title="Complete this short form">Complete this short form and we’ll get back to you.</a></li>
+        <li>We have trade advisers at regional offices throughout the country. <a href="https://www.contactus.trade.gov.uk/office-finder" class="link" title="Contact details of your local office">Find the contact details of your local trade office.</a></li>
       </ul>
 
-      <h2 class="heading-small font-med">Tell us what you think of our website</h2>
+      <h2 class="heading-small font-med">Help us improve</h2>
       <ul class="list-regular soft-half--ends push--bottom">
-        <li>If you would like to tell us what you think of our website or any of our digital services, <a href="{% url 'contact:feedback_submit' service %}" class="link">complete our short feedback form</a> and someone will get back to you.</li>
+        <li><a href="{% url 'contact:feedback_submit' service %}" class="link" title="Complete a short feedback">Complete a short feedback form</a> to tell us what you think of our website and services.</li>
       </ul>
     </div>
   </div>
