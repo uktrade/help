@@ -18,9 +18,11 @@
           <div class="col-4 form-success-section"><span>2</span><p>We will respond to you within 5 working days.</p></div>
           <div class="col-4 form-success-section"><span>3</span><p>Suitable applications will be passed to the marketplace for review.</p></div>
         </div>
-        <div class="col-12 soft--ends push--top">
-          <a href="{{ success_data.originating_page }}" class="">&lt; Go back to marketplace</a>
-        </div>
+        {% if success_data.valid_url %}
+          <div class="col-12 soft--ends push--top">
+            <a href="{{ success_data.originating_page }}" class="">&lt; Go back to marketplace</a>
+          </div>
+        {% endif %}
         {% block thumber_feedback %}{% endblock %}
       </div>
     </div>
