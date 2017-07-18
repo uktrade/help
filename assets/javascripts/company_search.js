@@ -84,7 +84,10 @@ var company_search = (function ($) {
 
 
         if(request.length === 0) {
-            list.append('<li class="soft-half" role="option">'+displayErrorMessage(request.status)+'</li>');
+
+            var status = request.status ? request.status : request.length;
+
+            list.append('<li class="soft-half" role="option">'+displayErrorMessage(status)+'</li>');
         }
 
         for (var i = 0; i < request.length; i++) {
@@ -100,14 +103,12 @@ var company_search = (function ($) {
     function displayErrorMessage(status) {
 
         switch(status) {
-            case 500:
-                return 'An unexpected error has occurred. Try to refresh the page, or report the problem if it persists';
+            case 0:
+                return '<strong>No results found in the Companies House database.</strong> <br />Check if you typed in a correct name and search again or select I don\'t have a company number option';
             case 429:
                 return 'Too many requests, please wait a few seconds and try again';
-            case 401:
-                return 'An unexpected error has occurred. Try to refresh the page, or report the problem if it persists';
             default:
-                return '<strong>No results found in the Companies House database.</strong> <br />Check if you typed in a correct name and search again or select I don\'t have a company number option';
+                return 'An unexpected error has occurred. Try to refresh the page, or report the problem if it persists';
         }
     }
 
