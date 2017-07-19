@@ -72,6 +72,59 @@ class TestGenericView(TestCase):
         # Test we get our 999 status code
         self.assertEquals(session['success_data']['code'], 201)
 
+    @override_settings(ZENDESK_RESP_CODE=201, DEBUG=True)
+    def test_return_link(self):
+        """
+        Test that when a form view receives an http referer, that referer is present on the success page
+        as a return link
+        """
+
+        # Send the request with a referer
+        referer = 'http://foo/bar'
+        response = self.client.get(reverse('generic', kwargs={'service': 'test'}), HTTP_REFERER=referer)
+
+        # Get the initial form data
+        form = response.context_data['form']
+        data = form.initial
+
+        # Add the mandatory name and email data
+        data['contact_name'] = initial_data['contact_name']
+        data['contact_email'] = initial_data['contact_email']
+
+        # Post it back, following the redirect
+        response = self.client.post(reverse('generic', kwargs={'service': 'test'}), data, follow=True)
+        link = '<a href="{0}" class="link" title="go back">< Go back</a>'.format(referer)
+
+        # The reponse should contain a 'Go back' link to the referring page
+        self.assertContains(response, link)
+
+    @override_settings(ZENDESK_RESP_CODE=201, DEBUG=True)
+    def test_no_return_link(self):
+        """
+        Test that when a form view receives an http referer, that referer is present on the success page
+        as a return link
+        """
+
+        referer = 'http://foo/bar'
+
+        # Send the request without a referer
+        response = self.client.get(reverse('generic', kwargs={'service': 'test'}))
+
+        # Get the initial form data
+        form = response.context_data['form']
+        data = form.initial
+
+        # Add the mandatory name and email data
+        data['contact_name'] = initial_data['contact_name']
+        data['contact_email'] = initial_data['contact_email']
+
+        # Post it back, following the redirect
+        response = self.client.post(reverse('generic', kwargs={'service': 'test'}), data, follow=True)
+        link = 'title="go back">< Go back</a>'
+
+        # The response should have no 'Go back; link
+        self.assertNotContains(response, link)
+
 
 class TestFeedbackView(TestCase):
 
