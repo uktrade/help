@@ -5,7 +5,7 @@
     {% for field_group in step.fields %}
       <div class="form-section cf {% if not forloop.last %}form-section--border {% endif %}">
         {% if forloop.first %}
-          <legend class="form-steps-header font-med soft--bottom">{{ step.title }}</legend>
+          <legend class="h3 form-steps-header font-med soft--bottom">{{ step.title }}</legend>
         {% endif %}
         {% for field in field_group %}
           {% get_form_field_template field as template %}
