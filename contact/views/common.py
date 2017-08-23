@@ -1,14 +1,12 @@
 import requests
 
-from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView, View
 from django.http import JsonResponse
 from django.conf import settings
 
-from thumber import thumber_feedback
+from thumber.decorators import thumber_feedback
 
-from .generics.views import DITHelpView, DITThanksView
-from .forms import FeedbackForm, TriageForm
+from ..generics.views import DITHelpView, DITThanksView
 
 
 class PingView(View):
@@ -36,7 +34,7 @@ class PingView(View):
 
 
 class InterstitialContactView(TemplateView):
-    template_name = "landing.html"
+    template_name = 'landing.html'
 
     def get_context_data(self, service=None):
         # Get the HTTP_REFERER from the request and store it in the session for the DITHelpView
@@ -47,40 +45,10 @@ class InterstitialContactView(TemplateView):
         return super().get_context_data(service=service)
 
 
-class ThanksView(DITThanksView):
-    """
-    Default thanks page for any form, no non-standard behaviour required.
-    """
+class DefaultHelpView(DITHelpView):
     pass
 
 
-class FeedbackView(DITHelpView):
-    """
-    Standard basic Feedback view, use the default behaviour of the DITHelpView with the FeedbackForm
-    """
-    form_class = FeedbackForm
-
-
-class TriageView(DITHelpView):
-    """
-    Triage form view, for handling enquiries from users wanting to obtain the DIT negotiated terms with the online
-    marketplaces.
-    """
-    form_class = TriageForm
-    success_url = reverse_lazy('contact:triage_thanks')
-    template_name = "triage.html"
-
-    def get_form_title(self):
-        market = self.request.GET.get('market', None)
-        if market is not None:
-            return market
-
-        return None
-
-
 @thumber_feedback
-class TriageThanksView(DITThanksView):
-    """
-    Thanks page for the TriageView, just use the specific template, no other specific behaviour.
-    """
-    template_name = "triage_thanks.html"
+class DefaultThanksView(DITThanksView):
+    pass

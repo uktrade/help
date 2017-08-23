@@ -5,10 +5,9 @@ from django.core.urlresolvers import reverse
 
 from contact.generics.views import DITHelpView
 from contact.generics.forms import DITHelpForm
-from . import initial_data, response201, urls
+from . import initial_data, response201, response200, response400
 
 
-@override_settings(ROOT_URLCONF=urls)
 class TestGenericView(TestCase):
 
     @override_settings(ZENDESK_RESP_CODE=201, DEBUG=True)
@@ -24,7 +23,8 @@ class TestGenericView(TestCase):
         form.is_valid()
 
         # Post it to the generic view
-        response = self.client.post(reverse('generic', kwargs={'service': 'test'}), form.cleaned_data)
+        url = reverse('contact:generic_submit', kwargs={'service': 'test', 'form_name': 'DITHelpForm'})
+        response = self.client.post(url, form.cleaned_data)
         session = self.client.session
 
         # Make sure that requests.post was never called
@@ -43,7 +43,8 @@ class TestGenericView(TestCase):
         form = DITHelpForm(initial_data, initial=initial_data)
         form.is_valid()
 
-        response = self.client.post(reverse('generic', kwargs={'service': 'test'}), form.cleaned_data)
+        url = reverse('contact:generic_submit', kwargs={'service': 'test', 'form_name': 'DITHelpForm'})
+        response = self.client.post(url, form.cleaned_data)
         session = self.client.session
 
         # post still not called
@@ -63,7 +64,8 @@ class TestGenericView(TestCase):
         form = DITHelpForm(initial_data, initial=initial_data)
         form.is_valid()
 
-        response = self.client.post(reverse('generic', kwargs={'service': 'test'}), form.cleaned_data)
+        url = reverse('contact:generic_submit', kwargs={'service': 'test', 'form_name': 'DITHelpForm'})
+        response = self.client.post(url, form.cleaned_data)
         session = self.client.session
 
         # post should now be called
@@ -81,7 +83,8 @@ class TestGenericView(TestCase):
 
         # Send the request with a referer
         referer = 'http://foo/bar'
-        response = self.client.get(reverse('generic', kwargs={'service': 'test'}), HTTP_REFERER=referer)
+        url = reverse('contact:generic_submit', kwargs={'service': 'test', 'form_name': 'DITHelpForm'})
+        response = self.client.get(url, HTTP_REFERER=referer)
 
         # Get the initial form data
         form = response.context_data['form']
@@ -92,7 +95,7 @@ class TestGenericView(TestCase):
         data['contact_email'] = initial_data['contact_email']
 
         # Post it back, following the redirect
-        response = self.client.post(reverse('generic', kwargs={'service': 'test'}), data, follow=True)
+        response = self.client.post(url, data, follow=True)
         link = '<a href="{0}" class="link" title="go back">< Go back</a>'.format(referer)
 
         # The reponse should contain a 'Go back' link to the referring page
@@ -106,9 +109,10 @@ class TestGenericView(TestCase):
         """
 
         referer = 'http://foo/bar'
+        url = reverse('contact:generic_submit', kwargs={'service': 'test', 'form_name': 'DITHelpForm'})
 
         # Send the request without a referer
-        response = self.client.get(reverse('generic', kwargs={'service': 'test'}))
+        response = self.client.get(url)
 
         # Get the initial form data
         form = response.context_data['form']
@@ -119,17 +123,48 @@ class TestGenericView(TestCase):
         data['contact_email'] = initial_data['contact_email']
 
         # Post it back, following the redirect
-        response = self.client.post(reverse('generic', kwargs={'service': 'test'}), data, follow=True)
+        response = self.client.post(url, data, follow=True)
         link = 'title="go back">< Go back</a>'
 
         # The response should have no 'Go back; link
         self.assertNotContains(response, link)
 
 
-class TestFeedbackView(TestCase):
+class TestOtherViews(TestCase):
 
-    def test_contact_get(self):
-        response = self.client.get(reverse('contact:feedback_submit', kwargs={'service': 'test'}))
+    @mock.patch('requests.get', mock.MagicMock(return_value=response200))
+    def test_pingdom_200(self):
+        response = self.client.get(reverse('contact:ping'))
+        self.assertEquals(response.status_code, 200)
+
+        data = response.json()
+        self.assertIn('zendesk_resp_code', data)
+        self.assertIn('info', data)
+        self.assertEquals(200, data['zendesk_resp_code'])
+        self.assertEquals('Success', data['info'])
+
+    @mock.patch('requests.get', mock.MagicMock(return_value=response400))
+    def _test_pingdom_400(self):
+        """ Test deactivated for now """
+
+        response = self.client.get(reverse('contact:ping'))
+        self.assertEquals(response.status_code, 200)
+
+        data = response.json()
+        self.assertIn('zendesk_resp_code', data)
+        self.assertIn('info', data)
+        # Any non 200 response results in a server error for the pingdom view
+        self.assertEquals(500, data['zendesk_resp_code'])
+
+    def test_feedback_redirect(self):
+        response = self.client.get(reverse('contact:feedback_submit', kwargs={'service': 'test'}), follow=True)
         self.assertContains(response, "Feedback", status_code=200)
+        form = response.context_data['form']
+        self.assertEquals(form['service'].value(), initial_data['service'])
+
+    def test_triage_redirect(self):
+        url = reverse('contact:triage_submit', kwargs={'service': 'test'})
+        response = self.client.get("{0}?market=Foo".format(url), follow=True)
+        self.assertContains(response, "Foo", status_code=200)
         form = response.context_data['form']
         self.assertEquals(form['service'].value(), initial_data['service'])

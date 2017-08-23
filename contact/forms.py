@@ -1,41 +1,54 @@
 from django import forms
 
-from .generics.forms import DITHelpForm
+from .generics.forms import DITHelpForm, DITHelpModelForm
 from .meta import choices, label, help_text, regex, placeholder, validation
+from .models import FeedbackModel, TriageModel
 from . import fields
 
 
-class FeedbackForm(DITHelpForm):
+class FeedbackForm(DITHelpModelForm):
     title = "Help us improve this service"
     subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
                 can improve it"
+
+    class Meta:
+        model = FeedbackModel
+        exclude = []
 
     content = fields.CharField(label="Feedback", required=True, widget=forms.Textarea,
                                attrs={'data-message': validation.FEEDBACK, 'data-validate': 'feedback'})
 
 
-class TriageForm(DITHelpForm):
+class TriageForm(DITHelpModelForm):
 
     subtitle = "Application via Department for International Trade"
     submit_text = "Apply to join"
 
-    company_name = fields.CharField(required=True,
-                                    label=label.COMPANY_NAME,
-                                    help_text=help_text.COMPANY_NAME,
-                                    error_messages=validation.TRIAGE_COMPANY_NAME,
-                                    attrs={
-                                        'data-validate': 'company',
-                                        'data-action': 'get-companies',
-                                        'data-message': validation.TRIAGE_COMPANY_NAME['required'],
-                                        'autocomplete': 'off',
-                                        'class': 'form-dropdown-input'
-                                    })
-    search_button = fields.ButtonField(label="Search Companies House",
+    def get_title(self):
+        return self.request.GET.get('market', None)
+
+    class Meta:
+        model = TriageModel
+        exclude = []
+
+    company_name = fields.CompanyField(required=True,
+                                       label=label.COMPANY_NAME,
+                                       help_text=help_text.COMPANY_NAME,
+                                       error_messages=validation.TRIAGE_COMPANY_NAME,
                                        attrs={
-                                         'class': 'button button-border button-border--blue button-medium\
-                                         push--ends search-companies',
-                                         'data-action': 'get-companies'
+                                           'data-validate': 'company',
+                                           'data-action': 'get-companies',
+                                           'data-message': validation.TRIAGE_COMPANY_NAME['required'],
+                                           'autocomplete': 'off',
+                                           'class': 'form-dropdown-input'
+                                       },
+                                       button_label="Search Companies House",
+                                       button_attrs={
+                                           'class': 'button button-border button-border--blue button-medium\
+                                           push--ends search-companies',
+                                           'data-action': 'get-companies'
                                        })
+
     soletrader = fields.BooleanField(required=False,
                                      label=label.TRIAGE_UNREGISTERED_COMPANY,
                                      attrs={'data-validate': 'soletrader'})
@@ -132,7 +145,7 @@ class TriageForm(DITHelpForm):
     fieldsets = (
         ('Your business', {
             'fields': (
-                ('company_name', 'search_button', 'soletrader', 'company_number', 'company_postcode'),
+                ('company_name', 'soletrader', 'company_number', 'company_postcode'),
                 'website_address',
             ),
         }),
