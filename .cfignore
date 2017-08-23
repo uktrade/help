@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# pyenv
+.python-version
+
+# dotenv
+.env
+
+*.DS_Store
+*.icloud
+
+scripts/
+
+# nodes #
+node_modules/
+
+# uncompiled assets
+assets/
+
+# uncollected static
+static/
+
+# Js test coverage
+assets/test/unit/coverage/
+
+# Media files
+media/

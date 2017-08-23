@@ -1,0 +1,6 @@
+--- 
+applications: 
+  -
+    memory: 1G
+    disk_quota: 2G
+    buildpack: python_buildpack
