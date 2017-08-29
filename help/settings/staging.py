@@ -1,7 +1,10 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['contact-us.export.staging.uktrade.io']
+ALLOWED_HOSTS = [
+    'contact-us.export.staging.uktrade.io',
+    'enav-help-staging.cloudapps.digital'
+]
 
 INSTALLED_APPS += [
     'raven.contrib.django.raven_compat'
