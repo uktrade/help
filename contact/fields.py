@@ -5,7 +5,6 @@ from django.forms.utils import flatatt
 
 
 __all__ = list(fields.__all__)
-__all__ += ['ButtonField']
 
 
 class FieldAttrsMixin():
@@ -45,26 +44,18 @@ for field_name in fields.__all__:
         globals()[field_name] = type(field_name, (FieldAttrsMixin, field), {})
 
 
-class Button(widgets.Widget):
-    input_type = 'button'
+class CompanyInput(widgets.TextInput):
+    pass
 
-    def __init__(self, label, *pargs, **kwargs):
-        self.label = label
+
+class CompanyField(CharField):
+
+    widget = CompanyInput
+
+    def __init__(self, button_label, button_attrs=None, *pargs, **kwargs):
         super().__init__(*pargs, **kwargs)
 
-    def render(self, name, value, attrs=None):
-        extra_attrs = attrs.update({'type': self.input_type, 'name': name})
-        final_attrs = self.build_attrs(self.attrs, extra_attrs)
-        return html.format_html('<button {}>{}</button>', flatatt(final_attrs), self.label)
+        self.widget.button_label = button_label
 
-
-class ButtonField(fields.Field):
-    input_type = 'button'
-    widget = Button
-
-    def __init__(self, label, attrs=None, *pargs, **kwargs):
-        self.widget = self.widget(label=label)
-        required = kwargs.pop('required', False)
-        super().__init__(required=required, *pargs, **kwargs)
-        if attrs is not None:
-            self.widget.attrs.update(attrs)
+        if button_attrs is not None:
+            self.widget.button_attrs = button_attrs
