@@ -1,11 +1,16 @@
+import os
 import requests
+
+from importlib import import_module
 from urllib.parse import urlparse
 
 from django.conf import settings
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse_lazy, resolve
+from django.http import Http404
 
+from thumber import thumber_feedback
 
 DIRECT_REQUEST = "Direct request"
 
@@ -16,21 +21,49 @@ class DITHelpView(FormView):
     instructing the form to submit a ticket to zendesk, and storing success data in the session for use in the success
     page.  Unless overriden, the success view is the DITThanksView below.
 
-    To use this view correctly:
-      * Create a view that inherits from this class
-      * Add a 'form_class' property on the view definition to a form that itself inherits from DITHelpForm
-      * Add a 'name' property, or a get_name method on the view definition that is the name/title of the form
-        displayed in the template
-      * Add any custom methods/properties that you need
+    This view will automatically dispatch to a form class that is named in the URL, and handle a lot of 'magic' for
+    you, but you can also subclass this View to add/modify any functionality you need.
     """
 
-    template_name = 'default_form.html'
-    success_url = reverse_lazy('contact:thanks')
+    def dispatch(self, *pargs, **kwargs):
+        if self.form_class is None:
+            try:
+                self.form_name = self.request.resolver_match.kwargs['form_name']
+                forms_module = import_module('contact.forms')
+                self.form_class = getattr(forms_module, self.form_name)
+            except KeyError:
+                msg = 'You must specify a form_class attribute on the view, or have it as a parameter in the URL route'
+                raise NotImplementedError(msg)
+            except AttributeError:
+                raise Http404
+        else:
+            self.form_name = self.form_class.__name__
+
+        self.service = self.request.resolver_match.kwargs['service']
+
+        return super().dispatch(*pargs, **kwargs)
+
+    def get_success_url(self):
+        if self.success_url is not None:
+            return self.success_url
+
+        return reverse_lazy('contact:generic_thanks', kwargs={'service': self.service, 'form_name': self.form_name})
+
+    def get_template_names(self):
+        if self.template_name is not None:
+            return [self.template_name]
+
+        specific_template = os.path.join(self.service, self.form_name, 'form.html')
+        service_default_template = os.path.join(self.service, 'default_form.html')
+        default_template = 'default_form.html'
+
+        return [specific_template, service_default_template, default_template]
 
     def form_valid(self, form):
         """
         The submitted form is valid, so tell the form to raise a Zendesk ticket
         """
+
         # Get the originating page, and submit the ticket
         originating_page = form.cleaned_data.get('originating_page')
 
@@ -39,6 +72,9 @@ class DITHelpView(FormView):
             resp_code = override_resp_code
         else:
             resp_code = form.raise_zendesk_ticket()
+
+        if getattr(form, "save", False) and callable(getattr(form, "save")):
+            form.save()
 
         # Story the above data in the session for (potential) use in the resulting view
         self.request.session['success_data'] = {
@@ -67,10 +103,18 @@ class DITHelpView(FormView):
 
         # Add the HTTP_REFERER, and service specified in the url, to the initial form data
         kwargs['initial']['originating_page'] = self._get_originating_page()
-        kwargs['initial']['service'] = self.request.resolver_match.kwargs['service']
-        kwargs['captcha_response'] = self.request.POST.get(u'g-recaptcha-response', None)
+        kwargs['initial']['service'] = self.service
         kwargs['remote_ip'] = self._get_client_ip()
+        kwargs['captcha_response'] = self.request.POST.get(u'g-recaptcha-response', None)
         return kwargs
+
+    def get_form(self):
+        """
+        Set the request on the form, so that the form can use request params etc to modify it's behaviour
+        """
+        form = super().get_form()
+        form.request = self.request
+        return form
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -121,8 +165,10 @@ class DITHelpView(FormView):
         return originating_page
 
     def get_form_title(self):
-        msg = 'You must implement a get_form_title method or a form_title property in the inheriting view'
-        raise NotImplementedError(msg)
+        """
+        Placeholder that can be overriden in an inheriting view
+        """
+        raise NotImplementedError()
 
     @property
     def form_title(self):
@@ -132,8 +178,10 @@ class DITHelpView(FormView):
         return self.get_form_title()
 
     def get_form_subtitle(self):
-        msg = 'You must implement a get_form_subtitle method or a form_subtitle property in the inheriting view'
-        raise NotImplementedError(msg)
+        """
+        Placeholder that can be overriden in an inheriting view
+        """
+        raise NotImplementedError()
 
     @property
     def form_subtitle(self):
@@ -147,14 +195,32 @@ class DITThanksView(TemplateView):
     """
     A helper view for the success of a DITHelpView. Utilises the session data placed by the DITHelpView to render a
     useful Thanks page.
-
-    NOTE: If used as a success page it needs success_data placed into the session, else an IndexError will result.
     """
 
-    template_name = 'default_thanks.html'
+    def get_template_names(self):
+        # If the inheriting class specifies a template, use that
+        if self.template_name is not None:
+            return [self.template_name]
+
+        # No specific template given, so calculate potential template name options based on the service and form
+        try:
+            self.form_name = self.request.resolver_match.kwargs['form_name']
+            self.service = self.request.resolver_match.kwargs['service']
+        except AttributeError:
+            raise Http404
+
+        specific_template = os.path.join(self.service, self.form_name, 'thanks.html')
+        service_default_template = os.path.join(self.service, 'default_thanks.html')
+        default_template = 'default_thanks.html'
+
+        return [specific_template, service_default_template, default_template]
 
     def get_context_data(self, *args, **kwargs):
         # Add the success_data that should be in the session
         context = super().get_context_data(*args, **kwargs)
-        context['success_data'] = self.request.session['success_data']
+        try:
+            context['success_data'] = self.request.session['success_data']
+        except IndexError:
+            context['success_data'] = {'success': True}
+
         return context

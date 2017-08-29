@@ -1,7 +1,10 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['contact-us.export.great.gov.uk']
+ALLOWED_HOSTS = [
+    'contact-us.export.great.gov.uk',
+    'enav-help.cloudapps.digital'
+]
 
 INSTALLED_APPS += [
     'raven.contrib.django.raven_compat'
