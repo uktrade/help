@@ -27,7 +27,8 @@ let debugMode = false ? { mangle: false, compress: false, output: { beautify: tr
 
 gulp.task('javascripts', () => gulp
     .src([
-        paths.src + 'javascripts/**/*.js'
+        paths.src + 'javascripts/**/*.js',
+        paths.src + 'javascripts/redesign-oct-2017/**/*.js'
     ])
     .pipe(plugins.babel({
         presets: ['es2015']
@@ -52,6 +53,14 @@ gulp.task('images', () =>
 gulp.task('stylesheets', () =>
     gulp.src(paths.src+'stylesheets/**/*')
         .pipe(gulp.dest(paths.dist + 'stylesheets/'))
+);
+
+gulp.task('stylesheets-new', () =>
+    gulp.src([paths.src+'stylesheets/redesign-oct-2017/static-header-footer.css', 
+        paths.src+'stylesheets/main.css',
+        paths.src+'stylesheets/redesign-oct-2017/overrides.css'])
+    .pipe(plugins.concat('new.css'))
+    .pipe(gulp.dest(paths.dist + 'stylesheets/'))
 );
 
 gulp.task('external-links', () =>
@@ -89,7 +98,7 @@ gulp.task('lint', ['lint:js']);
 
 
 // Default: compile everything
-gulp.task('default', ['javascripts', 'images', 'stylesheets', 'external-links']);
+gulp.task('default', ['javascripts', 'images', 'stylesheets-new', 'external-links']);
 
 // Optional: recompile on changes
 gulp.task('watch', ['watchForChanges']);

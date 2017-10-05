@@ -141,6 +141,7 @@ class DITHelpView(FormView):
         return context
 
     def _get_originating_page(self):
+        print('my page_processor')
         # Get the referer from the request, and parse it's data to find it's origin
         http_referer = self.request.META.get('HTTP_REFERER')
         if http_referer is not None:
