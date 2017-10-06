@@ -1,3 +1,5 @@
-p {
-  color: black;
+/* fixes */
+#menu {
+  position: relative;
+  top: -7px;
 }

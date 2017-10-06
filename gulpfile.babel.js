@@ -27,8 +27,8 @@ let debugMode = false ? { mangle: false, compress: false, output: { beautify: tr
 
 gulp.task('javascripts', () => gulp
     .src([
-        paths.src + 'javascripts/**/*.js',
-        paths.src + 'javascripts/redesign-oct-2017/**/*.js'
+        paths.src + 'javascripts/redesign-oct-2017/**/*.js',
+        paths.src + 'javascripts/**/*.js'
     ])
     .pipe(plugins.babel({
         presets: ['es2015']
