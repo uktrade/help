@@ -1,5 +1,4 @@
 /* fixes */
-#menu {
-  position: relative;
-  top: -7px;
+#header-menu .home img {
+  margin-bottom: 0px;
 }
