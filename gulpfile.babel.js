@@ -33,7 +33,7 @@ gulp.task('javascripts', () => gulp
     .pipe(plugins.babel({
         presets: ['es2015']
     }))
-    .pipe(plugins.uglify(debugMode))
+    //.pipe(plugins.uglify(debugMode))
     .pipe(plugins.addSrc.prepend([
         paths.npm + 'jquery/dist/jquery.min.js',
         paths.npm + 'underscore/underscore-min.js',
