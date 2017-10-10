@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = [
     'contact-us.export.staging.uktrade.io',
     'enav-help-staging.cloudapps.digital'
