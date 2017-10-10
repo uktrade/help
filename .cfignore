@@ -42,7 +42,7 @@ node_modules/
 assets/
 
 # uncollected static
-static/
+#static/
 
 # Js test coverage
 assets/test/unit/coverage/
