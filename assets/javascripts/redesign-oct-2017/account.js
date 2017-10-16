@@ -1,12 +1,12 @@
 
-(function () {
+(function (ukdit) {
   var ssoCookieName = "sso_display_logged_in";
   var list = null;
 
 function createEl(el, target){
   var ne = document.createElement(el);
   if( target )
-     target.appendChild(ne);
+    target.appendChild(ne);
   return ne;
  }
 
@@ -36,7 +36,7 @@ function addListItem (text, href, className) {
   var anchor = createEl('a');
   anchor.href = href;
   anchor.className = className;
-  var link = createText(text, anchor);
+  createText(text, anchor);
   listItem.appendChild(anchor);
   list.appendChild(listItem);
 }
@@ -52,19 +52,19 @@ function setLoggedOut () {
 }
 
 function addRegister () {
-  addListItem ('Register', '#', 'anonymous');
+  addListItem ('Register', ukdit.config.urls.register, 'anonymous');
 }
 
 function addSignIn () {
-  addListItem ('Login', '#', 'anonymous signin');
+  addListItem ('Login', ukdit.config.urls.signin, 'anonymous signin');
 }
 
 function addProfile () {
-  addListItem ('Profile', '#', 'profile');
+  addListItem ('Profile', ukdit.config.urls.profile, 'profile');
 }
 
-function signOut () {
-  addListItem ('Sign out', '#', 'signout');
+function addSignOut () {
+  addListItem ('Sign out', ukdit.config.urls.signout, 'signout');
 }
 
 function empty() {
@@ -84,10 +84,12 @@ function setLoginStatus() {
 
 function init () {
   list = document.getElementsByClassName('account-links')[0];
-  empty();
-  setLoginStatus();
+  if (list) {
+    empty();
+    setLoginStatus();
+  }
 }
 
 init();
 
-})();
+})(window.ukdit);

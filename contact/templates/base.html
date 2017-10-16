@@ -12,6 +12,17 @@
       })(window,document,'script','dataLayer','GTM-T96KS9');</script>
     {% endblock google_tag_manager %}
     <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+    <script type="text/javascript">
+      var ukdit = ukdit || {};
+      ukdit.config = {
+        urls: {
+            signin: '{{ SSO_HOST }}accounts/login/',
+            register: '{{ SSO_HOST }}accounts/signup/',
+            profile: '{{ PROFILE_HOST }}selling-online-overseas/',
+            signout: '{{ SSO_HOST }}accounts/logout/?next={{ SOO_HOST }}'
+          }
+      }
+    </script>
     {% block head_meta %}
       <meta name="description" content="{% block head_meta_description %}DIT Help{% endblock head_meta_description %}">
       {% block head_meta_charset %}
