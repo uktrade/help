@@ -17,25 +17,16 @@ function createText(content, target){
 }
 
 function readCookie(name) {
-  var cookies = {};
-  if(cookies){ return cookies[name]; }
-
-  var c = document.cookie.split('; ');
-
-  for(var i=c.length-1; i>=0; i--){
-    var C = c[i].split('=');
-    cookies[C[0]] = C[1];
-  }
-
-  return cookies[name];
+  var b = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
 }
 
-function addListItem (text, href, className) {
+function addListItem (text, href, listItemClass, linkClass) {
   var listItem = createEl('li');
-  listItem.className = className;
+  listItem.className = listItemClass;
   var anchor = createEl('a');
   anchor.href = href;
-  anchor.className = className;
+  anchor.className = linkClass;
   createText(text, anchor);
   listItem.appendChild(anchor);
   list.appendChild(listItem);
@@ -52,19 +43,19 @@ function setLoggedOut () {
 }
 
 function addRegister () {
-  addListItem ('Register', ukdit.config.urls.register, 'anonymous');
+  addListItem ('Register', ukdit.config.urls.register, 'anonymous', 'register');
 }
 
 function addSignIn () {
-  addListItem ('Login', ukdit.config.urls.signin, 'anonymous signin');
+  addListItem ('Sign in', ukdit.config.urls.signin, 'anonymous', 'signin');
 }
 
 function addProfile () {
-  addListItem ('Profile', ukdit.config.urls.profile, 'profile');
+  addListItem ('Profile', ukdit.config.urls.profile, 'authenticated', '');
 }
 
 function addSignOut () {
-  addListItem ('Sign out', ukdit.config.urls.signout, 'signout');
+  addListItem ('Sign out', ukdit.config.urls.signout, 'authenticated', 'signout');
 }
 
 function empty() {
