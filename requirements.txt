@@ -10,3 +10,4 @@ psycopg2==2.7.1
 raven==6.0.0
 requests==2.13.0
 whitenoise==3.3.0
+-e git+https://github.com/uktrade/directory-validators.git@v4.1.0#egg=directory_validators

@@ -1,4 +1,5 @@
 from django import forms
+from directory_validators.company import keywords_special_characters
 
 from .generics.forms import DITHelpForm, DITHelpModelForm
 from .meta import choices, label, help_text, regex, placeholder, validation
@@ -15,8 +16,16 @@ class FeedbackForm(DITHelpModelForm):
         model = FeedbackModel
         exclude = []
 
-    content = fields.CharField(label="Feedback", required=True, widget=forms.Textarea,
-                               attrs={'data-message': validation.FEEDBACK, 'data-validate': 'feedback'})
+    content = fields.CharField(
+        label="Feedback",
+        required=True,
+        widget=forms.Textarea,
+        attrs={
+            'data-message': validation.FEEDBACK,
+            'data-validate': 'feedback'
+        },
+        validators=[keywords_special_characters]
+    )
 
 
 class TriageForm(DITHelpModelForm):

@@ -5,6 +5,7 @@ from unittest import mock
 from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from directory_validators.company import MESSAGE_KEYWORD_SPECIAL_CHARS
 
 from . import initial_data, response201
 from ..forms import FeedbackForm
@@ -18,6 +19,22 @@ class FeedbackFormTests(TestCase):
         self.assertFalse(form.is_valid())
         form = FeedbackForm(initial_data, initial=initial_data)
         self.assertTrue(form.is_valid())
+
+    def test_form_invalid_feedback(self):
+        form = FeedbackForm({
+            'contact_name': 'Spam Eggs',
+            'contact_email': 'spam@example.com',
+            'content': 'testing <script>alert(1)</script>&'
+                       'full_name=<script>alert(10) ',
+            'service': 'test',
+            'originating_page': 'google.com'
+            }
+        )
+        self.assertFalse(form.is_valid())
+        self.assertEqual(
+            form.errors,
+            {'content': [MESSAGE_KEYWORD_SPECIAL_CHARS]}
+        )
 
     @override_settings(USE_CAPTCHA=True)
     def test_captcha(self):
