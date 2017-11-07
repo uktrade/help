@@ -5,7 +5,7 @@ from unittest import mock
 from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from directory_validators.company import MESSAGE_KEYWORD_SPECIAL_CHARS
+from directory_validators.company import MESSAGE_REMOVE_HTML
 
 from . import initial_data, response201
 from ..forms import FeedbackForm
@@ -33,7 +33,7 @@ class FeedbackFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors,
-            {'content': [MESSAGE_KEYWORD_SPECIAL_CHARS]}
+            {'content': [MESSAGE_REMOVE_HTML]}
         )
 
     @override_settings(USE_CAPTCHA=True)

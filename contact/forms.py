@@ -1,5 +1,5 @@
 from django import forms
-from directory_validators.company import keywords_special_characters
+from directory_validators.company import no_html
 
 from .generics.forms import DITHelpForm, DITHelpModelForm
 from .meta import choices, label, help_text, regex, placeholder, validation
@@ -24,7 +24,7 @@ class FeedbackForm(DITHelpModelForm):
             'data-message': validation.FEEDBACK,
             'data-validate': 'feedback'
         },
-        validators=[keywords_special_characters]
+        validators=[no_html]
     )
 
 
