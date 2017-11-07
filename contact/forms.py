@@ -1,4 +1,5 @@
 from django import forms
+from directory_validators.common import not_contains_url_or_email
 from directory_validators.company import no_html
 
 from .generics.forms import DITHelpForm, DITHelpModelForm
@@ -24,7 +25,7 @@ class FeedbackForm(DITHelpModelForm):
             'data-message': validation.FEEDBACK,
             'data-validate': 'feedback'
         },
-        validators=[no_html]
+        validators=[not_contains_url_or_email, no_html]
     )
 
 
