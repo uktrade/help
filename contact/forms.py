@@ -1,4 +1,6 @@
 from django import forms
+from directory_validators.common import not_contains_url_or_email
+from directory_validators.company import no_html
 
 from .generics.forms import DITHelpForm, DITHelpModelForm
 from .meta import choices, label, help_text, regex, placeholder, validation
@@ -15,8 +17,16 @@ class FeedbackForm(DITHelpModelForm):
         model = FeedbackModel
         exclude = []
 
-    content = fields.CharField(label="Feedback", required=True, widget=forms.Textarea,
-                               attrs={'data-message': validation.FEEDBACK, 'data-validate': 'feedback'})
+    content = fields.CharField(
+        label="Feedback",
+        required=True,
+        widget=forms.Textarea,
+        attrs={
+            'data-message': validation.FEEDBACK,
+            'data-validate': 'feedback'
+        },
+        validators=[not_contains_url_or_email, no_html]
+    )
 
 
 class TriageForm(DITHelpModelForm):
