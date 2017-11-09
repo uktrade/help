@@ -6,6 +6,10 @@ ALLOWED_HOSTS = [
     'enav-help-staging.cloudapps.digital'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'contact-us.export.staging.uktrade.io'
+]
+
 INSTALLED_APPS += [
     'raven.contrib.django.raven_compat'
 ]

@@ -48,7 +48,7 @@ Install dependencies
 Running with django runserver:
 ```shell
     workon help
-    python manage.py runserver
+    source environment.sh && ./manage.py runsver --settings=help.settings.dev
 ```
 Then visit [localhost:8000](http://localhost:8000)
 

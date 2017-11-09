@@ -6,6 +6,10 @@ ALLOWED_HOSTS = [
     'enav-help.cloudapps.digital'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'contact-us.export.great.gov.uk'
+]
+
 INSTALLED_APPS += [
     'raven.contrib.django.raven_compat'
 ]
