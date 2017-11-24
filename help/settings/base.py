@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'directory_header_footer',
     'contact',
     'thumber',
+    'captcha',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -135,8 +136,12 @@ ZENDESK_TOKEN = os.environ.get('ZENDESK_TOKEN')
 ZENDESK_TEST_URL = os.environ.get('ZENDESK_TEST_URL')
 
 USE_CAPTCHA = os.environ.get('USE_CAPTCHA', 'false').lower() == 'true' or os.environ.get('USE_CAPTCHA', False) == '1'
-CAPTCHA_SITE_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
-CAPTCHA_SECRET_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
+RECAPTCHA_PRIVATE_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
+# NOCAPTCHA = True turns on version 2 of recaptcha
+NOCAPTCHA = True
+
 
 RESTRICT_IPS = os.environ.get('RESTRICT_IPS', '').lower() == 'true' or os.environ.get('RESTRICT_IPS') == '1'
 
@@ -167,4 +172,3 @@ SSO_PROXY_LOGOUT_URL = os.environ.get(
     'SSO_PROXY_LOGOUT_URL', 'http://sso.trade.great.dev:8004/accounts/'
     'logout/?next=http://contact.trade.great.dev:8008'
 )
-
