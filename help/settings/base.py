@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'directory_header_footer',
     'contact',
     'thumber',
 ]
@@ -63,6 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'directory_header_footer.context_processors.urls_processor',
+                'sso.context_processors.sso_processor',
                 'contact.context_processors.hosts',
             ],
         },
@@ -148,3 +151,20 @@ SSO_HOST = os.environ.get('SSO_HOST', 'https://sso.trade.great.gov.uk/')
 PROFILE_HOST = os.environ.get('PROFILE_HOST', 'https://profile.great.gov.uk/')
 
 ZENDESK_RESP_CODE = os.environ.get('ZENDESK_RESP_CODE', None)
+
+# SSO
+SSO_PROXY_LOGIN_URL = os.environ.get(
+    'SSO_PROXY_LOGIN_URL', 'http://sso.trade.great.dev:8004/accounts/login/'
+)
+SSO_PROXY_SIGNUP_URL = os.environ.get(
+    'SSO_PROXY_SIGNUP_URL', 'http://sso.trade.great.dev:8004/accounts/signup/'
+)
+SSO_PROFILE_URL = os.environ.get(
+    'SSO_PROFILE_URL',
+    'http://profile.trade.great.dev:8006/selling-online-overseas/'
+)
+SSO_PROXY_LOGOUT_URL = os.environ.get(
+    'SSO_PROXY_LOGOUT_URL', 'http://sso.trade.great.dev:8004/accounts/'
+    'logout/?next=http://contact.trade.great.dev:8008'
+)
+
