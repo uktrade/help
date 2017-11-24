@@ -15,12 +15,6 @@
     {% endfor %}
   </fieldset>
 
-  {% if forloop.last and use_captcha %}
-      <div class="form-group">
-        <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}"></div>
-      </div>
-  {% endif %}
-
   <div class="form-tab-button">
     {% if not forloop.first %}
       {% with previous_step=form.steps|previous:forloop.counter0 %}

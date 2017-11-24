@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'contact',
     'thumber',
+    'captcha',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -132,8 +133,12 @@ ZENDESK_TOKEN = os.environ.get('ZENDESK_TOKEN')
 ZENDESK_TEST_URL = os.environ.get('ZENDESK_TEST_URL')
 
 USE_CAPTCHA = os.environ.get('USE_CAPTCHA', 'false').lower() == 'true' or os.environ.get('USE_CAPTCHA', False) == '1'
-CAPTCHA_SITE_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
-CAPTCHA_SECRET_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
+RECAPTCHA_PRIVATE_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
+# NOCAPTCHA = True turns on version 2 of recaptcha
+NOCAPTCHA = True
+
 
 RESTRICT_IPS = os.environ.get('RESTRICT_IPS', '').lower() == 'true' or os.environ.get('RESTRICT_IPS') == '1'
 

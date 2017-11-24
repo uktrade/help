@@ -11,16 +11,13 @@
       {% endfor %}
 
       {% for field in form.visible_fields %}
+        {% if field.errors %}
+          {{ field.errors }}
+        {% endif %}
         {% get_form_field_template field as template %}
         {% include template %}
       {% endfor %}
     <fieldset>
-
-    {% if use_captcha %}
-      <div class="form-group">
-        <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}"></div>
-      </div>
-    {% endif %}
       <button type="submit" class="button button-blue button-medium">{{ form.submit_text }}</button>
   </form>
 </div>
