@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'directory_header_footer',
     'contact',
     'thumber',
     'captcha',
@@ -64,6 +65,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'directory_header_footer.context_processors.urls_processor',
+                'sso.context_processors.sso_processor',
                 'contact.context_processors.hosts',
             ],
         },
@@ -153,3 +156,38 @@ SSO_HOST = os.environ.get('SSO_HOST', 'https://sso.trade.great.gov.uk/')
 PROFILE_HOST = os.environ.get('PROFILE_HOST', 'https://profile.great.gov.uk/')
 
 ZENDESK_RESP_CODE = os.environ.get('ZENDESK_RESP_CODE', None)
+
+# SSO
+SSO_PROXY_LOGIN_URL = os.environ.get(
+    'SSO_PROXY_LOGIN_URL', 'http://sso.trade.great.dev:8004/accounts/login/'
+)
+SSO_PROXY_SIGNUP_URL = os.environ.get(
+    'SSO_PROXY_SIGNUP_URL', 'http://sso.trade.great.dev:8004/accounts/signup/'
+)
+SSO_PROFILE_URL = os.environ.get(
+    'SSO_PROFILE_URL',
+    'http://profile.trade.great.dev:8006/selling-online-overseas/'
+)
+SSO_PROXY_LOGOUT_URL = os.environ.get(
+    'SSO_PROXY_LOGOUT_URL', 'http://sso.trade.great.dev:8004/accounts/'
+    'logout/?next=http://contact.trade.great.dev:8008'
+)
+
+# HEADER/FOOTER URLS
+GREAT_EXPORT_HOME = os.getenv('GREAT_EXPORT_HOME')
+EXPORTING_NEW = os.getenv('EXPORTING_NEW')
+EXPORTING_REGULAR = os.getenv('EXPORTING_REGULAR')
+EXPORTING_OCCASIONAL = os.getenv('EXPORTING_OCCASIONAL')
+GUIDANCE_MARKET_RESEARCH = os.getenv('GUIDANCE_MARKET_RESEARCH')
+GUIDANCE_CUSTOMER_INSIGHT = os.getenv('GUIDANCE_CUSTOMER_INSIGHT')
+GUIDANCE_FINANCE = os.getenv('GUIDANCE_FINANCE')
+GUIDANCE_BUSINESS_PLANNING = os.getenv('GUIDANCE_BUSINESS_PLANNING')
+GUIDANCE_GETTING_PAID = os.getenv('GUIDANCE_GETTING_PAID')
+GUIDANCE_OPERATIONS_AND_COMPLIANCE = os.getenv(
+    'GUIDANCE_OPERATIONS_AND_COMPLIANCE'
+)
+SERVICES_EXOPPS = os.getenv('SERVICES_EXOPPS')
+SERVICES_EXOPPS_ACTUAL = os.getenv('SERVICES_EXOPPS_ACTUAL')
+SERVICES_FAB = os.getenv('SERVICES_FAB')
+SERVICES_GET_FINANCE = os.getenv('SERVICES_GET_FINANCE')
+SERVICES_SOO = os.getenv('SERVICES_SOO')
