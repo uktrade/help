@@ -45,7 +45,10 @@ class DITHelpMixin():
         """
         super().__init__(*args, **kwargs)
 
-        if settings.USE_CAPTCHA:
+        if (
+            settings.USE_CAPTCHA and
+            not getattr(self, 'disable_captcha', False)
+        ):
             self.fields['captcha'] = ReCaptchaField()
 
         # Interpret the fieldsets attribute (if it exists) into steps for the form

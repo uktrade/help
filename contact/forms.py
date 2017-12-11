@@ -30,6 +30,7 @@ class FeedbackForm(DITHelpModelForm):
 
 
 class TriageForm(DITHelpModelForm):
+    disable_captcha = True
 
     subtitle = "Application via Department for International Trade"
     submit_text = "Apply to join"
