@@ -9,7 +9,7 @@ from directory_validators.common import MESSAGE_REMOVE_URL
 from directory_validators.company import MESSAGE_REMOVE_HTML
 
 from . import initial_data, response201
-from ..forms import FeedbackForm
+from ..forms import FeedbackForm, TriageForm
 from ..models import FeedbackModel
 
 
@@ -53,11 +53,21 @@ class FeedbackFormTests(TestCase):
         )
 
     @override_settings(USE_CAPTCHA=True)
-    def test_captcha(self):
+    def test_captcha_enabled(self):
         form = FeedbackForm()
         self.assertFalse(form.is_valid())
         form = FeedbackForm(initial_data, initial=initial_data)
         self.assertFalse(form.is_valid())
+
+    @override_settings(USE_CAPTCHA=False)
+    def test_captcha_disabled(self):
+        form = FeedbackForm()
+        assert 'captcha' not in form.fields
+
+    @override_settings(USE_CAPTCHA=True)
+    def test_captcha_disabled_form(self):
+        form = TriageForm()
+        assert 'captcha' not in form.fields
 
     @mock.patch('requests.post', mock.Mock(return_value=response201))
     def test_form_zendesk_ticket_creation(self):
