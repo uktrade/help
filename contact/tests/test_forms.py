@@ -64,7 +64,7 @@ class FeedbackFormTests(TestCase):
         form = FeedbackForm()
         assert 'captcha' not in form.fields
 
-    @override_settings(USE_CAPTCHA=True)
+    @override_settings(USE_CAPTCHA=False)
     def test_captcha_disabled_form(self):
         form = TriageForm()
         assert 'captcha' not in form.fields

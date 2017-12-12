@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from directory_validators.common import not_contains_url_or_email
 from directory_validators.company import no_html
 
@@ -30,7 +31,6 @@ class FeedbackForm(DITHelpModelForm):
 
 
 class TriageForm(DITHelpModelForm):
-    disable_captcha = True
 
     subtitle = "Application via Department for International Trade"
     submit_text = "Apply to join"
@@ -153,29 +153,41 @@ class TriageForm(DITHelpModelForm):
             return True
         return valid
 
-    fieldsets = (
-        ('Your business', {
-            'fields': (
-                ('company_name', 'soletrader', 'company_number', 'company_postcode'),
-                'website_address',
-            ),
-        }),
-        ('Business details', {
-            'fields': (
-                'turnover',
-                'sku_count',
-                'trademarked',
-            )
-        }),
-        ('Your experience', {
-            'fields': (
-                'experience',
-                'description',
-            )
-        }),
-        ('Contact details', {
-            'fields': (
-                ('contact_name', 'contact_email', 'contact_phone', 'email_pref'),
-            )
-        }),
-    )
+    @property
+    def fieldsets(self):
+        contact_details_fields = [
+            'contact_name',
+            'contact_email',
+            'contact_phone',
+            'email_pref',
+        ]
+        if settings.USE_CAPTCHA:
+            contact_details_fields.append('captcha')
+        fieldsets = {
+            'Your business': {
+                'fields': (
+                  'company_name',
+                  'soletrader',
+                  'company_number',
+                  'company_postcode',
+                  'website_address',
+                )
+            },
+            'Business details': {
+                'fields': (
+                    'turnover',
+                    'sku_count',
+                    'trademarked',
+                )
+            },
+            'Your experience': {
+                'fields': (
+                    'experience',
+                    'description',
+                )
+            },
+            'Contact details': {
+                'fields': contact_details_fields,
+            },
+        }
+        return list(fieldsets.items())
