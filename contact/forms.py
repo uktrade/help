@@ -163,31 +163,42 @@ class TriageForm(DITHelpModelForm):
         ]
         if settings.USE_CAPTCHA:
             contact_details_fields.append('captcha')
-        fieldsets = {
-            'Your business': {
-                'fields': (
-                  'company_name',
-                  'soletrader',
-                  'company_number',
-                  'company_postcode',
-                  'website_address',
-                )
-            },
-            'Business details': {
-                'fields': (
-                    'turnover',
-                    'sku_count',
-                    'trademarked',
-                )
-            },
-            'Your experience': {
-                'fields': (
-                    'experience',
-                    'description',
-                )
-            },
-            'Contact details': {
-                'fields': contact_details_fields,
-            },
-        }
-        return list(fieldsets.items())
+        return (
+            (
+                'Your business',
+                {
+                    'fields': (
+                        'company_name',
+                        'soletrader',
+                        'company_number',
+                        'company_postcode',
+                        'website_address',
+                    )
+                }
+            ),
+            (
+                'Business details',
+                {
+                    'fields': (
+                        'turnover',
+                        'sku_count',
+                        'trademarked',
+                    )
+                }
+            ),
+            (
+                'Your experience',
+                {
+                    'fields': (
+                        'experience',
+                        'description',
+                    )
+                }
+            ),
+            (
+                'Contact details',
+                {
+                    'fields': contact_details_fields,
+                }
+            ),
+        )

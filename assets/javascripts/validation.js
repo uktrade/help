@@ -22,7 +22,6 @@ var validation = function ($) {
         if($('.form-group').hasClass('form-group-error')) {
             clearErrorMessage();
         }
-
         for(var i=0; i<fields.length;i++) {
             var validation = $(fields[i]).data('validate'),
                 message = $(fields[i]).data('message');
@@ -39,6 +38,12 @@ var validation = function ($) {
                         if(isEmpty(fields[i]) || (!isValidEmail($(fields[i]).val()))) {
                             displayErrorMessage(fields[i], message);
                             valid = false;
+                        }
+                        break;
+                    case 'captcha':
+                        var responseElement = fields[i].getElementsByClassName('g-recaptcha-response')[0];
+                        if (isEmpty(responseElement)) {
+                            displayErrorMessage(fields[i], message);
                         }
                         break;
                     case 'soletrader':
