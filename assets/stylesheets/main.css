@@ -5792,3 +5792,36 @@ html, body, div, span, object, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, ab
 blockquote, q {
   quotes: none; 
 }
+
+.recaptcha_input_area a {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+.recaptcha_input_area input {
+  font-size: 18px;
+  line-height: inherit;
+  height: 22px;
+}
+
+#g-recaptcha-response {
+  min-height: 80px;
+}
+
+noscript > div > div > div:nth-child(2) {
+  bottom: 10px!important;
+}
+noscript > div,
+noscript > div + div,
+iframe {
+  height: 550px!important;
+}
+textarea {
+  margin-top: 180px!important;
+}
+
+body.js-enabled noscript > div,
+body.js-enabled noscript > div + div,
+body.js-enabled noscript iframe {
+    height: 350px!important;
+}
