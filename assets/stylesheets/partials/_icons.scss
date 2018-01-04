@@ -1,0 +1,48 @@
+
+// ICONS
+
+.icon {
+  display: inline-block;
+  background-position: 0 0;
+  background-repeat: no-repeat
+}
+
+.icon-expand {
+  background-image: url("/static/images/icons/expand-white.svg")
+}
+
+.icon-close {
+  background-image: url("/static/images/icons/close-white.svg")
+}
+
+.icon-thankyou {
+  background-image: url("/static/images/icons/thanks.svg")
+}
+
+.icon-thankyou--grey {
+  background-image: url("/static/images/icons/thanks-grey.svg")
+}
+
+.icon-error {
+  background-image: url("/static/images/icons/error.svg")
+}
+
+.icon-error--grey {
+  background-image: url("/static/images/icons/error-grey.svg")
+}
+
+.icon-feedback {
+  background-image: url("/static/images/icons/feedback.svg")
+}
+
+.icon-feedback--grey {
+  background-image: url("/static/images/icons/feedback-grey.svg")
+}
+
+.navigation-main-button .icon {
+  height: 12px;
+  line-height: 15px;
+  margin-right: 2px;
+  top: 1px;
+  width: 25px
+}
