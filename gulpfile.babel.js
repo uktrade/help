@@ -6,6 +6,9 @@
 // LIBRARIES
 // - - - - - - - - - - - - - - -
 import gulp from 'gulp';
+import sourcemaps from 'gulp-sourcemaps';
+import path from 'path';
+import sass from 'gulp-sass';
 import stylish from 'jshint-stylish';
 import paths from './projectpath.babel';
 import loadPlugins from 'gulp-load-plugins';
@@ -18,6 +21,9 @@ const plugins = loadPlugins(),
 gulp.task('webdriver_update', webdriver_update);
 gulp.task('webdriver_standalone', webdriver_standalone);
 
+const PROJECT_DIR = path.resolve(__dirname);
+const SASS_FILES = `${PROJECT_DIR}/assets/stylesheets/**/*.scss`;
+const OUTPUT_CSS = `${PROJECT_DIR}/static/stylesheets`;
 
 // set debugMode to true to use non uglified and compressed js versions
 let debugMode = false ? { mangle: false, compress: false, output: { beautify: true } } : null;
@@ -54,6 +60,16 @@ gulp.task('stylesheets', () =>
         .pipe(gulp.dest(paths.dist + 'stylesheets/'))
 );
 
+gulp.task('sass', function () {
+  return gulp.src(SASS_FILES)
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      outputStyle: 'expanded'
+    }).on('error', sass.logError))
+    .pipe(sourcemaps.write('./sourcemaps', {includeContent: false}))
+    .pipe(gulp.dest(OUTPUT_CSS));
+});
+
 gulp.task('external-links', () =>
     gulp.src(paths.src+'external-links/**/*')
         .pipe(gulp.dest(paths.dist + 'external-links/'))
@@ -89,7 +105,7 @@ gulp.task('lint', ['lint:js']);
 
 
 // Default: compile everything
-gulp.task('default', ['javascripts', 'images', 'stylesheets', 'external-links']);
+gulp.task('default', ['javascripts', 'images', 'stylesheets', 'sass', 'external-links']);
 
 // Optional: recompile on changes
 gulp.task('watch', ['watchForChanges']);
