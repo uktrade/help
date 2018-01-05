@@ -1,6 +1,14 @@
 
 // FORMS
 
+fieldset:after,
+.form-group:after,
+.form-block:after {
+  content: "";
+  display: block;
+  clear: both
+}
+
 input:focus,
 textarea:focus,
 select:focus,
@@ -28,12 +36,14 @@ input[type=number] {
   height: 29px
 }
 
-.block-label:hover {
-  border-color: #0b0c0c
-}
+.block-label {
+  &:hover {
+    border-color: #0b0c0c
+  }
 
-.block-label:last-child {
-  margin-bottom: 0
+  &:last-child {
+    margin-bottom: 0
+  }
 }
 
 .form-group {
