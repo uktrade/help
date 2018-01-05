@@ -10,6 +10,7 @@ body.js-enabled noscript iframe {
 noscript > div > div > div:nth-child(2) {
   bottom: 10px!important;
 }
+
 noscript > div,
 noscript > div + div,
 iframe {
@@ -29,28 +30,16 @@ iframe {
   outline: none
 }
 
-.js-enabled .js-hidden {
-  display: none
-}
-
-.js-enabled .toggle-container {
-  display: none
-}
-
-.js-enabled .form-dropdown-hidden {
-  display: none
-}
-
-.js-enabled .navigation-toggle {
+.js-enabled .js-hidden,
+.js-enabled .toggle-container,
+.js-enabled .form-dropdown-hidden,
+.js-enabled .navigation-toggle,
+.js-enabled .button-submit {
   display: none
 }
 
 .js-enabled .navigation-toggle--open {
   display: block
-}
-
-.js-enabled .button-submit {
-  display: none
 }
 
 .js-enabled label.focused {
@@ -111,35 +100,37 @@ iframe {
   box-shadow: 0 0 0 4px #ffbf47
 }
 
-.js-enabled .block-label.selection-button-radio:before {
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  background: transparent;
-  border: 2px solid;
-  color: #333;
-  content: '';
-  height: 30px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 30px
-}
+.js-enabled .block-label.selection-button-radio {
+  &:before {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid;
+    color: #333;
+    content: '';
+    height: 30px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 30px
+  }
 
-.js-enabled .block-label.selection-button-radio:after {
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  border: 10px solid #00549f;
-  content: '';
-  filter: alpha(opacity=0);
-  height: 0;
-  left: 7px;
-  opacity: 0;
-  position: absolute;
-  top: 7px;
-  width: 0;
-  zoom: 1
+  &:after {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 10px solid #00549f;
+    content: '';
+    filter: alpha(opacity=0);
+    height: 0;
+    left: 7px;
+    opacity: 0;
+    position: absolute;
+    top: 7px;
+    width: 0;
+    zoom: 1
+  }
 }
 
 .js-enabled .block-label.selection-button-checkbox.selected:after,
