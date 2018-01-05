@@ -40,7 +40,7 @@ Make a virtual environment for this app:
 
 Install dependencies
 ```shell
-    ./scripts/bootstrap.sh
+    make build
 ```
 
 ## Running the application
@@ -48,14 +48,13 @@ Install dependencies
 Running with django runserver:
 ```shell
     workon help
-    source environment.sh && ./manage.py runserver --settings=help.settings.dev
+    make debug_webserver
 ```
 Then visit [localhost:8000](http://localhost:8000)
 
 Or through heroku:
 ```shell
-    workon help
-    heroku local
+    make heroku
 ```
 Then visit [localhost:5000](http://localhost:5000)
 
@@ -65,5 +64,5 @@ Tests include a pep8 style check, django test script and coverage report.
 
 ```shell
     workon help
-    ./scripts/run_tests.sh
+    make test
 ```
