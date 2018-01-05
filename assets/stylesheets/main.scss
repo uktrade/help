@@ -2,12 +2,18 @@
 // MAIN
 
 @import 'partials/base';
-@import 'partials/js-enabled';
-@import 'partials/layout';
+@import 'partials/typography';
 @import 'partials/forms';
-@import 'partials/errors';
+@import 'partials/js-enabled';
 @import 'partials/grid';
+@import 'partials/layout';
+
+@import 'partials/errors';
 @import 'partials/backgrounds';
 @import 'partials/colours';
-@import 'partials/typography';
 @import 'partials/utils';
+@import 'partials/audit';
+@import 'partials/buttons';
+@import 'partials/navigation';
+
+@import 'partials/header-footer';

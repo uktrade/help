@@ -24,14 +24,6 @@
   padding-left: 10px
 }
 
-@media (min-width: 641px) {
-  .error,
-  .error-summary {
-    border-left: 5px solid #b10e1e;
-    padding-left: 15px
-  }
-}
-
 .error-message {
   font-family: "nta", Arial, sans-serif;
   font-size: 16px;
@@ -44,27 +36,11 @@
   padding: 5px 0 7px 0
 }
 
-@media (min-width: 641px) {
-  .error-message {
-    font-size: 19px;
-    line-height: 1.31579
-  }
-}
-
 .error-summary {
   border: 4px solid #b10e1e;
   margin-top: 15px;
   margin-bottom: 15px;
   padding: 15px 10px
-}
-
-@media (min-width: 641px) {
-  .error-summary {
-    border: 5px solid #b10e1e;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding: 20px 15px 15px 15px
-  }
 }
 
 .error-summary:focus {
@@ -83,14 +59,37 @@
   padding-left: 0
 }
 
-@media (min-width: 641px) {
-  .error-summary .error-summary-list li {
-    margin-bottom: 5px
-  }
-}
-
 .error-summary .error-summary-list a {
   color: #b10e1e;
   font-weight: bold;
   text-decoration: underline
+}
+
+.errorlist {
+  color: #e41f13;
+  margin-bottom: 5px
+}
+
+@media (min-width: 641px) {
+  .error-summary .error-summary-list li {
+    margin-bottom: 5px
+  }
+
+  .error,
+  .error-summary {
+    border-left: 5px solid #b10e1e;
+    padding-left: 15px
+  }
+
+  .error-message {
+    font-size: 19px;
+    line-height: 1.31579
+  }
+
+  .error-summary {
+    border: 5px solid #b10e1e;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px 15px 15px 15px
+  }
 }

@@ -4,3 +4,19 @@
     font-family: GDS-Logo;
     src: local("HelveticaNeue"), local("Helvetica Neue"), local("Arial"), local("Helvetica")
 }
+
+a.link {
+  border-bottom: 1px solid;
+  color: #00549f;
+  text-decoration: none
+}
+
+a.link:focus {
+  outline: 3px solid #ffbf47
+}
+
+a.link:hover {
+  border-bottom: 1px dashed;
+  color: #007ea3;
+  margin-bottom: -1px
+}
