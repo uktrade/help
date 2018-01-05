@@ -93,31 +93,6 @@ blockquote,
   line-height: 31px
 }
 
-@media screen and (max-width: 959px) and (min-width: 768px) {
-  .h1 {
-    font-size: 36px
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .h1 {
-    font-size: 32px;
-    letter-spacing: -.9px;
-    line-height: 39px
-  }
-
-  .h2 {
-    font-size: 24px;
-    letter-spacing: -.6px;
-    line-height: 31px
-  }
-
-  .h3 {
-    font-size: 20px;
-    line-height: 25px
-  }
-}
-
 // COLOURS
 
 a {
@@ -188,12 +163,6 @@ a.link:hover {
   color: #3ed3ff
 }
 
-@media screen and (max-width: 767px) {
-  .link--regular {
-    font-size: 15px
-  }
-}
-
 .link--back {
   display: inline-block;
   margin-top: 21px
@@ -203,8 +172,35 @@ p {
   margin-bottom: 20px
 }
 
+@media screen and (max-width: 959px) and (min-width: 768px) {
+  .h1 {
+    font-size: 36px
+  }
+}
+
 @media screen and (max-width: 767px) {
+  .link--regular {
+    font-size: 15px
+  }
+
   .heading-headline {
     font-size: 15px
+  }
+
+  .h1 {
+    font-size: 32px;
+    letter-spacing: -.9px;
+    line-height: 39px
+  }
+
+  .h2 {
+    font-size: 24px;
+    letter-spacing: -.6px;
+    line-height: 31px
+  }
+
+  .h3 {
+    font-size: 20px;
+    line-height: 25px
   }
 }
