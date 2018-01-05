@@ -1,37 +1,28 @@
 
 // LAYOUT
 
-.text--left {
-  text-align: left
+.outer-container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &::after {
+    clear: both;
+    content: "";
+    display: block
+  }
 }
 
-.text--center {
-  text-align: center
-}
+.overflow--hidden { overflow: hidden }
 
-.text--right {
-  text-align: right
-}
-
-.push {
-  margin: 20px
-}
-
-.push--top {
-  margin-top: 20px
-}
-
-.push--right {
-  margin-right: 20px
-}
-
-.push--bottom {
-  margin-bottom: 20px
-}
-
-.push--left {
-  margin-left: 20px
-}
+.text--left { text-align: left }
+.text--center { text-align: center }
+.text--right { text-align: right }
+.push { margin: 20px }
+.push--top { margin-top: 20px }
+.push--right { margin-right: 20px }
+.push--bottom { margin-bottom: 20px }
+.push--left { margin-left: 20px }
 
 .push--ends {
   margin-bottom: 20px;
@@ -43,25 +34,11 @@
   margin-right: 20px
 }
 
-.push-half {
-  margin: 10px
-}
-
-.push-half--top {
-  margin-top: 10px
-}
-
-.push-half--right {
-  margin-right: 10px
-}
-
-.push-half--bottom {
-  margin-bottom: 10px
-}
-
-.push-half--left {
-  margin-left: 10px
-}
+.push-half { margin: 10px }
+.push-half--top { margin-top: 10px }
+.push-half--right { margin-right: 10px }
+.push-half--bottom { margin-bottom: 10px }
+.push-half--left { margin-left: 10px }
 
 .push-half--ends {
   margin-bottom: 10px;
@@ -73,25 +50,11 @@
   margin-right: 10px
 }
 
-.flush {
-  margin: 0
-}
-
-.flush--top {
-  margin-top: 0
-}
-
-.flush--right {
-  margin-right: 0
-}
-
-.flush--bottom {
-  margin-bottom: 0
-}
-
-.flush--left {
-  margin-left: 0
-}
+.flush { margin: 0 }
+.flush--top { margin-top: 0 }
+.flush--right { margin-right: 0 }
+.flush--bottom { margin-bottom: 0 }
+.flush--left { margin-left: 0 }
 
 .flush--ends {
   margin-bottom: 0;
@@ -103,25 +66,11 @@
   margin-right: 0
 }
 
-.soft {
-  padding: 20px
-}
-
-.soft--top {
-  padding-top: 20px
-}
-
-.soft--right {
-  padding-right: 20px
-}
-
-.soft--bottom {
-  padding-bottom: 20px
-}
-
-.soft--left {
-  padding-left: 20px
-}
+.soft { padding: 20px }
+.soft--top { padding-top: 20px }
+.soft--right { padding-right: 20px }
+.soft--bottom { padding-bottom: 20px }
+.soft--left { padding-left: 20px }
 
 .soft--ends {
   padding-bottom: 20px;
@@ -133,25 +82,11 @@
   padding-right: 20px
 }
 
-.soft-half {
-  padding: 10px
-}
-
-.soft-half--top {
-  padding-top: 10px
-}
-
-.soft-half--right {
-  padding-right: 10px
-}
-
-.soft-half--bottom {
-  padding-bottom: 10px
-}
-
-.soft-half--left {
-  padding-left: 10px
-}
+.soft-half { padding: 10px }
+.soft-half--top { padding-top: 10px }
+.soft-half--right { padding-right: 10px }
+.soft-half--bottom { padding-bottom: 10px }
+.soft-half--left { padding-left: 10px }
 
 .soft-half--ends {
   padding-bottom: 10px;
@@ -163,25 +98,11 @@
   padding-right: 10px
 }
 
-.hard {
-  padding: 0
-}
-
-.hard--top {
-  padding-top: 0
-}
-
-.hard--right {
-  padding-right: 0
-}
-
-.hard--bottom {
-  padding-bottom: 0
-}
-
-.hard--left {
-  padding-left: 0
-}
+.hard { padding: 0 }
+.hard--top { padding-top: 0 }
+.hard--right { padding-right: 0 }
+.hard--bottom { padding-bottom: 0 }
+.hard--left { padding-left: 0 }
 
 .hard--ends {
   padding-bottom: 0;
@@ -193,76 +114,29 @@
   padding-right: 0
 }
 
+.hide { display: none }
+.show { display: block }
+.float--right { float: right }
+.float--left { float: left }
+.float--none { float: none }
+.min-height { min-height: 550px }
+
 .cf:after {
   clear: both;
   content: '';
   display: table
 }
 
-.hide {
-  display: none
-}
-
-@media screen and (max-width: 767px) {
-  .hide-mobile {
-    display: none
-  }
-}
-
-.show {
-  display: block
-}
-
-.float--right {
-  float: right
-}
-
-.float--left {
-  float: left
-}
-
-.float--none {
-  float: none
-}
-
-.min-height {
-  min-height: 550px
-}
-
-.outer-container {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto
-}
-
-.outer-container::after {
-  clear: both;
-  content: "";
-  display: block
-}
-
-.overflow--hidden {
-  overflow: hidden
-}
-
 @media screen and (max-width: 1200px) {
-  .outer-container {
-    margin: 0 30px
-  }
+  .outer-container { margin: 0 30px }
 }
 
 @media screen and (max-width: 959px) and (min-width: 768px) {
-  .outer-container {
-    margin: 0 20px
-  }
+  .outer-container { margin: 0 20px }
 }
 
 @media screen and (max-width: 767px) {
-  .outer-container {
-    margin: 0 10px
-  }
-
-  .min-height {
-    min-height: 0
-  }
+  .hide-mobile { display: none }
+  .outer-container { margin: 0 10px }
+  .min-height { min-height: 0 }
 }
