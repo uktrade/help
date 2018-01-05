@@ -58,7 +58,7 @@
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T96KS9"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% endblock google_tag_manager_noscript %}
-    
+
     {% include 'directory_header_footer/header_static.html' %}
 
     <main id="content" role="main">
@@ -72,7 +72,6 @@
     {% block footer_javascript %}
       <script src="{% static "javascripts/all.js" %}"></script>
       {% block extra_js %}{% endblock %}
-      <script src="{% static "javascript/feedback.js" %}"></script>
     {% endblock footer_javascript %}
   </body>
 </html>
