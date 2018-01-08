@@ -24,15 +24,6 @@ Install virtualenvwrapper
     [sudo] pip install virtualenvwrapper
 ```
 
-Create a local environment.sh file containing the following:
-```shell
-echo "
-export DJANGO_SETTINGS_MODULE='help.settings'
-export DATABASE_URL='postgres://localhost/help'
-export SECRET_KEY='REPLACE ME WITH AN ACTUAL SECRET KEY'
-"> environment.sh
-```
-
 Make a virtual environment for this app:
 ```shell
     mkvirtualenv -p /usr/local/bin/python3.5 help
