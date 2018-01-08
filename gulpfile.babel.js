@@ -1,7 +1,7 @@
 // GULPFILE
 // - - - - - - - - - - - - - - -
 // This file processes all of the assets in the "assets" folder
-// and outputs the finished files in the "contact/static" folder.
+// and outputs the finished files in the "static" folder.
 
 // LIBRARIES
 // - - - - - - - - - - - - - - -
@@ -21,9 +21,8 @@ const plugins = loadPlugins(),
 gulp.task('webdriver_update', webdriver_update);
 gulp.task('webdriver_standalone', webdriver_standalone);
 
-const PROJECT_DIR = path.resolve(__dirname);
-const SASS_FILES = `${PROJECT_DIR}/assets/stylesheets/**/*.scss`;
-const OUTPUT_CSS = `${PROJECT_DIR}/static/stylesheets`;
+const SASS_FILES = `${paths.src}/stylesheets/**/*.scss`;
+const OUTPUT_CSS = `${paths.dist}/stylesheets`;
 
 // set debugMode to true to use non uglified and compressed js versions
 let debugMode = false ? { mangle: false, compress: false, output: { beautify: true } } : null;
