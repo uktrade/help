@@ -25,7 +25,6 @@ build:
 	npm install && npm run build
 
 test:
-	set -o pipefail
 	pep8 . --exclude .venv,node_modules
 	npm test
 	$(TEST_SET_ENV_VARS) && python manage.py collectstatic --noinput --settings=help.settings.test
