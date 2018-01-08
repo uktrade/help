@@ -29,6 +29,11 @@ Make a virtual environment for this app:
     mkvirtualenv -p /usr/local/bin/python3.5 help
 ```
 
+Create the database
+```shell
+    createdb help
+```
+
 Install dependencies
 ```shell
     make build
