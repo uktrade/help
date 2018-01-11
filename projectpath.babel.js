@@ -1,8 +1,8 @@
 /* CONFIGURATIONS -- PATH */
 
 const paths = {
-    src: 'assets/',
-    dist: 'static/',
+    src: 'help/static/',
+    dist: 'compiled_static/',
     npm: 'node_modules/',
 };
 

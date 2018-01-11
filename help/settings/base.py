@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'contact',
     'thumber',
     'captcha',
+    'help',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -80,10 +81,7 @@ WSGI_APPLICATION = 'help.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'help'
-    }
+    'default': dj_database_url.config(),
 }
 
 
@@ -123,13 +121,14 @@ CSRF_COOKIE_HTTPONLY = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'compiled_static'),
+)
+
 
 STATICFILES_STORAGE = os.getenv('STATICFILES_STORAGE', 'whitenoise.django.GzipManifestStaticFilesStorage')
 
