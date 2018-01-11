@@ -24,23 +24,19 @@ Install virtualenvwrapper
     [sudo] pip install virtualenvwrapper
 ```
 
-Create a local environment.sh file containing the following:
-```shell
-echo "
-export DJANGO_SETTINGS_MODULE='help.settings'
-export DATABASE_URL='postgres://localhost/help'
-export SECRET_KEY='REPLACE ME WITH AN ACTUAL SECRET KEY'
-"> environment.sh
-```
-
 Make a virtual environment for this app:
 ```shell
     mkvirtualenv -p /usr/local/bin/python3.5 help
 ```
 
+Create the database
+```shell
+    createdb help
+```
+
 Install dependencies
 ```shell
-    ./scripts/bootstrap.sh
+    make build
 ```
 
 ## Running the application
@@ -48,14 +44,13 @@ Install dependencies
 Running with django runserver:
 ```shell
     workon help
-    source environment.sh && ./manage.py runsver --settings=help.settings.dev
+    make debug_webserver
 ```
 Then visit [localhost:8000](http://localhost:8000)
 
 Or through heroku:
 ```shell
-    workon help
-    heroku local
+    make heroku
 ```
 Then visit [localhost:5000](http://localhost:5000)
 
@@ -65,5 +60,5 @@ Tests include a pep8 style check, django test script and coverage report.
 
 ```shell
     workon help
-    ./scripts/run_tests.sh
+    make test
 ```

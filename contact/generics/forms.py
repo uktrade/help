@@ -1,5 +1,6 @@
 import json
 import requests
+from captcha.fields import ReCaptchaField
 
 from django import forms
 from django.conf import settings
@@ -36,16 +37,16 @@ class DITHelpMixin():
     """
 
     submit_text = "Send feedback"
+    _title = None
 
     def __init__(self, *args, **kwargs):
         """
         Get the data needed to test the Google recaptcha, and store it on the form object for the clean method
         """
-        self._title = None
-
-        self.captcha_response = kwargs.pop('captcha_response', None)
-        self.remote_ip = kwargs.pop('remote_ip', None)
         super().__init__(*args, **kwargs)
+
+        if settings.USE_CAPTCHA:
+            self.fields['captcha'] = ReCaptchaField()
 
         # Interpret the fieldsets attribute (if it exists) into steps for the form
         fieldsets = getattr(self, 'fieldsets', None)
@@ -69,31 +70,6 @@ class DITHelpMixin():
                 field_order += step[1]['fields']
 
         return super().order_fields(field_order)
-
-    def clean(self):
-        """
-        Validate the recaptcha by submitting the data to Google for verification
-        """
-
-        cleaned_data = super().clean()
-
-        if settings.USE_CAPTCHA:
-            url = "https://www.google.com/recaptcha/api/siteverify"
-
-            values = {
-                'secret': settings.CAPTCHA_SECRET_KEY,
-                'response': self.captcha_response,
-                'remoteip': self.remote_ip,
-            }
-            # Google docs say to POST, but doesn't seem to work, but GET works fine
-            response = requests.get(url, params=values)
-            result = response.json()
-
-            # result["success"] will be True on a success
-            if not result["success"]:
-                raise forms.ValidationError(u'Only humans are allowed to submit this form.')
-
-        return cleaned_data
 
     def get_title(self):
         return self._title

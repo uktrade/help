@@ -1,0 +1,206 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+@font-face {
+  font-family: GDS-Logo;
+  src: local("HelveticaNeue"), local("Helvetica Neue"), local("Arial"), local("Helvetica")
+}
+
+.h3,
+.link,
+.heading-headline,
+.block-label,
+.form-success-section span,
+.form-success a,
+a.link {
+  font-weight: 400
+}
+
+.font-med,
+.h1,
+.h2,
+h1,
+h2,
+strong,
+.form-group-error--message,
+.form-label,
+.form-tab a.form-tab-link,
+.form-intro-terms a,
+.button,
+.navigation-main-button,
+.audit .button,
+.detail-section h3,
+.detail-section dt.subtitle,
+.detail-section-title.subtitle {
+  font-weight: 500
+}
+
+body,
+blockquote,
+.form-hint {
+  font-size: 15px
+}
+
+.font-xlarge {
+  font-size: 24px
+}
+
+.font-large,
+.heading-headline,
+.form-group-error--message,
+.form-label,
+.button-medium,
+.audit .button {
+  font-size: 18px
+}
+
+.font-small {
+  font-size: 13px
+}
+
+.font-small {
+  line-height: 20px
+}
+
+.font-large {
+  line-height: 25px
+}
+
+.h1 {
+  font-size: 48px
+}
+
+.h2 {
+  font-size: 32px
+}
+
+.h3,
+.form-success-section span {
+  font-size: 24px
+}
+
+.h1 {
+  letter-spacing: -1px;
+  line-height: 55px
+}
+
+.h2 {
+  letter-spacing: -.7px;
+  line-height: 39px
+}
+
+.h3 {
+  letter-spacing: 0;
+  line-height: 31px
+}
+
+// COLOURS
+
+a {
+  -webkit-tap-highlight-color: rgba(0, 126, 163, 0.5);
+  tap-highlight-color: rgba(0, 126, 163, 0.5)
+}
+
+a.link {
+  border-bottom: 1px solid;
+  color: #00549f;
+  text-decoration: none
+}
+
+a.link:focus, a:focus {
+  background-color: transparent;
+  outline: 3px solid #ffbf47
+}
+
+a.link:hover {
+  border-bottom: 1px dashed;
+  color: #007ea3;
+  margin-bottom: -1px
+}
+
+.font-white {
+  color: #fff
+}
+
+.font-brand {
+  color: #333
+}
+
+.font-lighter-grey {
+  color: #dce0df
+}
+
+.font-mid-grey {
+  color: #999
+}
+
+.font-purple {
+  color: #4f0b7b
+}
+
+.font-flag-red {
+  color: #b00d23
+}
+
+.link {
+  border-bottom: 1px solid;
+  text-decoration: none
+}
+
+.link:hover {
+  border-bottom: 1px dashed;
+  color: #007ea3
+}
+
+.link--white {
+  color: #fff
+}
+
+.link--white:visited {
+  color: #fff
+}
+
+.link--white:hover {
+  color: #3ed3ff
+}
+
+.link--back {
+  display: inline-block;
+  margin-top: 21px
+}
+
+p {
+  margin-bottom: 20px
+}
+
+@media screen and (max-width: 959px) and (min-width: 768px) {
+  .h1 {
+    font-size: 36px
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .link--regular {
+    font-size: 15px
+  }
+
+  .heading-headline {
+    font-size: 15px
+  }
+
+  .h1 {
+    font-size: 32px;
+    letter-spacing: -.9px;
+    line-height: 39px
+  }
+
+  .h2 {
+    font-size: 24px;
+    letter-spacing: -.6px;
+    line-height: 31px
+  }
+
+  .h3 {
+    font-size: 20px;
+    line-height: 25px
+  }
+}
