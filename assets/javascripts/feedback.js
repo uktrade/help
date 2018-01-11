@@ -19,17 +19,17 @@ var feedback = (function ($) {
     displaySuccess = function () {
         $('.audit').html($('.audit-thank').html());
         formSteps.scrollTo($('.audit'));
-    }
+    };
 
     displayError = function () {
         $('.audit').html($('.audit-error').html());
         formSteps.scrollTo($('.audit'));
-    }
+    };
 
     return {
         displaySuccess: displaySuccess,
         displayError: displayError
-    }
+    };
 
 }(jQuery));
 

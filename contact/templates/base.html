@@ -21,10 +21,10 @@
       {% endblock head_meta_viewport %}
     {% endblock head_meta %}
     {% block head_favicon %}
-      <link rel="icon" type="image/png" href="{% static "images/favicon.ico" %}">
+      <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
     {% endblock head_favicon %}
     {% block head_css %}
-      <link href="{% static "stylesheets/main.css" %}" rel="stylesheet" media="screen">
+      <link href="{% static 'stylesheets/main.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'Dit-Pattern-Styling/public/css/main.css' %}" media="all" rel="stylesheet" />
     <!--[if IE 8]><link href="{% static "stylesheets/ie8.css" %}" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
     {% endblock head_css %}
@@ -51,28 +51,25 @@
 
   </head>
 
-  <body class='{% block body_class %}{% endblock %}'>
+  <body class="{% block body_class %}{% endblock %}">
   <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
   {% block google_tag_manager_noscript %}
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T96KS9"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% endblock google_tag_manager_noscript %}
-    
+
     {% include 'directory_header_footer/header_static.html' %}
 
-    <main id="content" role="main">
-      <div class="main" id="content">
-        {% block content %}{% endblock content %}
-      </div>
+    <main id="content" class="main">
+      {% block content %}{% endblock content %}
     </main>
 
     {% include 'directory_header_footer/footer_static.html' %}
 
     {% block footer_javascript %}
-      <script src="{% static "javascripts/all.js" %}"></script>
+      <script src="{% static 'javascripts/all.js' %}"></script>
       {% block extra_js %}{% endblock %}
-      <script src="{% static "javascript/feedback.js" %}"></script>
     {% endblock footer_javascript %}
   </body>
 </html>

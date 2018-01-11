@@ -1,0 +1,73 @@
+
+// BASE
+
+html, body, div, span, object, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, cite, dfn, em, img, q, small, strong, sub, sup, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, input, legend, table, caption, th, td, article, aside, figure, figcaption, footer, header, nav, section, textarea, video {
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+ul, ol {
+  list-style-type: none
+}
+
+fieldset {
+  width: 100%
+}
+
+textarea {
+  display: block
+}
+
+html {
+  box-sizing: border-box
+}
+
+body {
+  background-color: #fafafa;
+  color: #333;
+  font-family: "Roboto", arial, helvetica, sans-serif;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+  font-smoothing: antialiased
+}
+
+hr {
+  background: #4f0b7b
+}
+
+fieldset:after,
+.form-group:after,
+.form-block:after {
+  content: "";
+  display: block;
+  clear: both
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: 3px solid #ffbf47
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0
+}
+
+input[type=number] {
+  -moz-appearance: textfield
+}

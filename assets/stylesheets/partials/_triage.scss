@@ -1,0 +1,23 @@
+
+// TRIAGE
+
+.triage-back-button {
+  text-align: right
+}
+
+@media screen and (max-width: 767px) {
+  .triage-back-button {
+    text-align: left
+  }
+
+  .triage-header {
+    display: flex;
+    flex-flow: column
+  }
+  .triage-header .col-5 {
+    order: 1
+  }
+  .triage-header .col-7 {
+    order: 2
+  }
+}
