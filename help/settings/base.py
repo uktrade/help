@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'contact',
     'thumber',
     'captcha',
+    'help',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'help.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config(),
 }
 
 
@@ -125,10 +126,11 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'compiled_static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+STATICFILES_STORAGE = os.getenv('STATICFILES_STORAGE', 'whitenoise.django.GzipManifestStaticFilesStorage')
 
 ZENDESK_URL = os.environ.get('ZENDESK_URL')
 ZENDESK_USER = os.environ.get('ZENDESK_USER')

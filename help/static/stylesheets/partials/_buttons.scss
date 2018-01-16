@@ -1,0 +1,265 @@
+
+// BUTTONS
+
+.button {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  border: 0;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  display: -moz-inline-stack;
+  font-family: "Roboto", arial, helvetica, sans-serif;
+  line-height: 25px;
+  position: relative;
+  text-decoration: none;
+  vertical-align: top
+}
+
+.button:focus {
+  outline: 3px solid #ffbf47
+}
+
+.button:disabled {
+  border: 0;
+  cursor: default;
+  filter: alpha(opacity=50);
+  opacity: .5;
+  zoom: 1
+}
+
+.button:disabled:hover {
+  background-color: transparent;
+  color: inherit
+}
+
+.button-medium {
+  padding: 16px 30px
+}
+
+.button-close {
+  background-color: transparent;
+  font-weight: 300;
+  padding: 0
+}
+
+.button-close:hover {
+  background-color: transparent
+}
+
+.button-close:before {
+  color: #b00d23;
+  content: 'X';
+  font-size: 24px;
+  left: -35px;
+  top: -5px
+}
+
+.button-start {
+  background-image: none
+}
+
+@media screen and (max-width: 767px) {
+  .button {
+    font-size: 18px;
+    padding: 14px;
+    text-align: center;
+    width: 100%
+  }
+}
+
+.button-border {
+  border: 2px solid;
+  padding-bottom: 14px;
+  padding-top: 14px
+}
+
+.button-block {
+  display: block
+}
+
+.button-full {
+  width: 100%
+}
+
+.button-blue {
+  background-color: #00549f;
+  color: #fff;
+  outline: 0
+}
+
+.button-blue:visited {
+  background-color: #00549f;
+  color: #fff
+}
+
+.button-blue:hover {
+  background-color: #003666;
+  color: #fff
+}
+
+.button-blue:focus,
+.button-blue:active {
+  background-color: #007ea3;
+  color: #fff
+}
+
+.button-transparent {
+  background-color: #005ea5;
+  color: #005ea5;
+  outline: 0
+}
+
+.button-transparent:visited {
+  background-color: transparent;
+  color: #005ea5
+}
+
+.button-transparent:hover {
+  background-color: transparent;
+  color: #005ea5
+}
+
+.button-transparent:focus,
+.button-transparent:active {
+  background-color: #007ea3;
+  color: #fff
+}
+
+.button-white {
+  background-color: #fff;
+  color: #005ea5;
+  outline: 0
+}
+
+.button-white:visited {
+  background-color: #fff;
+  color: #005ea5
+}
+
+.button-white:hover {
+  background-color: #fff;
+  color: #005ea5
+}
+
+.button-white:focus,
+.button-white:active {
+  background-color: #007ea3;
+  color: #fff
+}
+
+.button-grey {
+  background-color: #dee0e2;
+  color: #005ea5;
+  outline: 0
+}
+
+.button-grey:visited {
+  background-color: #fff;
+  color: #005ea5
+}
+
+.button-grey:hover {
+  background-color: #fff;
+  color: #005ea5
+}
+
+.button-grey:focus,
+.button-grey:active {
+  background-color: #007ea3;
+  color: #fff
+}
+
+.button-border {
+  background-color: transparent;
+  color: #333;
+  outline: 0
+}
+
+.button-border:visited {
+  background-color: transparent;
+  color: #007ea3
+}
+
+.button-border:hover {
+  background-color: #fff;
+  color: #007ea3
+}
+
+.button-border:focus,
+.button-border:active {
+  background-color: #007ea3;
+  color: #fff
+}
+
+.button-border--blue {
+  background-color: transparent;
+  color: #00549f;
+  outline: 0
+}
+
+.button-border--blue:visited {
+  background-color: transparent;
+  color: #007ea3
+}
+
+.button-border--blue:hover {
+  background-color: transparent;
+  color: #007ea3
+}
+
+.button-border--blue:focus,
+.button-border--blue:active {
+  background-color: #007ea3;
+  color: #fff
+}
+
+.button-border--red {
+  background-color: transparent;
+  color: #e41f13;
+  outline: 0
+}
+
+.button-border--red:visited {
+  background-color: transparent;
+  color: #b00d23
+}
+
+.button-border--red:hover {
+  background-color: transparent;
+  color: #b00d23
+}
+
+.button-border--red:focus,
+.button-border--red:active {
+  background-color: #007ea3;
+  color: #fff
+}
+
+.button-border--white {
+  background-color: transparent;
+  color: #fff;
+  outline: 0
+}
+
+.button-border--white:visited {
+  background-color: transparent;
+  color: #007ea3
+}
+
+.button-border--white:hover {
+  background-color: #fff;
+  color: #007ea3
+}
+
+.button-border--white:focus,
+.button-border--white:active {
+  background-color: #007ea3;
+  color: #fff
+}

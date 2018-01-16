@@ -22,7 +22,7 @@ function display_result {
   fi
 }
 
-pep8 . --exclude .venv
+pep8 . --exclude .venv,node_modules
 display_result $? 1 "Code style check"
 
 npm test
