@@ -90,9 +90,9 @@ gulp.task('lint:js', () => gulp
 
 
 gulp.task('protractor:e2e', (callback) => gulp
-    .src(['assets/test/e2e/specs/*-spec.js'])
+    .src(['help/static/test/e2e/specs/*-spec.js'])
     .pipe(protractor({
-        'configFile': 'assets/test/e2e/conf.js',
+        'configFile': 'help/static/test/e2e/conf.js',
     })).on('error', function(e) {
         console.log(e);
     }).on('end', function (callback) {
