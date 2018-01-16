@@ -96,7 +96,7 @@ class TestGenericView(TestCase):
 
         # Post it back, following the redirect
         response = self.client.post(url, data, follow=True)
-        link = '<a href="{0}" class="link" title="go back">< Go back</a>'.format(referer)
+        link = '<p><a href="{0}" class="link" title="go back">Go back to the previous page</a>.</p>'.format(referer)
 
         # The reponse should contain a 'Go back' link to the referring page
         self.assertContains(response, link)
