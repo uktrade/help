@@ -16,7 +16,8 @@ createdb help
 # Upgrade databases
 source environment.sh
 python manage.py migrate
-python manage.py collectstatic --noinput
 
 # build javascript
 npm install && npm run build
+
+python manage.py collectstatic --noinput

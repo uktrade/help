@@ -33,8 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'directory_header_footer',
     'contact',
     'thumber',
+    'captcha',
+    'help',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -63,6 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'directory_header_footer.context_processors.urls_processor',
+                'sso.context_processors.sso_processor',
                 'contact.context_processors.hosts',
             ],
         },
@@ -76,7 +81,7 @@ WSGI_APPLICATION = 'help.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config(),
 }
 
 
@@ -121,10 +126,11 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'compiled_static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+STATICFILES_STORAGE = os.getenv('STATICFILES_STORAGE', 'whitenoise.django.GzipManifestStaticFilesStorage')
 
 ZENDESK_URL = os.environ.get('ZENDESK_URL')
 ZENDESK_USER = os.environ.get('ZENDESK_USER')
@@ -132,8 +138,12 @@ ZENDESK_TOKEN = os.environ.get('ZENDESK_TOKEN')
 ZENDESK_TEST_URL = os.environ.get('ZENDESK_TEST_URL')
 
 USE_CAPTCHA = os.environ.get('USE_CAPTCHA', 'false').lower() == 'true' or os.environ.get('USE_CAPTCHA', False) == '1'
-CAPTCHA_SITE_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
-CAPTCHA_SECRET_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
+RECAPTCHA_PRIVATE_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
+# NOCAPTCHA = True turns on version 2 of recaptcha
+NOCAPTCHA = True
+
 
 RESTRICT_IPS = os.environ.get('RESTRICT_IPS', '').lower() == 'true' or os.environ.get('RESTRICT_IPS') == '1'
 
@@ -142,9 +152,50 @@ COMPANIES_HOUSE_API_KEY = os.environ.get('COMPANIES_HOUSE_KEY')
 RATELIMIT_STATUS_CODE = 429  # For the brake module, unless specified (weirdly) uses 403
 
 # Hosts for various services, used in templates
-SOO_HOST = os.environ.get('SOO_HOST', 'https://selling-online-overseas.export.great.gov.uk/')
-HELP_HOST = os.environ.get('HELP_HOST', 'https://contact-us.export.great.gov.uk/')
+SOO_HOST = os.environ.get(
+    'SOO_HOST', 'https://selling-online-overseas.export.great.gov.uk/')
+HELP_HOST = os.environ.get(
+    'HELP_HOST', 'https://contact-us.export.great.gov.uk/')
 SSO_HOST = os.environ.get('SSO_HOST', 'https://sso.trade.great.gov.uk/')
 PROFILE_HOST = os.environ.get('PROFILE_HOST', 'https://profile.great.gov.uk/')
 
 ZENDESK_RESP_CODE = os.environ.get('ZENDESK_RESP_CODE', None)
+
+# SSO
+SSO_PROXY_LOGIN_URL = os.environ.get(
+    'SSO_PROXY_LOGIN_URL', 'http://sso.trade.great:8004/accounts/login/'
+)
+SSO_PROXY_SIGNUP_URL = os.environ.get(
+    'SSO_PROXY_SIGNUP_URL', 'http://sso.trade.great:8004/accounts/signup/'
+)
+SSO_PROFILE_URL = os.environ.get(
+    'SSO_PROFILE_URL',
+    'http://profile.trade.great:8006/selling-online-overseas/'
+)
+SSO_PROXY_LOGOUT_URL = os.environ.get(
+    'SSO_PROXY_LOGOUT_URL', 'http://sso.trade.great:8004/accounts/'
+    'logout/?next=http://contact.trade.great:8009'
+)
+
+# HEADER/FOOTER URLS
+GREAT_EXPORT_HOME = os.getenv('GREAT_EXPORT_HOME')
+EXPORTING_NEW = os.getenv('EXPORTING_NEW')
+EXPORTING_REGULAR = os.getenv('EXPORTING_REGULAR')
+EXPORTING_OCCASIONAL = os.getenv('EXPORTING_OCCASIONAL')
+GUIDANCE_MARKET_RESEARCH = os.getenv('GUIDANCE_MARKET_RESEARCH')
+GUIDANCE_CUSTOMER_INSIGHT = os.getenv('GUIDANCE_CUSTOMER_INSIGHT')
+GUIDANCE_FINANCE = os.getenv('GUIDANCE_FINANCE')
+GUIDANCE_BUSINESS_PLANNING = os.getenv('GUIDANCE_BUSINESS_PLANNING')
+GUIDANCE_GETTING_PAID = os.getenv('GUIDANCE_GETTING_PAID')
+GUIDANCE_OPERATIONS_AND_COMPLIANCE = os.getenv(
+    'GUIDANCE_OPERATIONS_AND_COMPLIANCE'
+)
+SERVICES_EXOPPS = os.getenv('SERVICES_EXOPPS')
+SERVICES_EXOPPS_ACTUAL = os.getenv('SERVICES_EXOPPS_ACTUAL')
+SERVICES_FAB = os.getenv('SERVICES_FAB')
+SERVICES_GET_FINANCE = os.getenv('SERVICES_GET_FINANCE')
+SERVICES_SOO = os.getenv('SERVICES_SOO')
+INFO_ABOUT = os.getenv('INFO_ABOUT')
+INFO_CONTACT_US_DIRECTORY = os.getenv('INFO_CONTACT_US_DIRECTORY')
+INFO_PRIVACY_AND_COOKIES = os.getenv('INFO_PRIVACY_AND_COOKIES')
+INFO_TERMS_AND_CONDITIONS = os.getenv('INFO_TERMS_AND_CONDITIONS')

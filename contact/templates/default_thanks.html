@@ -10,12 +10,12 @@
       <div class="outer-container min-height">
         <div class="soft--ends">
           <div class="col-7 soft--bottom heading-headline">
-            <h1 class='h1 push--bottom flush--top'>Your feedback has been sent</h1>
+            <h1 class='h1 push--bottom flush--top'>Thank you for your feedback</h1>
             <ul class="font-large soft-half--ends push--bottom">
-              <li class="font-lig">Thank you for taking the time and sending us your feedback, we really appreciate it. One of our colleagues will review it and send it to the relevant team.</li>
+              <li class="font-lig">Your feedback has been sent. If you’ve asked for a response, we’ll get back to you soon.</li>
             </ul>
              {% if success_data.valid_url %}
-              <p><a href="{{ success_data.originating_page }}" class="link" title="go back">< Go back</a>.</p>
+              <p><a href="{{ success_data.originating_page }}" class="link" title="go back">Go back to the previous page</a>.</p>
             {% endif %}
           </div>
         </div>
@@ -27,10 +27,10 @@
 
         <div class="soft--ends">
           <div class="col-7 soft--bottom heading-headline">
-            <h1 class='h1 push--bottom flush--top'>Technical error</h1>
+            <h1 class='h1 push--bottom flush--top'>Technical fault</h1>
             <ul class="font-large soft-half--ends push--bottom">
-              <li class="soft-half--bottom">Your enquiry couldn't be submitted because of a technical error with our feedback system. Please use your browser's "back" button to review the form and try to resubmit.</li>
-              <li>If this problem continues to happen, please try again later.</li>
+              <li class="soft-half--bottom">Something went wrong and we couldn't submit your feedback. Try using the back button in your browser to review and resubmit the form.</li>
+              <li>If this problem continues, try again later.</li>
             </ul>
             <div style='display:none' id='failure_code'>{% block hidden_failure %}{{ success_data.code }}{% endblock %}</div>
           </div>

@@ -1,0 +1,62 @@
+
+// AUDIT
+
+.audit {
+  border-top: 1px solid #fff;
+  margin-top: 20px;
+  padding-top: 10px;
+  position: relative
+}
+
+.audit-button {
+  width: 50%
+}
+
+.audit-button .button {
+  width: 85%
+}
+
+@media screen and (max-width: 959px) and (min-width: 768px) {
+  .audit-button .button {
+    width: 90%
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .audit-button--send {
+    width: 100%
+  }
+}
+
+.audit-button--send .button {
+  width: 100%
+}
+
+@media screen and (min-width: 959px) {
+  .audit-button--send .button {
+    width: 70%
+  }
+}
+
+.audit .form-textarea {
+  width: 100%
+}
+
+.audit .icon {
+  background-size: 30px;
+  display: inline-block;
+  height: 30px;
+  position: relative;
+  top: 7px;
+  width: 30px
+}
+
+.audit-header {
+  display: inline-block;
+  margin-bottom: 25px;
+  margin-left: 10px
+}
+
+.audit--white {
+  border-color: #999
+}
