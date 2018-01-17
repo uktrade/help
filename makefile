@@ -4,7 +4,7 @@ clean:
 	-find . -type d -name "__pycache__" -delete
 
 DEBUG_SET_ENV_VARS:= \
-	export PORT=8008; \
+	export PORT=8009; \
 	export DJANGO_SETTINGS_MODULE=help.settings; \
 	export DATABASE_URL=postgres://debug:debug@localhost:5432/help; \
 	export SECRET_KEY=DEBUG_SECRET_KEY; \

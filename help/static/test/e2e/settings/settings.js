@@ -1,4 +1,4 @@
-var url = process.env.TRAVIS ? 'http://ukti-navigator-staging.herokuapp.com' : 'http://localhost:8000';
+var url = process.env.TRAVIS ? 'https://contact-us.export.staging.uktrade.io' : 'http://contact.trade.great:8009';
 
 module.exports = {
     navigate: {

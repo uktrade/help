@@ -152,8 +152,10 @@ COMPANIES_HOUSE_API_KEY = os.environ.get('COMPANIES_HOUSE_KEY')
 RATELIMIT_STATUS_CODE = 429  # For the brake module, unless specified (weirdly) uses 403
 
 # Hosts for various services, used in templates
-SOO_HOST = os.environ.get('SOO_HOST', 'https://selling-online-overseas.export.great.gov.uk/')
-HELP_HOST = os.environ.get('HELP_HOST', 'https://contact-us.export.great.gov.uk/')
+SOO_HOST = os.environ.get(
+    'SOO_HOST', 'https://selling-online-overseas.export.great.gov.uk/')
+HELP_HOST = os.environ.get(
+    'HELP_HOST', 'https://contact-us.export.great.gov.uk/')
 SSO_HOST = os.environ.get('SSO_HOST', 'https://sso.trade.great.gov.uk/')
 PROFILE_HOST = os.environ.get('PROFILE_HOST', 'https://profile.great.gov.uk/')
 
@@ -161,18 +163,18 @@ ZENDESK_RESP_CODE = os.environ.get('ZENDESK_RESP_CODE', None)
 
 # SSO
 SSO_PROXY_LOGIN_URL = os.environ.get(
-    'SSO_PROXY_LOGIN_URL', 'http://sso.trade.great.dev:8004/accounts/login/'
+    'SSO_PROXY_LOGIN_URL', 'http://sso.trade.great:8004/accounts/login/'
 )
 SSO_PROXY_SIGNUP_URL = os.environ.get(
-    'SSO_PROXY_SIGNUP_URL', 'http://sso.trade.great.dev:8004/accounts/signup/'
+    'SSO_PROXY_SIGNUP_URL', 'http://sso.trade.great:8004/accounts/signup/'
 )
 SSO_PROFILE_URL = os.environ.get(
     'SSO_PROFILE_URL',
-    'http://profile.trade.great.dev:8006/selling-online-overseas/'
+    'http://profile.trade.great:8006/selling-online-overseas/'
 )
 SSO_PROXY_LOGOUT_URL = os.environ.get(
-    'SSO_PROXY_LOGOUT_URL', 'http://sso.trade.great.dev:8004/accounts/'
-    'logout/?next=http://contact.trade.great.dev:8008'
+    'SSO_PROXY_LOGOUT_URL', 'http://sso.trade.great:8004/accounts/'
+    'logout/?next=http://contact.trade.great:8009'
 )
 
 # HEADER/FOOTER URLS

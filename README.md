@@ -39,6 +39,21 @@ Install dependencies
     make build
 ```
 
+## SSO
+To make sso work locally add the following to your machine's `/etc/hosts`:
+
+| IP Adress | URL                  |
+| --------  | -------------------- |
+| 127.0.0.1 | buyer.trade.great    |
+| 127.0.0.1 | supplier.trade.great |
+| 127.0.0.1 | sso.trade.great      |
+| 127.0.0.1 | api.trade.great      |
+| 127.0.0.1 | profile.trade.great  |
+| 127.0.0.1 | exred.trade.great    |
+| 127.0.0.1 | contact.trade.great  |
+
+Then log into `directory-sso` via `sso.trade.great:8001`, and use `help` on `contact.trade.great:8009`
+
 ## Running the application
 
 Running with django runserver:
@@ -46,7 +61,7 @@ Running with django runserver:
     workon help
     make debug_webserver
 ```
-Then visit [localhost:8000](http://localhost:8000)
+Then visit [contact.trade.great:8009](http://contact.trade.great:8009)
 
 Or through heroku:
 ```shell
