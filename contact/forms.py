@@ -10,9 +10,9 @@ from . import fields
 
 
 class FeedbackForm(DITHelpModelForm):
-    title = "Help us improve this service"
-    subtitle = "We would love to hear your thoughts, concerns or problems with any aspects of the service so we\
-                can improve it"
+    title = "Help us improve great.gov.uk"
+    subtitle = "Give your feedback on the guidance and services on great.gov.uk.\
+If something is wrong, give as much detail as you can."
 
     class Meta:
         model = FeedbackModel
