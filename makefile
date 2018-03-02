@@ -31,6 +31,9 @@ test:
 	$(TEST_SET_ENV_VARS) && python manage.py collectstatic --noinput --settings=help.settings.test
 	$(TEST_SET_ENV_VARS) && coverage run --source='.' manage.py test --settings=help.settings.test
 
+manage:
+	$(TEST_SET_ENV_VARS) && python manage.py $(cmd) --settings=help.settings.test
+
 debug_webserver:
 	$(DEBUG_SET_ENV_VARS) && python manage.py collectstatic --settings=help.settings.dev --noinput && ./manage.py runserver 0.0.0.0:$$PORT --settings=help.settings.dev
 
