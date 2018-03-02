@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ip_restriction.IpWhitelister',
+    'admin_ip_restrictor.middleware.AdminIPRestrictorMiddleware'
 ]
 
 ROOT_URLCONF = 'help.urls'
@@ -199,3 +199,10 @@ INFO_ABOUT = os.getenv('INFO_ABOUT')
 INFO_CONTACT_US_DIRECTORY = os.getenv('INFO_CONTACT_US_DIRECTORY')
 INFO_PRIVACY_AND_COOKIES = os.getenv('INFO_PRIVACY_AND_COOKIES')
 INFO_TERMS_AND_CONDITIONS = os.getenv('INFO_TERMS_AND_CONDITIONS')
+
+
+# Admin restrictor
+RESTRICT_ADMIN_BY_IPS = os.getenv('RESTRICT_ADMIN_BY_IPS')
+RESTRICT_ADMIN = RESTRICT_ADMIN_BY_IPS == 'true'
+ALLOWED_ADMIN_IPS = os.getenv('ALLOWED_ADMIN_IPS', [])
+ALLOWED_ADMIN_IP_RANGES = os.getenv('ALLOWED_ADMIN_IP_RANGES', [])
