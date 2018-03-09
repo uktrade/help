@@ -11,9 +11,3 @@ dependencies:
 test:
   override:
     - make test
-
-deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: dit-help-staging

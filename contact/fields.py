@@ -1,7 +1,5 @@
 from django.forms import fields
 from django.forms import widgets
-from django.utils import html
-from django.forms.utils import flatatt
 
 
 __all__ = list(fields.__all__)
@@ -33,6 +31,7 @@ class FieldAttrsMixin():
         if prefix is not None:
             value = "{0}{1}".format(prefix, value)
         return value
+
 
 # Loop over all items in the django.form.fields module
 for field_name in fields.__all__:

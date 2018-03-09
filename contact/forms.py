@@ -4,7 +4,7 @@ from directory_validators.common import not_contains_url_or_email
 from directory_validators.company import no_html
 
 from .generics.forms import DITHelpForm, DITHelpModelForm
-from .meta import choices, label, help_text, regex, placeholder, validation
+from .meta import choices, label, help_text, placeholder, validation
 from .models import FeedbackModel, TriageModel
 from . import fields
 
@@ -147,13 +147,6 @@ class TriageForm(DITHelpModelForm):
                                         'data-validate': 'sku',
                                         'data-message': validation.TRIAGE_BUSINESS_SKU['required']
                                     })
-    validate = forms.CharField(required=True, widget=forms.HiddenInput(), initial='on')
-
-    def is_valid(self):
-        valid = super().is_valid()
-        if self.cleaned_data['validate'] == 'off':
-            return True
-        return valid
 
     @property
     def fieldsets(self):
