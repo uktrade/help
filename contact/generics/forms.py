@@ -28,7 +28,7 @@ class DITHelpFormMetaclass(forms.Form.__class__):
         return new_class
 
 
-class DITHelpMixin():
+class DITHelpMixin:
     """
     This is a mixin class to be inherited by django Forms so that they can  easily submit tickets to Zendesk using a
     common method.

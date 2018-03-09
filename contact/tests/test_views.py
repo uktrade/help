@@ -12,6 +12,35 @@ class TestGenericView(TestCase):
 
     @override_settings(ZENDESK_RESP_CODE=201, DEBUG=True)
     @mock.patch('requests.post')
+    def test_incorrect_data_form(self, mock_post):
+        invalid_form_data = {
+            'company_name': 'ACME',
+            'company_number': '12345678',
+            'company_postcode': 'B12 G89',
+            'contact_email': 'foo@bar.com',
+            'contact_name': 'foo bar',
+            'contact_phone': '123456789',
+            'description': 'test',
+            'experience': 'Yes, sometimes',
+            'originating_page': 'Direct request',
+            'service': 'test',
+            'sku_count': 123,
+            'trademarked': 'Yes',
+            'turnover': '100k-500k',
+            'validate': 'on',
+            'website_address': 'dsadsadsa'
+        }
+        url = reverse('contact:generic_submit',
+                      kwargs={'service': 'test', 'form_name': 'TriageForm'})
+        response = self.client.post(url, invalid_form_data)
+        assert mock_post.called is False
+        assert response.context['form'].errors == {
+            'website_address':
+                ['Provide a link to where we can see your products online']
+        }
+
+    @override_settings(ZENDESK_RESP_CODE=201, DEBUG=True)
+    @mock.patch('requests.post')
     def test_zendesk_override_201(self, mock_post):
         """
         Setting a ZENDESK_RESP_CODE in the settings (usually done via environment variables), should mean that no post

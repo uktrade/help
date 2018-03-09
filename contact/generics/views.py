@@ -63,7 +63,6 @@ class DITHelpView(FormView):
         """
         The submitted form is valid, so tell the form to raise a Zendesk ticket
         """
-
         # Get the originating page, and submit the ticket
         originating_page = form.cleaned_data.get('originating_page')
 
