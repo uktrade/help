@@ -7,7 +7,10 @@ machine:
 dependencies:
   pre:
     - pip install -r requirements_for_test.txt
+    - pip install codecov
 
 test:
   override:
     - make test
+  post:
+    - codecov
