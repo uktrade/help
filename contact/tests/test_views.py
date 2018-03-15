@@ -10,6 +10,14 @@ from . import initial_data, response201, response200, response400
 
 class TestGenericView(TestCase):
 
+    def test_landing_page_redirection(self):
+        url = reverse('landing-page')
+        response = self.client.get(url)
+        self.assertRedirects(
+            response,
+            expected_url='/directory/FeedbackForm/'
+        )
+
     @override_settings(ZENDESK_RESP_CODE=201, DEBUG=True)
     @mock.patch('requests.post')
     def test_incorrect_data_form(self, mock_post):
