@@ -111,6 +111,21 @@ a.link:focus, a:focus {
   outline: 3px solid #ffbf47
 }
 
+a {
+  &:focus {
+    background-color: transparent;
+    outline: 3px solid #ffbf47;
+  }
+
+  &:active {
+    background-color: #ffbf47;
+  }
+}
+
+#footer ul li {
+  list-style: none;
+}
+
 a.link:hover {
   border-bottom: 1px dashed;
   color: #007ea3;

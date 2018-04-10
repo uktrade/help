@@ -11,12 +11,6 @@ noscript > div > div > div:nth-child(2) {
   bottom: 10px!important;
 }
 
-noscript > div,
-noscript > div + div,
-iframe {
-  height: 550px!important;
-}
-
 .js-enabled label.selected {
   background: #fff;
   border-color: #0b0c0c
