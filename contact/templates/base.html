@@ -1,76 +1,29 @@
-{% load staticfiles %}
-<!doctype html>
-<!--[if IE 8]>    <html lang="en-us" class="ie8"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
-  <head>
-    <title>{% block title %}Contact us - great.gov.uk{% endblock title %}</title>
-    {% block google_tag_manager %}
-      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-T96KS9');</script>
-    {% endblock google_tag_manager %}
-    {% block head_meta %}
-      <meta name="description" content="{% block head_meta_description %}DIT Help{% endblock head_meta_description %}">
-      {% block head_meta_charset %}
-        <meta charset="utf-8">
-      {% endblock head_meta_charset %}
-      {% block head_meta_viewport %}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      {% endblock head_meta_viewport %}
-    {% endblock head_meta %}
-    {% block head_favicon %}
-      <link href='{% static 'images/favicon-192x192.png' %}' rel='shortcut icon' type='image/png'>
-      <!--[if IE]> <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" /> <![endif]-->
-    {% endblock head_favicon %}
-    {% block head_css %}
-      <link href="{% static 'stylesheets/main.css' %}" rel="stylesheet" media="screen">
-    <link href="{% static 'Dit-Pattern-Styling/public/css/main.css' %}" media="all" rel="stylesheet" />
-    <!--[if IE 8]><link href="{% static "stylesheets/ie8.css" %}" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
-    {% endblock head_css %}
-    <script src="{% static 'Dit-Pattern-Styling/public/js/third-party.js' %}"></script>
-    <script src="{% static 'Dit-Pattern-Styling/public/js/script.js' %}"></script>
-    <style type="text/css">
-        .js-disabled-only {
-            display: none;
-        }
-    </style>
-    <noscript>
-        <style type="text/css">
-            .navigation-toggle {
-                display: block;
-            }
-            .js-disabled-only {
-                display: block;
-            }
-            .js-enabled-only {
-                display: none;
-            }
-        </style>
-    </noscript>
+{% extends 'directory_components/base.html' %}
+{% load static %}
 
-  </head>
+{% block head_title %}Contact us - great.gov.uk{% endblock %}
 
-  <body class="{% block body_class %}{% endblock %}">
-  <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+{% block head_meta_description %}DIT Help{% endblock %}
 
-  {% block google_tag_manager_noscript %}
-      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T96KS9"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    {% endblock google_tag_manager_noscript %}
+{% block head_css %}
+  {{ block.super }}
+  <link href="{% static 'stylesheets/main.css' %}" rel="stylesheet" media="screen">
+  <!--[if IE 8]><link href="{% static "stylesheets/ie8.css" %}" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+{% endblock %}
+{% block body_attributes %}class="{% block body_class %}{% endblock %}"{% endblock %}
 
-    {% include 'directory_header_footer/header_static.html' %}
+{% block google_tag_manager_noscript %}
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T96KS9" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+{% endblock %}
 
-    <main id="content" class="main">
-      {% block content %}{% endblock content %}
-    </main>
+{% include 'directory_components/header_static.html' %}
 
-    {% include 'directory_header_footer/footer_static.html' %}
+{% block content %}{% endblock content %}
 
-    {% block footer_javascript %}
-      <script src="{% static 'javascripts/all.js' %}"></script>
-      {% block extra_js %}{% endblock %}
-    {% endblock footer_javascript %}
-  </body>
-</html>
+{% include 'directory_components/footer.html' %}
+
+{% block body_js %}
+  <script src="{% static 'javascripts/all.js' %}"></script>
+{% endblock %}
