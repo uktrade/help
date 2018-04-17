@@ -13,5 +13,5 @@ whitenoise==3.3.0
 django-admin-ip-restrictor==0.1.0
 export-elements==0.10.5
 directory-components==1.8.1
--e git+https://github.com/uktrade/directory-constants.git@v6.4.0#egg=directory_constants
--e git+https://github.com/uktrade/directory-validators.git@v4.2.0#egg=directory_validators
+directory-constants==6.4.0
+directory-validators==4.2.0
