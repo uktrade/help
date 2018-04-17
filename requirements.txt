@@ -13,5 +13,5 @@ whitenoise==3.3.0
 django-admin-ip-restrictor==0.1.0
 export-elements==0.10.5
 directory-components==1.8.1
-directory-constants==6.4.0
-directory-validators==4.2.0
+directory-constants==6.6.0
+directory-validators==4.5.1
