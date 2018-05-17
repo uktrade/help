@@ -44,6 +44,11 @@ class TriageForm(DITHelpModelForm):
         model = TriageModel
         exclude = []
 
+    def save(self, *args, **kwargs):
+        # Saving the form submission to the database cannot be justified from
+        # a GDPR point of view. It is sent to zendesk.
+        return
+
     company_name = fields.CompanyField(required=True,
                                        label=label.COMPANY_NAME,
                                        help_text=help_text.COMPANY_NAME,
