@@ -6,7 +6,7 @@ machine:
 
 dependencies:
   pre:
-    - pip install -r requirements_for_test.txt
+    - pip install -r requirements_test.txt
     - pip install codecov
 
 test:

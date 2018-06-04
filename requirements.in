@@ -1,0 +1,17 @@
+contextlib2
+dj-database-url
+Django
+django_recaptcha
+django-brake
+django-thumber
+gunicorn
+nose
+psycopg2
+raven
+requests
+whitenoise
+django-admin-ip-restrictor
+export-elements
+directory-components
+directory-constants
+directory-validators

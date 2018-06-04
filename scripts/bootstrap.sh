@@ -8,7 +8,7 @@
 set -o pipefail
 
 # Install Python development dependencies
-pip3 install -r requirements_for_test.txt
+pip3 install -r requirements_test.txt
 
 # Create Postgres databases
 createdb help

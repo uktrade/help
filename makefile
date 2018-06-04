@@ -20,7 +20,7 @@ TEST_SET_ENV_VARS:= \
 	export STATICFILES_STORAGE=django.contrib.staticfiles.storage.StaticFilesStorage
 
 build:
-	pip3 install -r requirements_for_test.txt
+	pip3 install -r requirements_test.txt
 	$(DEBUG_SET_ENV_VARS) && python manage.py migrate --settings=help.settings.dev
 	$(DEBUG_SET_ENV_VARS) && python manage.py collectstatic --noinput --settings=help.settings.dev
 	npm install && npm run build
@@ -40,5 +40,22 @@ debug_webserver:
 debug_collectstatic:
 	$(DEBUG_SET_ENV_VARS) && python manage.py collectstatic --settings=help.settings.dev
 
-heroku:
-	heroku local
+
+compile_requirements:
+	pip-compile requirements.in
+
+upgrade_requirements:
+	pip-compile --upgrade requirements.in
+
+compile_test_requirements:
+	pip-compile compile requirements_test.in
+
+upgrade_test_requirements:
+	pip-compile --upgrade requirements_test.in
+
+compile_all_requirements: compile_requirements compile_test_requirements
+
+upgrade_all_requirements: upgrade_requirements upgrade_test_requirements
+
+test_requirements:
+	pip install -r requirements_test.txt
