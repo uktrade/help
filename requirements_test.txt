@@ -6,7 +6,7 @@
 #
 contextlib2==0.5.4
 coverage==4.5.1
-directory-components==2.5.1
+directory-components==2.6.0
 directory-constants==6.6.0
 directory-validators==4.5.1
 dj-database-url==0.4.2
