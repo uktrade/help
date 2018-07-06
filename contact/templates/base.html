@@ -12,12 +12,6 @@
 {% endblock %}
 {% block body_attributes %}class="{% block body_class %}{% endblock %}"{% endblock %}
 
-{% block google_tag_manager_noscript %}
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T96KS9" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-{% endblock %}
-
 {% include 'directory_components/header_static.html' %}
 
 {% block content %}{% endblock content %}
