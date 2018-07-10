@@ -5,12 +5,13 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 contextlib2==0.5.4
-directory-components==2.8.0
+directory-components==2.8.1
 directory-constants==6.6.0
 directory-validators==4.5.1
 dj-database-url==0.4.2
 django-admin-ip-restrictor==0.1.0
 django-brake==1.5.2
+django-environ==0.4.5
 django-ipware==2.1.0      # via django-admin-ip-restrictor
 django-thumber==1.0.0
 django==1.11.13

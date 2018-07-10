@@ -11,7 +11,14 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+
 import dj_database_url
+import environ
+
+
+env = environ.Env()
+
+DEBUG = env.bool('DEBUG', False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -21,7 +28,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY')
 
 
 # Application definition
@@ -42,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE_CLASSES = [
+    'directory_components.middleware.MaintenanceModeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,7 +59,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'admin_ip_restrictor.middleware.AdminIPRestrictorMiddleware'
+    'admin_ip_restrictor.middleware.AdminIPRestrictorMiddleware',
+    'directory_components.middleware.RobotsIndexControlHeaderMiddlware',
 ]
 
 ROOT_URLCONF = 'help.urls'
@@ -68,6 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'directory_components.context_processors.urls_processor',
+                'directory_components.context_processors.analytics',
                 ('directory_components.context_processors.'
                     'header_footer_processor'),
                 'sso.context_processors.sso_processor',
@@ -133,64 +143,81 @@ STATICFILES_DIRS = (
 )
 
 
-STATICFILES_STORAGE = os.getenv('STATICFILES_STORAGE', 'whitenoise.django.GzipManifestStaticFilesStorage')
+STATICFILES_STORAGE = env.str(
+    'STATICFILES_STORAGE', 'whitenoise.django.GzipManifestStaticFilesStorage'
+)
 
-ZENDESK_URL = os.environ.get('ZENDESK_URL')
-ZENDESK_USER = os.environ.get('ZENDESK_USER')
-ZENDESK_TOKEN = os.environ.get('ZENDESK_TOKEN')
-ZENDESK_TEST_URL = os.environ.get('ZENDESK_TEST_URL')
+ZENDESK_URL = env.str('ZENDESK_URL', '')
+ZENDESK_USER = env.str('ZENDESK_USER', '')
+ZENDESK_TOKEN = env.str('ZENDESK_TOKEN', '')
+ZENDESK_TEST_URL = env.str('ZENDESK_TEST_URL', '')
 
-USE_CAPTCHA = os.environ.get('USE_CAPTCHA', 'false').lower() == 'true' or os.environ.get('USE_CAPTCHA', False) == '1'
+USE_CAPTCHA = env.bool('USE_CAPTCHA', False)
 
-RECAPTCHA_PUBLIC_KEY = os.environ.get('CAPTCHA_SITE_KEY', None)
-RECAPTCHA_PRIVATE_KEY = os.environ.get('CAPTCHA_SECRET_KEY', None)
+RECAPTCHA_PUBLIC_KEY = env.str('CAPTCHA_SITE_KEY', '')
+RECAPTCHA_PRIVATE_KEY = env.str('CAPTCHA_SECRET_KEY', '')
 # NOCAPTCHA = True turns on version 2 of recaptcha
 NOCAPTCHA = True
 
 
-RESTRICT_IPS = os.environ.get('RESTRICT_IPS', '').lower() == 'true' or os.environ.get('RESTRICT_IPS') == '1'
+RESTRICT_IPS = env.bool('RESTRICT_IPS', False)
 
-COMPANIES_HOUSE_API_KEY = os.environ.get('COMPANIES_HOUSE_KEY')
+COMPANIES_HOUSE_API_KEY = env.str('COMPANIES_HOUSE_KEY', '')
 
 RATELIMIT_STATUS_CODE = 429  # For the brake module, unless specified (weirdly) uses 403
 
 # Hosts for various services, used in templates
-SOO_HOST = os.environ.get(
-    'SOO_HOST', 'https://selling-online-overseas.export.great.gov.uk/')
-HELP_HOST = os.environ.get(
-    'HELP_HOST', 'https://contact-us.export.great.gov.uk/')
-SSO_HOST = os.environ.get('SSO_HOST', 'https://sso.trade.great.gov.uk/')
-PROFILE_HOST = os.environ.get('PROFILE_HOST', 'https://profile.great.gov.uk/')
+SOO_HOST = env.str(
+    'SOO_HOST', 'https://selling-online-overseas.export.great.gov.uk/'
+)
+HELP_HOST = env.str('HELP_HOST', 'https://contact-us.export.great.gov.uk/')
+SSO_HOST = env.str('SSO_HOST', 'https://sso.trade.great.gov.uk/')
+PROFILE_HOST = env.str('PROFILE_HOST', 'https://profile.great.gov.uk/')
 
-ZENDESK_RESP_CODE = os.environ.get('ZENDESK_RESP_CODE', None)
+ZENDESK_RESP_CODE = env.str('ZENDESK_RESP_CODE', '')
 
 # SSO
-SSO_PROXY_LOGIN_URL = os.environ.get(
+SSO_PROXY_LOGIN_URL = env.str(
     'SSO_PROXY_LOGIN_URL', 'http://sso.trade.great:8004/accounts/login/'
 )
-SSO_PROXY_SIGNUP_URL = os.environ.get(
+SSO_PROXY_SIGNUP_URL = env.str(
     'SSO_PROXY_SIGNUP_URL', 'http://sso.trade.great:8004/accounts/signup/'
 )
-SSO_PROFILE_URL = os.environ.get(
+SSO_PROFILE_URL = env.str(
     'SSO_PROFILE_URL',
     'http://profile.trade.great:8006/selling-online-overseas/'
 )
-SSO_PROXY_LOGOUT_URL = os.environ.get(
+SSO_PROXY_LOGOUT_URL = env.str(
     'SSO_PROXY_LOGOUT_URL', 'http://sso.trade.great:8004/accounts/'
     'logout/?next=http://contact.trade.great:8009'
 )
 
 # HEADER/FOOTER URLS
-HEADER_FOOTER_URLS_GREAT_HOME = os.getenv("HEADER_FOOTER_URLS_GREAT_HOME")
-HEADER_FOOTER_URLS_FAB = os.getenv("HEADER_FOOTER_URLS_FAB")
-HEADER_FOOTER_URLS_SOO = os.getenv("HEADER_FOOTER_URLS_SOO")
-HEADER_FOOTER_URLS_CONTACT_US = os.getenv("HEADER_FOOTER_URLS_CONTACT_US")
+HEADER_FOOTER_URLS_GREAT_HOME = env.str("HEADER_FOOTER_URLS_GREAT_HOME", '')
+HEADER_FOOTER_URLS_FAB = env.str("HEADER_FOOTER_URLS_FAB", '')
+HEADER_FOOTER_URLS_SOO = env.str("HEADER_FOOTER_URLS_SOO", '')
+HEADER_FOOTER_URLS_CONTACT_US = env.str("HEADER_FOOTER_URLS_CONTACT_US", '')
 
 # Admin restrictor
-RESTRICT_ADMIN_BY_IPS = os.getenv('RESTRICT_ADMIN_BY_IPS')
-RESTRICT_ADMIN = RESTRICT_ADMIN_BY_IPS == 'true'
-ALLOWED_ADMIN_IPS = os.getenv('ALLOWED_ADMIN_IPS', [])
-ALLOWED_ADMIN_IP_RANGES = os.getenv('ALLOWED_ADMIN_IP_RANGES', [])
+RESTRICT_ADMIN_BY_IPS = env.bool('RESTRICT_ADMIN_BY_IPS', False)
+RESTRICT_ADMIN = RESTRICT_ADMIN_BY_IPS
+ALLOWED_ADMIN_IPS = env.list('ALLOWED_ADMIN_IPS', default=[])
+ALLOWED_ADMIN_IP_RANGES = env.list('ALLOWED_ADMIN_IP_RANGES', default=[])
 
-GOOGLE_TAG_MANAGER_ID = os.environ['GOOGLE_TAG_MANAGER_ID']
-GOOGLE_TAG_MANAGER_ENV = os.getenv('GOOGLE_TAG_MANAGER_ENV', '')
+GOOGLE_TAG_MANAGER_ID = env.str('GOOGLE_TAG_MANAGER_ID')
+GOOGLE_TAG_MANAGER_ENV = env.str('GOOGLE_TAG_MANAGER_ENV', '')
+UTM_COOKIE_DOMAIN = env.str('UTM_COOKIE_DOMAIN', '')
+
+# feature flags
+FEATURE_FLAGS = {
+    # used by directory-components
+    'SEARCH_ENGINE_INDEXING_OFF': env.bool(
+        'FEATURE_SEARCH_ENGINE_INDEXING_DISABLED', False
+    ),
+    # used by directory-components
+    'MAINTENANCE_MODE_ON': env.bool('FEATURE_MAINTENANCE_MODE_ENABLED', False),
+}
+
+RAVEN_CONFIG = {
+    'dsn': env.str('SENTRY_DSN', ''),
+}
