@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/python:3.6-jessie-node-browsers
+        environment:
+          DATABASE_URL: postgresql://circleci@localhost/circle_test?sslmode=disable
+          DJANGO_SETTINGS_MODULE: help.settings.test
+          PHANTOMJS_BIN: node_modules/phantomjs/bin/phantomjs
+          SECRET_KEY: foobar
+          STORAGE_TYPE: local
+
+      # Service container image available at `host: localhost`
+      - image: circleci/postgres:9.5
+        environment:
+          POSTGRES_USER: circleci
+          POSTGRES_DB: circle_test
+
+    working_directory: ~/help
+
+    steps:
+      - checkout
+
+      - run:
+          command: |
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            npm install
+            dockerize -wait tcp://localhost:5432 -timeout 1m
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements_test.txt
+            make test
+            codecov
+          environment:
+                      DOCKERIZE_VERSION: v0.3.0
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
