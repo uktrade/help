@@ -12,7 +12,6 @@ raven==6.0.0
 requests==2.13.0
 whitenoise==3.3.0
 django-admin-ip-restrictor==0.1.0
-export-elements==0.10.6
-directory-components==2.8.1
+directory-components==2.11.0
 directory-constants==6.6.0
 directory-validators==4.5.1
