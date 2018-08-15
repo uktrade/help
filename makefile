@@ -33,7 +33,7 @@ test:
 	$(TEST_SET_ENV_VARS) && python manage.py collectstatic --noinput --settings=help.settings.test
 	$(TEST_SET_ENV_VARS) && coverage run --source='.' manage.py test --settings=help.settings.test
 
-manage:
+debug_manage:
 	$(TEST_SET_ENV_VARS) && python manage.py $(cmd) --settings=help.settings.test
 
 debug_webserver:
@@ -42,22 +42,13 @@ debug_webserver:
 debug_collectstatic:
 	$(DEBUG_SET_ENV_VARS) && python manage.py collectstatic --settings=help.settings.dev
 
-
 compile_requirements:
 	pip-compile requirements.in
+	pip-compile requirements_test.in
 
 upgrade_requirements:
 	pip-compile --upgrade requirements.in
-
-compile_test_requirements:
-	pip-compile requirements_test.in
-
-upgrade_test_requirements:
 	pip-compile --upgrade requirements_test.in
-
-compile_all_requirements: compile_requirements compile_test_requirements
-
-upgrade_all_requirements: upgrade_requirements upgrade_test_requirements
 
 test_requirements:
 	pip install -r requirements_test.txt
