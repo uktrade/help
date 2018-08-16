@@ -9,7 +9,8 @@ DEBUG_SET_ENV_VARS:= \
 	export DATABASE_URL=postgres://debug:debug@localhost:5432/help; \
 	export SECRET_KEY=DEBUG_SECRET_KEY; \
 	export STATICFILES_STORAGE=whitenoise.django.GzipManifestStaticFilesStorage; \
-	export GOOGLE_TAG_MANAGER_ID=GTM-TC46J8K
+	export GOOGLE_TAG_MANAGER_ID=GTM-TC46J8K; \
+	export PRIVACY_COOKIE_DOMAIN=.trade.great
 
 TEST_SET_ENV_VARS:= \
 	export DJANGO_SETTINGS_MODULE=help.settings; \
@@ -19,7 +20,8 @@ TEST_SET_ENV_VARS:= \
 	export ZENDESK_USER=test_zendesk_user; \
 	export ZENDESK_TOKEN=fake_test_token; \
 	export STATICFILES_STORAGE=django.contrib.staticfiles.storage.StaticFilesStorage; \
-	export GOOGLE_TAG_MANAGER_ID=GTM-TC46J8K
+	export GOOGLE_TAG_MANAGER_ID=GTM-TC46J8K; \
+	export PRIVACY_COOKIE_DOMAIN=.trade.great
 
 build:
 	pip3 install -r requirements_test.txt
