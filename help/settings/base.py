@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'directory_components.context_processors.urls_processor',
                 'directory_components.context_processors.analytics',
+                'directory_components.context_processors.cookie_notice',
                 ('directory_components.context_processors.'
                     'header_footer_processor'),
                 'sso.context_processors.sso_processor',
@@ -207,6 +208,7 @@ ALLOWED_ADMIN_IP_RANGES = env.list('ALLOWED_ADMIN_IP_RANGES', default=[])
 GOOGLE_TAG_MANAGER_ID = env.str('GOOGLE_TAG_MANAGER_ID')
 GOOGLE_TAG_MANAGER_ENV = env.str('GOOGLE_TAG_MANAGER_ENV', '')
 UTM_COOKIE_DOMAIN = env.str('UTM_COOKIE_DOMAIN', '')
+PRIVACY_COOKIE_DOMAIN = env.str('PRIVACY_COOKIE_DOMAIN', '')
 
 # feature flags
 FEATURE_FLAGS = {
