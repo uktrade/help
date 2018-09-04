@@ -30,7 +30,7 @@ build:
 	npm install && npm run build
 
 test:
-	pep8 . --exclude .venv,node_modules
+	pep8 . --exclude venv,.venv,node_modules
 	npm test
 	$(TEST_SET_ENV_VARS) && python manage.py collectstatic --noinput --settings=help.settings.test
 	$(TEST_SET_ENV_VARS) && coverage run --source='.' manage.py test --settings=help.settings.test

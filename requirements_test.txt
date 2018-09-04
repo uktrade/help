@@ -5,6 +5,7 @@
 #    pip-compile --output-file requirements_test.txt requirements_test.in
 #
 beautifulsoup4==4.6.0     # via directory-components
+codecov==2.0.15
 contextlib2==0.5.4
 coverage==4.5.1
 directory-constants==6.6.0
