@@ -79,6 +79,7 @@ TEMPLATES = [
                 'directory_components.context_processors.urls_processor',
                 'directory_components.context_processors.analytics',
                 'directory_components.context_processors.cookie_notice',
+                'directory_components.context_processors.feature_flags',
                 ('directory_components.context_processors.'
                     'header_footer_processor'),
                 'sso.context_processors.sso_processor',
@@ -213,6 +214,7 @@ PRIVACY_COOKIE_DOMAIN = env.str('PRIVACY_COOKIE_DOMAIN')
 
 # feature flags
 FEATURE_FLAGS = {
+    'EU_EXIT_FORMS_ON': env.bool('FEATURE_EU_EXIT_FORMS_ENABLED', False),
     # used by directory-components
     'SEARCH_ENGINE_INDEXING_OFF': env.bool(
         'FEATURE_SEARCH_ENGINE_INDEXING_DISABLED', False

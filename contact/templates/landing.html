@@ -1,18 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="outer-container soft--top push--top min-height">
+  <div class="outer-container soft--ends min-height font-large">
     <div class="col-8">
-      <h1 class='h1 push--bottom flush--top'>Contact us</h1>
-      <ul class="font-large soft-half--ends push--bottom">
-        <li class="soft-half--bottom">Contact the Department for International Trade for questions about exporting and UKEF for questions about export finance. <a href="https://www.contactus.trade.gov.uk/enquiry/topic" class="link" title="Complete this short form">Complete this short form and we’ll get back to you.</a></li>
-        <li>We have trade advisers at regional offices throughout the country. <a href="https://www.contactus.trade.gov.uk/office-finder" class="link" title="Contact details of your local office">Find the contact details of your local trade office.</a></li>
-      </ul>
+      <h1 class="h1 push--bottom flush--top">Contact us</h1>
+      <div class="font-large soft-half--ends push--bottom">
+        <p class="soft-half--bottom flush--bottom">Contact the Department for International Trade for questions about exporting and UKEF for questions about export finance. <a href="https://www.contactus.trade.gov.uk/enquiry/topic" class="link" title="Complete this short form">Complete this short form and we’ll get back to you.</a></p>
+        <p class="soft-half--bottom flush--bottom">We have trade advisers at regional offices throughout the country. <a href="https://www.contactus.trade.gov.uk/office-finder" class="link" title="Contact details of your local office">Find the contact details of your local trade office.</a></p>
+      </div>
 
       <h2 class="font-xlarge push-half--bottom font-med">Help us improve</h2>
-      <ul class="font-large soft-half--ends push--bottom">
-        <li><a href="{% url 'contact:generic_submit' service 'FeedbackForm' %}" class="link" title="Complete a short feedback">Complete a short feedback form</a> to tell us what you think of our website and services.</li>
-      </ul>
+      <p class="soft-half--bottom flush--bottom"><a href="{% url 'contact:generic_submit' service 'FeedbackForm' %}" class="link" title="Complete a short feedback form">Complete a short feedback form</a> to tell us what you think of our website and services.
+      </p>
+
+      {% if features.EU_EXIT_FORMS_ON %}
+        <p class="soft-half--bottom flush--bottom">You can also <a class="link" href="{{ header_footer_urls.home }}international/eu-exit-news/contact/">contact us for questions about the UK’s exit from the European Union.</a></p>
+      {% endif %}
+
     </div>
   </div>
 {% endblock %}
+
+{% block feedback_reporter %}{% endblock %}
