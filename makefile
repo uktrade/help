@@ -5,12 +5,14 @@ clean:
 
 DEBUG_SET_ENV_VARS:= \
 	export PORT=8009; \
+	export DEBUG=true; \
 	export DJANGO_SETTINGS_MODULE=help.settings; \
 	export DATABASE_URL=postgres://debug:debug@localhost:5432/help; \
 	export SECRET_KEY=DEBUG_SECRET_KEY; \
 	export STATICFILES_STORAGE=whitenoise.django.GzipManifestStaticFilesStorage; \
 	export GOOGLE_TAG_MANAGER_ID=GTM-TC46J8K; \
-	export PRIVACY_COOKIE_DOMAIN=.trade.great
+	export PRIVACY_COOKIE_DOMAIN=.trade.great; \
+	export FEATURE_EU_EXIT_FORMS_ENABLED=true
 
 TEST_SET_ENV_VARS:= \
 	export DJANGO_SETTINGS_MODULE=help.settings; \
@@ -42,7 +44,7 @@ debug_webserver:
 	$(DEBUG_SET_ENV_VARS) && python manage.py collectstatic --settings=help.settings.dev --noinput && ./manage.py runserver 0.0.0.0:$$PORT --settings=help.settings.dev
 
 debug_collectstatic:
-	$(DEBUG_SET_ENV_VARS) && python manage.py collectstatic --settings=help.settings.dev
+	$(DEBUG_SET_ENV_VARS) && python manage.py collectstatic --settings=help.settings.dev --noinput
 
 compile_requirements:
 	pip-compile requirements.in
